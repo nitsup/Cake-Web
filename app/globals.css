@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --background: #f8faf7;
+  --foreground: #1b231f;
+  --surface: #ffffff;
+  --muted: #e8eee9;
+  --muted-foreground: #64736a;
+  --accent: #bd6d4b;
+  --accent-foreground: #ffffff;
+  --border: #d8e1da;
+  --focus: #bd6d4b;
 }
 
 @theme inline {
@@ -12,17 +17,13 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-focus: var(--focus);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
-  }
 }
 
 body {
@@ -30,3 +31,35 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), sans-serif;
 }
+
+* { border-color: var(--border); }
+a, button { transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.container { width: min(100% - 3rem, 76rem); margin-inline: auto; }
+.site-header { position: relative; z-index: 20; border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--background) 92%, transparent); }
+.brand-mark { display: inline-flex; align-items: center; gap: .65rem; font-size: 1rem; font-weight: 700; letter-spacing: .02em; }
+.brand-mark__dot { width: .65rem; height: .65rem; border-radius: 999px; background: var(--accent); }
+.nav-link, .footer-link { color: var(--muted-foreground); }
+.nav-link:hover, .footer-link:hover { color: var(--foreground); }
+.icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border); border-radius: .375rem; background: var(--surface); }
+.mobile-nav-link { display: block; padding: .7rem 0; font-weight: 600; }
+.site-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.footer-heading, .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.eyebrow { color: var(--accent); }
+.display-heading { font-size: clamp(2.7rem, 7vw, 5.6rem); line-height: .98; font-weight: 650; letter-spacing: -.04em; }
+.button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: .55rem; border-radius: .375rem; padding: .7rem 1rem; font-size: .9rem; font-weight: 700; }
+.button--primary { background: var(--accent); color: var(--accent-foreground); }
+.button--primary:hover { opacity: .88; }
+.button--secondary { border: 1px solid var(--border); background: var(--surface); }
+.button--ghost { color: var(--muted-foreground); }
+.surface-card { border: 1px solid var(--border); border-radius: .625rem; background: var(--surface); box-shadow: 0 12px 30px rgb(27 35 31 / .08); }
+.badge { display: inline-flex; align-items: center; border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--background)); padding: .35rem .65rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.image-placeholder { position: relative; min-height: 10rem; overflow: hidden; border-radius: .375rem; background: var(--muted); }
+.state-panel { border: 1px dashed var(--border); border-radius: .625rem; background: var(--surface); padding: 2rem; text-align: center; }
+.state-panel--error { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+.skeleton { min-height: 1rem; border-radius: .375rem; background: linear-gradient(100deg, var(--muted), var(--surface), var(--muted)); background-size: 200% 100%; animation: shimmer 1.8s ease-in-out infinite; }
+.skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 50; background: var(--foreground); color: var(--background); padding: .75rem 1rem; }
+.skip-link:focus { top: 1rem; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@media (max-width: 639px) { .container { width: min(100% - 2rem, 76rem); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }

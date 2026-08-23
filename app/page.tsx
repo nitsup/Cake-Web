@@ -1,22 +1,30 @@
+import { ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="mx-auto flex min-h-full w-full max-w-3xl flex-col justify-center gap-4 px-6 py-16">
-        <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-          cake-web
-        </p>
-        <h1 className="text-4xl font-semibold tracking-tight">
-          Project foundation ready.
-        </h1>
-        <p className="max-w-xl text-muted-foreground">
-          The Next.js App Router, shared utilities, validation boundary, and
-          versioned health endpoint are ready for the next phase.
-        </p>
-        <p className="text-sm text-muted-foreground">
-          Check <code className="font-mono">/api/v1/health</code> to verify the
-          application is running.
-        </p>
-      </main>
+    <div>
+      <section className="container grid gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-24">
+        <div>
+          <Badge>Temporary foundation</Badge>
+          <h1 className="display-heading mt-6 max-w-xl">A thoughtful place for beautiful cakes.</h1>
+          <p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">The structure is ready for the future collection, studio story, and brand details.</p>
+          <Button className="mt-8" type="button">Explore the collection <ArrowRight size={17} aria-hidden="true" /></Button>
+        </div>
+        <Card className="overflow-hidden p-2">
+          <ImagePlaceholder alt="Temporary cake image placeholder" className="aspect-[4/3]" priority />
+        </Card>
+      </section>
+      <section id="cakes" className="border-y border-border bg-muted/60">
+        <div className="container py-14">
+          <p className="eyebrow">Next chapter</p>
+          <h2 id="story" className="mt-3 text-2xl font-semibold tracking-tight">The collection is taking shape.</h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">Placeholder content keeps the application navigable while the final visual assets and editorial direction are prepared.</p>
+        </div>
+      </section>
     </div>
   );
 }

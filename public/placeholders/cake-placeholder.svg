@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cake placeholder</title>
+  <desc id="desc">A neutral placeholder illustration for a future cake photograph.</desc>
+  <rect width="1200" height="900" fill="#e8eee9"/>
+  <circle cx="600" cy="390" r="210" fill="#d5e0d8"/>
+  <path d="M365 490h470v95c0 28-22 50-50 50H415c-28 0-50-22-50-50v-95Z" fill="#f8faf7"/>
+  <path d="M390 490c28-50 70-72 115-72 42 0 63 26 95 26s53-26 95-26c45 0 87 22 115 72H390Z" fill="#c8d7cb"/>
+  <path d="M455 400c0-55 32-92 72-92 33 0 50 22 73 22s40-22 73-22c40 0 72 37 72 92" fill="none" stroke="#f8faf7" stroke-width="26" stroke-linecap="round"/>
+  <path d="M600 275v-60" stroke="#718379" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="600" cy="200" r="14" fill="#718379"/>
+</svg>
