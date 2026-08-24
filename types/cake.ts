@@ -14,3 +14,9 @@ export interface CakeSummary {
   category: CakeCategoryReference;
   availability: CakeAvailability;
 }
+
+export interface CakeDetail extends CakeSummary {
+  fullDescription: string | null;
+  salePrice: number | null;
+  isFeatured: boolean;
+}
