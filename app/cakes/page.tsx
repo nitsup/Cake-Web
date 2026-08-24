@@ -1,6 +1,5 @@
 import { CakeGrid } from "@/components/cake/cake-grid";
 import { EmptyState } from "@/components/ui/empty-state";
-import { ErrorState } from "@/components/ui/error-state";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { getPublicCakes } from "@/services/cake-catalog";
 
