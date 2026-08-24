@@ -15,6 +15,8 @@ export function CakeGrid({ cakes }: CakeGridProps) {
           description={cake.shortDescription}
           category={cake.category.name}
           href={`/cakes/${cake.slug}`}
+          imageUrl={cake.primaryImage?.url}
+          imageAlt={cake.primaryImage?.altText}
         />
       ))}
     </div>

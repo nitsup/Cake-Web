@@ -5,6 +5,15 @@ export interface CakeCategoryReference {
   slug: string;
 }
 
+export interface CakeImage {
+  provider: string;
+  storageKey: string;
+  altText: string;
+  displayPriority: number;
+  isPrimary: boolean;
+  url: string | null;
+}
+
 export interface CakeSummary {
   id: string;
   name: string;
@@ -13,6 +22,7 @@ export interface CakeSummary {
   basePrice: number;
   category: CakeCategoryReference;
   availability: CakeAvailability;
+  primaryImage: CakeImage | null;
 }
 
 export interface CakeDetail extends CakeSummary {

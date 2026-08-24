@@ -9,12 +9,14 @@ export interface CakeCardProps {
   description: string;
   category: string;
   href?: string;
+  imageUrl?: string | null;
+  imageAlt?: string;
 }
 
-export function CakeCard({ name, description, category, href = "#contact" }: CakeCardProps) {
+export function CakeCard({ name, description, category, href = "#contact", imageUrl, imageAlt }: CakeCardProps) {
   return (
     <Card className="cake-card group overflow-hidden p-2">
-      <ImagePlaceholder alt={`${name} temporary image placeholder`} className="aspect-[4/3]" />
+      <ImagePlaceholder src={imageUrl} alt={imageAlt ?? `${name} image`} className="aspect-[4/3]" />
       <div className="p-4 pb-5">
         <Badge>{category}</Badge>
         <div className="mt-4 flex items-start justify-between gap-4">

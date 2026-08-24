@@ -60,6 +60,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .card-arrow:hover { border-color: var(--accent); color: var(--accent); }
 .badge { display: inline-flex; align-items: center; border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--background)); padding: .35rem .65rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .image-placeholder { position: relative; min-height: 10rem; overflow: hidden; border-radius: .375rem; background: var(--muted); }
+.image-placeholder--real { background-position: center; background-size: cover; }
 .hero-image-wrap { position: relative; }
 .hero-image-note { position: absolute; right: 1rem; bottom: 1rem; border: 1px solid rgb(255 255 255 / .65); background: rgb(255 255 255 / .82); padding: .45rem .65rem; color: var(--muted-foreground); font-size: .7rem; font-weight: 700; }
 .category-tile { display: flex; min-height: 7rem; align-items: flex-end; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--border); padding: 1rem 0; color: var(--foreground); }
