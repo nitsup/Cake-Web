@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
 
 const links = [
-  { href: "#cakes", label: "Cakes" },
+  { href: "/cakes", label: "Cakes" },
   { href: "#story", label: "Our story" },
   { href: "#contact", label: "Contact" },
 ];

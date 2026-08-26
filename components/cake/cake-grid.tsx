@@ -1,5 +1,6 @@
 import { CakeCard } from "@/components/cake/cake-card";
 import type { CakeSummary } from "@/types/cake";
+import { getLocalPrimaryImageUrl } from "@/services/cake-catalog";
 
 interface CakeGridProps {
   cakes: CakeSummary[];
@@ -15,7 +16,7 @@ export function CakeGrid({ cakes }: CakeGridProps) {
           description={cake.shortDescription}
           category={cake.category.name}
           href={`/cakes/${cake.slug}`}
-          imageUrl={cake.primaryImage?.url}
+          imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
           imageAlt={cake.primaryImage?.altText}
         />
       ))}

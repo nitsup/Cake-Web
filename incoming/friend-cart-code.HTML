@@ -1,0 +1,567 @@
+--- first code ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Item Bakery Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Ambient Animated Mesh Background */
+    body {
+      min-height: 100vh;
+      background: radial-gradient(at 0% 0%, #FFC3A0 0px, transparent 50%),
+                  radial-gradient(at 100% 0%, #FFAFBD 0px, transparent 50%),
+                  radial-gradient(at 100% 100%, #FFDFD3 0px, transparent 50%),
+                  radial-gradient(at 0% 100%, #FCE4EC 0px, transparent 50%),
+                  linear-gradient(135deg, #FFF1EB 0%, #ACE0F9 100%);
+      background-size: 180% 180%;
+      animation: ambientGlow 10s ease infinite alternate;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    @keyframes ambientGlow {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Catalog Section */
+    .catalog-container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #2C1810;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+    }
+
+    .products-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 10px;
+      min-width: 130px;
+      max-width: 130px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(44, 24, 16, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: #D84315;
+      color: #FFF;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 85px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 6px;
+    }
+
+    .product-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #2C1810;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-price {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #D84315;
+      margin: 2px 0 6px;
+      display: block;
+    }
+
+    .add-btn {
+      background: #2C1810;
+      color: #FFF;
+      border: none;
+      width: 100%;
+      padding: 6px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .add-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Green Delivery Offer Banner */
+    .delivery-banner {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(46, 125, 50, 0.15);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .banner-green {
+      background: rgba(232, 245, 233, 0.9);
+      color: #1B5E20;
+      border: 1.5px solid #A5D6A7;
+    }
+
+    /* Cart Drawer Container */
+    .cart-card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 25px 60px rgba(216, 67, 21, 0.18), 0 10px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .cart-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #2C1810;
+    }
+
+    /* Cart Items List */
+    .cart-items-list {
+      max-height: 240px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      padding-right: 4px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      margin-bottom: 10px;
+    }
+
+    .item-img {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #2C1810;
+      display: block;
+    }
+
+    .item-price {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #D84315;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #FDF6F0;
+      padding: 4px 6px;
+      border-radius: 30px;
+    }
+
+    .qty-btn {
+      border: none;
+      background: #FFFFFF;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-weight: 800;
+      color: #D84315;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-count {
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: #2C1810;
+      min-width: 14px;
+      text-align: center;
+    }
+
+    /* Receipt Breakdown */
+    .receipt-box {
+      background: rgba(250, 246, 240, 0.85);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 16px;
+      border: 1px dashed #E5D5C5;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #6D4C41;
+      margin-bottom: 6px;
+    }
+
+    .free-tag {
+      color: #2E7D32;
+      font-weight: 800;
+    }
+
+    .receipt-row.total {
+      border-top: 1.5px solid #E5D5C5;
+      padding-top: 8px;
+      margin-top: 6px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #2C1810;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #D84315 0%, #FF6F00 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 16px;
+      border-radius: 18px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(216, 67, 21, 0.35);
+    }
+
+    .checkout-btn:disabled {
+      background: #CCC;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .empty-icon {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .empty-text {
+      font-weight: 700;
+      color: #6D4C41;
+      font-size: 0.9rem;
+    }
+
+    /* Custom Professional Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(44, 24, 16, 0.4);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 28px 20px;
+      text-align: center;
+      max-width: 340px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .modal-card h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #2C1810;
+      margin-bottom: 8px;
+    }
+
+    .modal-card p {
+      font-size: 0.85rem;
+      color: #6D4C41;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .modal-close-btn {
+      background: #2C1810;
+      color: #FFFFFF;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Catalog Section -->
+  <div class="catalog-container">
+    <div class="section-title">Select Fresh Bakery Cakes</div>
+    <div class="products-scroll" id="catalog-list"></div>
+  </div>
+
+  <!-- Dynamic Green Banner -->
+  <div class="delivery-banner banner-green" id="delivery-banner">
+    💚 Add 2 cakes for free delivery!
+  </div>
+
+  <!-- Cart Container -->
+  <div class="cart-card">
+    <div class="cart-header">
+      <h3>Your Order 🍰</h3>
+    </div>
+
+    <div class="cart-items-list" id="cart-items-container"></div>
+
+    <div class="receipt-box">
+      <div class="receipt-row">
+        <span>Item Subtotal</span>
+        <span>₹<span id="subtotal">0</span></span>
+      </div>
+      <div class="receipt-row">
+        <span>GST (5%)</span>
+        <span>₹<span id="gst">0</span></span>
+      </div>
+      <div class="receipt-row">
+        <span>Packaging & Delivery</span>
+        <span id="delivery-display">₹49</span>
+      </div>
+      <div class="receipt-row total">
+        <span>Grand Total</span>
+        <span>₹<span id="grand-total">0</span></span>
+      </div>
+    </div>
+
+    <button class="checkout-btn" id="checkout-btn" onclick="processCheckout()">CHECKOUT →</button>
+  </div>
+
+  <!-- Custom Success Modal -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-card">
+      <span class="modal-icon">🎉</span>
+      <h3>Order Initiated!</h3>
+      <p id="modal-desc">Redirecting to payment gateway...</p>
+      <button class="modal-close-btn" onclick="closeModal()">Back to Shop</button>
+    </div>
+  </div>
+
+  <script>
+    const cakesData = [
+      { id: 1, name: "Chocolate Truffle", price: 799, badge: "Best", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80" },
+      { id: 2, name: "Red Velvet Bliss", price: 899, badge: "Popular", img: "https://images.unsplash.com/photo-1586788680404-32824828469c?w=300&q=80" },
+      { id: 3, name: "Fresh Fruit Delight", price: 699, badge: "Eggless", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300&q=80" },
+      { id: 4, name: "Black Forest Classic", price: 749, badge: "Classic", img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=300&q=80" },
+      { id: 5, name: "Blueberry Cheesecake", price: 999, badge: "Premium", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=300&q=80" },
+      { id: 6, name: "Pineapple Punch", price: 649, badge: "Fresh", img: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=300&q=80" }
+    ];
+
+    let cart = [];
+
+    function renderCatalog() {
+      const container = document.getElementById('catalog-list');
+      container.innerHTML = cakesData.map(cake => `
+        <div class="product-card">
+          <span class="badge">${cake.badge}</span>
+          <img src="${cake.img}" alt="${cake.name}" onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80'">
+          <span class="product-title">${cake.name}</span>
+          <span class="product-price">₹${cake.price}</span>
+          <button class="add-btn" onclick="addCakeToCart(${cake.id})">+ Add</button>
+        </div>
+      `).join('');
+    }
+
+    function addCakeToCart(id) {
+      const existing = cart.find(item => item.cakeId === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ cakeId: id, qty: 1 });
+      }
+      updateUI();
+    }
+
+    function changeItemQty(id, delta) {
+      const item = cart.find(i => i.cakeId === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(i => i.cakeId !== id);
+        }
+      }
+      updateUI();
+    }
+
+    function updateUI() {
+      const cartContainer = document.getElementById('cart-items-container');
+      const banner = document.getElementById('delivery-banner');
+      const checkoutBtn = document.getElementById('checkout-btn');
+
+      const totalCakeCount = cart.reduce((sum, item) => sum + item.qty, 0);
+
+      let deliveryFee = 49;
+      if (totalCakeCount === 0) {
+        banner.innerHTML = "💚 Add 2 cakes for free delivery!";
+        deliveryFee = 0;
+      } else if (totalCakeCount === 1) {
+        banner.innerHTML = "💚 Just add 1 cake for free delivery!";
+        deliveryFee = 49;
+      } else {
+        banner.innerHTML = "🎉 FREE Delivery Unlocked!";
+        deliveryFee = 0;
+      }
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `
+          <div class="empty-state">
+            <span class="empty-icon">🛒</span>
+            <p class="empty-text">Your cart is empty!</p>
+            <p style="font-size: 0.75rem; color: #A08070; margin-top:4px;">Tap "+ Add" on any cake above to build your order.</p>
+          </div>
+        `;
+        document.getElementById('subtotal').innerText = '0';
+        document.getElementById('gst').innerText = '0';
+        document.getElementById('delivery-display').innerText = '₹0';
+        document.getElementById('grand-total').innerText = '0';
+        checkoutBtn.disabled = true;
+        checkoutBtn.innerText = "CART IS EMPTY";
+      } else {
+        let itemSubtotal = 0;
+
+        cartContainer.innerHTML = cart.map(cartItem => {
+          const cake = cakesData.find(c => c.id === cartItem.cakeId);
+          itemSubtotal += cake.price * cartItem.qty;
+
+          return `
+            <div class="cart-item">
+              <img src="${cake.img}" class="item-img" onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80'">
+              <div class="item-info">
+                <span class="item-title">${cake.name}</span>
+                <span class="item-price">₹${cake.price} × ${cartItem.qty}</span>
+              </div>
+              <div class="qty-controls">
+                <button class="qty-btn" onclick="changeItemQty(${cake.id}, -1)">−</button>
+                <span class="qty-count">${cartItem.qty}</span>
+                <button class="qty-btn" onclick="changeItemQty(${cake.id}, 1)">+</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const gst = Math.round(itemSubtotal * 0.05);
+        const grandTotal = itemSubtotal + gst + deliveryFee;
+
+        document.getElementById('subtotal').innerText = itemSubtotal.toLocaleString('en-IN');
+        document.getElementById('gst').innerText = gst.toLocaleString('en-IN');
+        document.getElementById('delivery-display').innerHTML = deliveryFee === 0 
+          ? `<span class="free-tag">FREE</span>` 
+          : `₹${deliveryFee}`;
+        document.getElementById('grand-total').innerText = grandTotal.toLocaleString('en-IN');
+
+        checkoutBtn.disabled = false;
+        checkoutBtn.innerText = `PAY ₹${grandTotal.toLocaleString('en-IN')} & CHECKOUT →`;
+      }
+    }
+
+    function processCheckout() {
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('modal-desc').innerText = `Proceeding to checkout for ${totalCount} cake(s).`;
+      document.getElementById('checkout-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('checkout-modal').style.display = 'none';
+    }
+
+    renderCatalog();
+    updateUI();
+  </script>
+</body>
+</html>
