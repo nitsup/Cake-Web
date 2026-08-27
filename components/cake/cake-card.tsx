@@ -16,14 +16,16 @@ export interface CakeCardProps {
 export function CakeCard({ name, description, category, href = "#contact", imageUrl, imageAlt }: CakeCardProps) {
   return (
     <Card className="cake-card group overflow-hidden p-2">
-      <ImagePlaceholder src={imageUrl} alt={imageAlt ?? `${name} image`} className="aspect-[4/3]" />
+      <Link href={href} aria-label={`View ${name}`}>
+        <ImagePlaceholder src={imageUrl} alt={imageAlt ?? `${name} image`} className="aspect-[4/3]" />
+      </Link>
       <div className="p-4 pb-5">
         <Badge>{category}</Badge>
         <div className="mt-4 flex items-start justify-between gap-4">
-          <div>
+          <Link href={href} className="min-w-0">
             <h3 className="text-lg font-semibold tracking-tight">{name}</h3>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
-          </div>
+          </Link>
           <Link href={href} aria-label={`View ${name}`} className="card-arrow">
             <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
