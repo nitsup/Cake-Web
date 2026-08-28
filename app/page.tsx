@@ -16,7 +16,7 @@ export default async function Home() {
     <div className="overflow-hidden">
       <section className="hero-band">
         <div className="container grid gap-10 py-16 md:grid-cols-[.9fr_1.1fr] md:items-center md:py-24 lg:py-28">
-          <Reveal><p className="eyebrow">A temporary storefront</p><h1 className="display-heading mt-5 max-w-xl"></h1><p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">Thoughtful cakes for the tables, milestones, and ordinary Tuesdays that deserve something lovely.</p><div className="mt-8 flex flex-wrap items-center gap-3"><Link href="/cakes" className="button button--primary">See the collection <ArrowRight size={17} aria-hidden="true" /></Link><Link href="#story" className="button button--secondary">Our approach</Link></div></Reveal>
+          <Reveal><p className="eyebrow">A temporary storefront</p><h1 className="display-heading mt-5 max-w-xl">Cakes with a little more feeling.</h1><p className="mt-6 max-w-lg text-lg leading-8 text-muted-foreground">Thoughtful cakes for the tables, milestones, and ordinary Tuesdays that deserve something lovely.</p><div className="mt-8 flex flex-wrap items-center gap-3"><Link href="/cakes" className="button button--primary">See the collection <ArrowRight size={17} aria-hidden="true" /></Link><Link href="#story" className="button button--secondary">Our approach</Link></div></Reveal>
           <Reveal delay={0.12}><div className="hero-image-wrap"><ImagePlaceholder alt="Temporary hero image placeholder for a celebration cake" className="aspect-[5/4]" priority /><p className="hero-image-note">Final photography arriving soon</p></div></Reveal>
         </div>
       </section>
