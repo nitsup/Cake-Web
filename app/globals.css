@@ -45,6 +45,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border); border-radius: .375rem; background: var(--surface); }
 .mobile-nav-link { display: block; padding: .7rem 0; font-weight: 600; }
 .site-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.search-area { position: relative; }
+.search-field-wrap { position: relative; }
+.search-field { box-shadow: 0 1px 2px rgb(27 35 31 / .04); transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
+.search-field:hover { border-color: color-mix(in srgb, var(--accent) 42%, var(--border)); }
+.search-field:focus { box-shadow: 0 0 0 4px rgb(189 109 75 / .12), 0 8px 22px rgb(27 35 31 / .06); transform: translateY(-1px); }
+.search-icon { transition: color 180ms ease, transform 180ms ease; }
+.search-field-wrap:focus-within .search-icon { color: var(--accent); transform: translateY(-50%) scale(1.08); }
+.suggestions { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; padding-top: .85rem; }
+.suggestions__label { color: var(--muted-foreground); font-size: .78rem; }
+.suggestions__list { display: flex; flex-wrap: wrap; gap: .45rem; }
+.suggestion-pill { border: 1px solid var(--border); border-radius: 999px; background: var(--surface); padding: .42rem .75rem; color: var(--muted-foreground); font-size: .76rem; font-weight: 700; transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease, transform 140ms ease; }
+.suggestion-pill:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); color: var(--accent); transform: translateY(-1px); }
+.suggestion-pill:active { transform: translateY(1px) scale(.97); }
 .github-profile-card { display: flex; align-items: center; gap: .7rem; border: 1px solid var(--border); border-radius: .625rem; background: var(--background); padding: .7rem .8rem; color: var(--foreground); }
 .github-profile-card:hover { border-color: var(--accent); color: var(--accent); }
 .github-profile-card span { display: flex; min-width: 7rem; flex-direction: column; gap: .15rem; }
@@ -61,6 +74,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .surface-card { border: 1px solid var(--border); border-radius: .625rem; background: var(--surface); box-shadow: 0 12px 30px rgb(27 35 31 / .08); }
 .cake-card { transition: transform 280ms cubic-bezier(.22, 1, .36, 1), box-shadow 280ms cubic-bezier(.22, 1, .36, 1); }
 .cake-card:hover { transform: translateY(-7px) scale(1.015); box-shadow: 0 20px 42px rgb(27 35 31 / .14); }
+.cake-card .image-placeholder { transition: transform 420ms cubic-bezier(.22, 1, .36, 1); }
+.cake-card:hover .image-placeholder { transform: scale(1.03); }
 .card-arrow { display: grid; flex: 0 0 auto; place-items: center; width: 2.25rem; height: 2.25rem; border: 1px solid var(--border); border-radius: 999px; color: var(--muted-foreground); }
 .card-arrow:hover { border-color: var(--accent); color: var(--accent); }
 .badge { display: inline-flex; align-items: center; border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, var(--background)); padding: .35rem .65rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
