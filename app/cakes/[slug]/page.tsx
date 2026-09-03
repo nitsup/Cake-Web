@@ -58,7 +58,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
       <section className="border-y border-border bg-muted/60">
         <div className="container grid gap-10 py-14 md:grid-cols-[1.15fr_.85fr] md:py-20">
           <div><p className="eyebrow">A closer look</p><h2 className="mt-3 text-2xl font-semibold tracking-tight">Made for the moment.</h2><p className="mt-5 max-w-2xl whitespace-pre-line leading-8 text-muted-foreground">{cake.fullDescription ?? cake.shortDescription}</p></div>
-          <Card className="p-6"><Sparkles size={24} className="text-accent" aria-hidden="true" /><h2 className="mt-5 text-xl font-semibold">Make it yours</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Customization options will appear here once the future cake configuration experience is ready.</p><Link href="#contact" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-accent">Ask about this cake <ArrowRight size={16} aria-hidden="true" /></Link></Card>
+          <Card className="p-6"><Sparkles size={24} className="text-accent" aria-hidden="true" /><h2 className="mt-5 text-xl font-semibold">Make it yours</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Customization options will appear here once the future cake configuration experience is ready.</p><Link href="/#contact" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-accent">Ask about this cake <ArrowRight size={16} aria-hidden="true" /></Link></Card>
         </div>
       </section>
       <section className="container py-12 md:py-16"><Link href="/cakes" className="inline-flex items-center gap-2 text-sm font-bold text-accent"><ArrowLeft size={16} aria-hidden="true" /> Back to all cakes</Link></section>

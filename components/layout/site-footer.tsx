@@ -12,7 +12,7 @@ export function SiteFooter() {
           <h2 className="footer-heading">Explore</h2>
           <nav aria-label="Footer navigation" className="mt-4 flex flex-col items-start gap-3 text-sm">
             <Link href="/cakes" className="footer-link">Cakes</Link>
-            <Link href="#story" className="footer-link">Our story</Link>
+            <Link href="/about" className="footer-link">Our story</Link>
           </nav>
         </div>
         <div>
