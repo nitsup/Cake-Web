@@ -1,6 +1,6 @@
 import { CakeCard } from "@/components/cake/cake-card";
+import { getLocalPrimaryImageUrl } from "@/lib/local-cake-images";
 import type { CakeSummary } from "@/types/cake";
-import { getLocalPrimaryImageUrl } from "@/services/cake-catalog";
 
 interface CakeGridProps {
   cakes: CakeSummary[];

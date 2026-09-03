@@ -3,6 +3,7 @@ import { MobileNavigation } from "@/components/layout/mobile-navigation";
 
 const links = [
   { href: "/cakes", label: "Cakes" },
+  { href: "/categories", label: "Categories" },
   { href: "/about", label: "Our story" },
   { href: "/#contact", label: "Contact" },
 ];

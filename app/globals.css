@@ -45,6 +45,11 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border); border-radius: .375rem; background: var(--surface); }
 .mobile-nav-link { display: block; padding: .7rem 0; font-weight: 600; }
 .site-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.github-profile-card { display: flex; align-items: center; gap: .7rem; border: 1px solid var(--border); border-radius: .625rem; background: var(--background); padding: .7rem .8rem; color: var(--foreground); }
+.github-profile-card:hover { border-color: var(--accent); color: var(--accent); }
+.github-profile-card span { display: flex; min-width: 7rem; flex-direction: column; gap: .15rem; }
+.github-profile-card strong { font-size: .85rem; }
+.github-profile-card small { color: var(--muted-foreground); font-size: .72rem; }
 .footer-heading, .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .eyebrow { color: var(--accent); }
 .display-heading { font-size: clamp(2.7rem, 7vw, 5.6rem); line-height: .98; font-weight: 650; letter-spacing: -.04em; }

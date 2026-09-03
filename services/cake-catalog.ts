@@ -26,14 +26,7 @@ type RawCakeDetail = RawCake & {
   is_featured: boolean;
 };
 
-const localPrimaryImages: Record<string, string> = {
-  "birthday-cake-6-layers": "/cakes/birthday_rainbow_cake.png",
-  "chocolate-cake": "/cakes/Good_choclate_cake.jpeg",
-};
-
-export function getLocalPrimaryImageUrl(slug: string): string | null {
-  return localPrimaryImages[slug] ?? null;
-}
+export { getLocalPrimaryImageUrl } from "@/lib/local-cake-images";
 
 function mapPrimaryImage(images: RawCakeImage[] | null) {
   const image = images?.find((candidate) => candidate.is_primary) ?? null;
@@ -51,13 +44,19 @@ function mapPrimaryImage(images: RawCakeImage[] | null) {
   };
 }
 
-export async function getPublicCakes(): Promise<CakeSummary[]> {
+export async function getPublicCakes(categorySlug?: string): Promise<CakeSummary[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
+  let query = supabase
     .from("cakes")
     .select("id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary)")
     .eq("is_active", true)
-    .eq("availability", "available")
+    .eq("availability", "available");
+
+  if (categorySlug) {
+    query = query.eq("category.slug", categorySlug);
+  }
+
+  const { data, error } = await query
     .order("display_priority", { ascending: true })
     .order("name", { ascending: true });
 
