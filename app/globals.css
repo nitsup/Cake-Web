@@ -98,12 +98,22 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .category-tile span { align-self: flex-start; color: var(--accent); font-size: .75rem; font-weight: 700; }
 .category-tile strong { margin-right: auto; font-size: 1.05rem; }
 .category-tile:hover { color: var(--accent); }
+.category-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+.category-search-affordance { display: grid; width: 8rem; justify-items: start; color: var(--foreground); font-weight: 700; transform: translateY(-.15rem); transition: color 180ms ease, transform 180ms ease; }
+.category-search-affordance__label { margin-left: .15rem; transform: translate(-.45rem, -.2rem); font-size: .9rem; }
+.category-search-affordance svg { margin-left: 1.15rem; color: var(--accent); transition: transform 180ms ease; }
+.category-search-affordance__action { margin-left: 2rem; color: var(--muted-foreground); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+.category-search-affordance:hover, .category-search-affordance:focus-visible { color: var(--accent); transform: translate(.15rem, -.3rem); }
+.category-search-affordance:hover svg, .category-search-affordance:focus-visible svg { transform: translateX(.2rem) rotate(-8deg); }
+.category-link { transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease, transform 150ms ease; }
+.category-link:hover, .category-link:focus-visible { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--background)); color: var(--accent); transform: translateY(-1px); }
 .feature-item { border-top: 1px solid var(--border); padding-top: 1.2rem; }
 .feature-item svg { color: var(--accent); }
 .feature-item h3 { margin-top: 1.5rem; font-size: 1.1rem; font-weight: 700; }
 .feature-item p { margin-top: .6rem; max-width: 18rem; color: var(--muted-foreground); font-size: .9rem; line-height: 1.6; }
 .final-cta { border: 1px solid var(--border); border-radius: .625rem; background: linear-gradient(135deg, var(--surface), var(--muted)); padding: 2.5rem 1.5rem; }
 @media (min-width: 768px) { .final-cta { padding: 4rem; } }
+@media (max-width: 639px) { .category-section-heading { align-items: flex-start; flex-direction: column; gap: 1.5rem; } .category-search-affordance { margin-left: .5rem; } }
 .state-panel { border: 1px dashed var(--border); border-radius: .625rem; background: var(--surface); padding: 2rem; text-align: center; }
 .state-panel--error { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
 .skeleton { min-height: 1rem; border-radius: .375rem; background: linear-gradient(100deg, var(--muted), var(--surface), var(--muted)); background-size: 200% 100%; animation: shimmer 1.8s ease-in-out infinite; }

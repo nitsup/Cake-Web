@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getLocalPrimaryImageUrl, getPublicCakeBySlug } from "@/services/cake-catalog";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 
@@ -45,7 +44,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
       <section className="container grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:items-start md:pb-24">
         <Card className="overflow-hidden p-2"><ImagePlaceholder src={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url} alt={cake.primaryImage?.altText ?? `${cake.name} image placeholder`} className="aspect-[4/3]" priority /></Card>
         <div className="pt-2 md:pt-6">
-          <Badge>{cake.category.name}</Badge>
+          <Link href="/categories" className="badge category-link">{cake.category.name}</Link>
           <h1 className="display-heading mt-5 max-w-xl text-5xl md:text-6xl">{cake.name}</h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">{cake.shortDescription}</p>
           <div className="mt-8 flex flex-wrap items-baseline gap-3" aria-label="Price">
