@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Globe2 } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -15,12 +16,15 @@ export function AuthForm({ mode, initialError }: { mode: AuthMode; initialError?
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState<string | null>(initialError ?? null);
   const [message, setMessage] = useState<string | null>(null);
+  const [existingAccount, setExistingAccount] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
     setMessage(null);
+    setExistingAccount(false);
 
     if (!email.trim() || !email.includes("@")) {
       setError("Enter a valid email address.");
@@ -38,32 +42,64 @@ export function AuthForm({ mode, initialError }: { mode: AuthMode; initialError?
     }
 
     setIsLoading(true);
-    const supabase = createClient();
-    const result = isSignup
-      ? await supabase.auth.signUp({
-          email: email.trim(),
-          password,
-          options: {
-            data: { full_name: displayName.trim() },
-            emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
-          },
-        })
-      : await supabase.auth.signInWithPassword({ email: email.trim(), password });
+    try {
+      const supabase = createClient();
+      const result = isSignup
+        ? await supabase.auth.signUp({
+            email: email.trim(),
+            password,
+            options: {
+              data: { full_name: displayName.trim() },
+              emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
+            },
+          })
+        : await supabase.auth.signInWithPassword({ email: email.trim(), password });
 
-    setIsLoading(false);
+      if (result.error) {
+        setError(isSignup ? "We could not create your account." : "Those login details were not accepted.");
+        return;
+      }
 
-    if (result.error) {
+      if (isSignup && !result.data.session) {
+        if (result.data.user?.identities?.length === 0) {
+          setExistingAccount(true);
+        } else {
+          setMessage("Check your email to confirm your account, then come back to log in.");
+        }
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch {
       setError(isSignup ? "We could not create your account." : "Those login details were not accepted.");
-      return;
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    if (isSignup && !result.data.session) {
-      setMessage("Check your email to confirm your account, then come back to log in.");
-      return;
+  async function handleGoogleLogin() {
+    setError(null);
+    setMessage(null);
+    setIsGoogleLoading(true);
+
+    try {
+      const supabase = createClient();
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?next=/`,
+        },
+      });
+
+      if (oauthError) {
+        setError("We could not start Google login. Please try again.");
+      }
+    } catch {
+      setError("We could not start Google login. Please try again.");
+    } finally {
+      setIsGoogleLoading(false);
     }
-
-    router.push("/");
-    router.refresh();
   }
 
   return (
@@ -90,8 +126,13 @@ export function AuthForm({ mode, initialError }: { mode: AuthMode; initialError?
         </label>
       </div>
       {error ? <p className="mt-5 text-sm font-semibold text-accent" role="alert">{error}</p> : null}
+      {existingAccount ? <p className="mt-5 text-sm font-semibold text-accent" role="alert">An account already exists with this email. Please <Link href="/login" className="underline underline-offset-2">log in</Link> to continue.</p> : null}
       {message ? <p className="mt-5 text-sm font-semibold text-accent" role="status">{message}</p> : null}
-      <button type="submit" className="button button--primary mt-6 w-full" disabled={isLoading}>{isLoading ? "Please wait..." : isSignup ? "Create account" : "Log in"}</button>
+      <button type="submit" className="button button--primary mt-6 w-full" disabled={isLoading || isGoogleLoading}>{isLoading ? "Please wait..." : isSignup ? "Create account" : "Log in"}</button>
+      {!isSignup ? <>
+        <div className="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
+        <button type="button" className="button button--secondary w-full" onClick={handleGoogleLogin} disabled={isLoading || isGoogleLoading}><Globe2 size={18} aria-hidden="true" />{isGoogleLoading ? "Connecting..." : "Continue with Google"}</button>
+      </> : null}
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {isSignup ? "Already have an account? " : "New to Cake Web? "}
         <Link href={isSignup ? "/login" : "/signup"} className="font-bold text-accent">{isSignup ? "Log in" : "Create an account"}</Link>

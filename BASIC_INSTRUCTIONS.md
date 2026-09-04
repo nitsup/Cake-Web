@@ -1,3 +1,8 @@
+
+>>>> THIS IS FOR ALL DIFFERENT AI"s working on this project
+## IMPORTANT INFO
+- YOU ARE SUPPOSE TO CHECK FOR INSTRUCTIONS THAT MATCH YOUR INSTRUCTED WORK AND IGNORE THE INSTRUCTIONS OUT OF YOUR INSTRUCTED WORK.
+
 # Cake Web - Persistent Project Context
 
 > This file is the persistent development context for AI assistants working on this repository.

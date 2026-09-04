@@ -8,8 +8,14 @@ export const metadata = {
   description: "Explore the Cake Web collection.",
 };
 
-export default async function CakesPage() {
-  const cakes = await getPublicCakes();
+interface CakesPageProps {
+  searchParams: Promise<{ category?: string | string[] }>;
+}
+
+export default async function CakesPage({ searchParams }: CakesPageProps) {
+  const params = await searchParams;
+  const category = typeof params.category === "string" ? params.category.trim() : undefined;
+  const cakes = await getPublicCakes(category || undefined);
 
   return (
     <div>
