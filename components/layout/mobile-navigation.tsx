@@ -2,6 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { AuthNav } from "@/components/auth/auth-nav";
 
 const links = [
   { href: "/cakes", label: "Cakes" },
@@ -34,6 +35,7 @@ export function MobileNavigation() {
               </a>
             ))}
           </nav>
+          <div className="mt-4 border-t border-border pt-4"><AuthNav /></div>
         </div>
       ) : null}
     </div>

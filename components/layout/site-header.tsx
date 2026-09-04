@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
+import { AuthNav } from "@/components/auth/auth-nav";
 
 const links = [
   { href: "/cakes", label: "Cakes" },
@@ -23,6 +24,7 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+        <div className="hidden items-center md:flex"><AuthNav /></div>
         <MobileNavigation />
       </div>
     </header>
