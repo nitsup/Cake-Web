@@ -1,124 +1,55 @@
-# AI Development Workflow
+# Workflow
 
-## Principle
+## Evidence-first process
 
-Use specialized AI roles instead of asking every AI to perform
-the entire development process.
+1. Inspect repository state before editing.
+   - git status --short
+   - git branch --show-current
+   - git ls-files
+2. Read only the files required to answer the task.
+3. Separate proven facts from unknowns.
+4. Define a narrow scope and keep the edit limited to the requested target files.
+5. Write only what is supported by the current repository or fresh command output.
+6. Validate the result with targeted Git checks.
+7. Review the diff before closing the task.
 
-## Pipeline
+## Scope discipline
 
-Planner
-→ Architect
-→ GitHub Copilot
-→ Tester
-→ Security Reviewer
-→ Code Reviewer
-→ Release
+- Do not broaden into unrelated implementation work.
+- Do not invent database schema, RLS, deployment architecture, or roadmap details.
+- Do not assume a missing file exists; if an instruction references a missing artifact, record it as a gap.
+- Keep the change reviewable and minimal.
 
-## Planner
+## Git safety
 
-Determines:
+- Confirm branch and worktree status before editing.
+- Do not force-push or rewrite shared history without explicit approval.
+- Review the diff and ensure no secrets, environment values, or unrelated files are included.
+- Do not commit or stage sensitive files.
 
-- scope
-- requirements
-- affected files
-- acceptance criteria
-- risks
+## Instruction conflict handling
 
-Planner should not modify code.
+When instructions conflict, prefer the highest-confidence source in this order:
+1. Current repository code
+2. Fresh Git output
+3. Relevant project files such as README.md, AGENTS.md, BASIC_INSTRUCTIONS.md, CODEX.md, and package.json
+4. Explicit gaps that are retained because the repository does not prove them
 
-## Architect
+If a required source is absent, record the absence as a known unknown instead of assuming the missing content.
 
-Determines:
+## Validation commands
 
-- implementation approach
-- existing components/services to reuse
-- architectural risks
+The required validation for this task is:
+- git diff --check
+- git diff --name-only
+- git diff -- docs/PROJECT_CONTEXT.md docs/CURRENT_STATE.md docs/TASKS.md docs/WORKFLOW.md
 
-Architect should not modify code.
+This is the evidence gate for the documentation recovery work packet.
 
-## GitHub Copilot
+## Review standard
 
-Primary implementation tool.
-
-Copilot may modify code according to the approved plan.
-
-Keep changes minimal.
-
-## Tester
-
-Reviews the implementation for:
-
-- functional correctness
-- edge cases
-- navigation
-- error states
-- empty states
-- responsive behavior
-- regressions
-
-## Security Reviewer
-
-Reviews:
-
-- RLS
-- authorization
-- authentication boundaries
-- secrets
-- API exposure
-- input validation
-- server/client boundaries
-- privilege escalation
-
-## Code Reviewer
-
-Reviews:
-
-- maintainability
-- duplication
-- unnecessary complexity
-- TypeScript
-- Next.js conventions
-- accessibility
-- performance
-- scope creep
-
-## Release Manager
-
-Checks:
-
-- git status
-- branch
-- diff
-- tests
-- environment
-- deployment target
-- assets
-- database changes
-
-## Communication
-
-Agents should not all communicate directly.
-
-The human developer acts as the approval point between stages.
-
-Pass concise artifacts between agents:
-
-- task
-- plan
-- architecture decision
-- git diff
-- test report
-- security report
-
-Do not repeatedly pass entire conversations.
-
-## Write authority
-
-Only one AI should modify the same feature at a time.
-
-GitHub Copilot is currently the primary code-generation authority.
-
-## Final authority
-
-The human developer approves changes before commit/deployment.
+Before completion, confirm:
+- only the four target docs changed
+- no secret values were exposed
+- no unsupported task history or roadmap claims were added
+- the diff matches the documented scope

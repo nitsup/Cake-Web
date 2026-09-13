@@ -51,6 +51,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .account-menu__item { display: block; width: 100%; border-radius: .375rem; padding: .7rem; color: var(--foreground); font-size: .9rem; font-weight: 650; text-align: left; }
 .account-menu__item:hover, .account-menu__item:focus-visible { background: var(--muted); color: var(--accent); transform: translateX(2px); }
 .account-menu__logout { border: 0; background: transparent; cursor: pointer; }
+.account-menu__dialog-backdrop { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 1rem; background: rgb(15 23 19 / .42); }
+.account-menu__dialog { width: min(100%, 26rem); border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1.5rem; box-shadow: 0 24px 60px rgb(15 23 19 / .22); }
+.account-menu__confirm-logout { border: 1px solid #b42318; background: #b42318; color: #fff; }
+.account-menu__confirm-logout:hover, .account-menu__confirm-logout:focus-visible { background: #8f1d14; color: #fff; }
 .nav-link, .footer-link { color: var(--muted-foreground); }
 .nav-link:hover, .footer-link:hover { color: var(--foreground); }
 .icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border); border-radius: .375rem; background: var(--surface); }
@@ -80,6 +84,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: .55rem; border-radius: .375rem; padding: .7rem 1rem; font-size: .9rem; font-weight: 700; }
 .button--primary { background: var(--accent); color: var(--accent-foreground); }
 .button--primary:hover { opacity: .88; }
+.hero-cta-button { transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, opacity 180ms ease, transform 180ms cubic-bezier(.22, 1, .36, 1), box-shadow 180ms ease; }
+.hero-cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(27 35 31 / .1); }
+.hero-cta-button:active { transform: translateY(0) scale(.98); }
 .button--secondary { border: 1px solid var(--border); background: var(--surface); }
 .button--ghost { color: var(--muted-foreground); }
 .surface-card { border: 1px solid var(--border); border-radius: .625rem; background: var(--surface); box-shadow: 0 12px 30px rgb(27 35 31 / .08); }

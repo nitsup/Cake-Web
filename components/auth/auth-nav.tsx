@@ -12,6 +12,8 @@ export function AuthNav() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
@@ -54,8 +56,14 @@ export function AuthNav() {
   }, [closeMenu, isOpen]);
 
   async function handleLogout() {
-    await createClient().auth.signOut();
+    setIsLoggingOut(true);
+    const { error } = await createClient().auth.signOut();
+    if (error) {
+      setIsLoggingOut(false);
+      return;
+    }
     setIsAuthenticated(false);
+    setIsLogoutConfirmOpen(false);
     closeMenu();
     router.push("/");
     router.refresh();
@@ -85,7 +93,20 @@ export function AuthNav() {
           <Link href="/" className="account-menu__item" role="menuitem" onClick={closeMenu}>Home</Link>
           <Link href={isAuthenticated ? "/profile" : "/login"} className="account-menu__item" role="menuitem" onClick={closeMenu}>{isAuthenticated ? "Profile" : "Log in"}</Link>
           <Link href="/preferences" className="account-menu__item" role="menuitem" onClick={closeMenu}>Preferences</Link>
-          {isAuthenticated ? <button type="button" className="account-menu__item account-menu__logout" role="menuitem" onClick={handleLogout}>Log out</button> : null}
+          {isAuthenticated ? <button type="button" className="account-menu__item account-menu__logout" role="menuitem" onClick={() => setIsLogoutConfirmOpen(true)}>Log out</button> : null}
+        </div>
+      ) : null}
+      {isLogoutConfirmOpen ? (
+        <div className="account-menu__dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !isLoggingOut) setIsLogoutConfirmOpen(false); }}>
+          <section className="account-menu__dialog" role="alertdialog" aria-modal="true" aria-labelledby="logout-dialog-title" aria-describedby="logout-dialog-description">
+            <p className="eyebrow">Log out</p>
+            <h2 id="logout-dialog-title" className="mt-2 text-xl font-semibold">Leave Cake Web?</h2>
+            <p id="logout-dialog-description" className="mt-3 text-sm leading-6 text-muted-foreground">Are you sure you want to log out?</p>
+            <div className="mt-6 flex justify-end gap-2">
+              <button type="button" className="button button--secondary" onClick={() => setIsLogoutConfirmOpen(false)} disabled={isLoggingOut}>Cancel</button>
+              <button type="button" className="button account-menu__confirm-logout" onClick={() => void handleLogout()} disabled={isLoggingOut}>{isLoggingOut ? "Logging out..." : "Log out"}</button>
+            </div>
+          </section>
         </div>
       ) : null}
     </div>

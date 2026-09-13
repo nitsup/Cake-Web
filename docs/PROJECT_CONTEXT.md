@@ -1,165 +1,66 @@
 # Project Context
 
-## Project
+## Provenance
 
-Cake Web
+This document is reconstructed from current repository evidence only.
 
-Repository:
+Sources inspected for this recovery:
+- README.md
+- AGENTS.md
+- BASIC_INSTRUCTIONS.md
+- CODEX.md
+- package.json
+- .env.example
+- lib/config/env.ts
+- next.config.ts
+- app/ route inventory from git ls-files
+- git status --short, git branch --show-current, and git ls-files output captured on 2026-09-13
 
-nitsup/Cake-Web
+## Stable project facts
 
-Current branch:
+- Project name: cake-web
+- Current branch at inspection time: master
+- Status at inspection time: one modified tracked file, components/auth/auth-form.tsx
+- Stack: Next.js App Router, TypeScript, React, Tailwind CSS v4, shadcn-style UI conventions, Lucide React, Motion, Zod, Supabase client libraries, Sentry
+- Runtime and project scripts in package.json: dev, build, start, lint
+- Repository layout includes: app/, components/, hooks/, lib/, services/, types/, public/, docs/, and config files at the repo root
 
-master
+## Source layout
 
----
+- app/: route files, layouts, route handlers, and page entry points
+- components/: reusable UI and page-level components
+- hooks/: reusable hooks
+- lib/: shared utilities, config, validation, Supabase helpers, and design tokens
+- services/: service-layer access and business logic
+- types/: shared TypeScript types
+- public/: static assets and placeholders
+- docs/: project documentation and state tracking
 
-## Origin
+## Configuration variables
 
-The project originally began as a bakery client website.
+Only the variable names proven by the current repository are listed here.
 
-The client later dropped out while development was underway.
+- NEXT_PUBLIC_APP_URL
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
-The project is now being used as:
+No secret values are recorded here.
 
-1. A working bakery website/demo.
-2. A learning environment for full-stack development.
-3. The foundation for a future reusable website platform.
+## Constraints and rules evidenced in the repo
 
----
+- Keep private configuration in environment files ignored by Git; do not commit secrets.
+- Preserve existing architecture and avoid duplicate service or component patterns.
+- Do not invent database tables, columns, relations, roles, or RLS policies unless the repository proves them.
+- Do not broaden scope beyond the requested documentation recovery unless a new fact requires it.
+- Validate changed files with targeted commands and review the resulting diff.
 
-## Long-Term Vision
+## Known unknowns and retained gaps
 
-Eventually the project may evolve into a reusable full-stack foundation containing:
+- The repository does not contain a complete, verified database schema document within the current working tree beyond references to cake-related data access and public catalog behavior.
+- Deployment target details, production environment values, and any non-local infrastructure state are not proven by the current repo snapshot.
+- The AGENTS.md and CODEX.md references to an AI/ directory are not satisfied by the current repo tree; that missing directory is treated as a documented gap rather than assumed content.
+- No fresh build, lint, or runtime status is claimed here because those commands were not run in this task.
 
-- authentication
-- profiles
-- account management
-- cart
-- orders
-- Staff
-- Admin
-- Owner
-- analytics
-- inventory
-- audit logs
-- APIs
-- automation
-- AI integrations
+## Scope for this recovery
 
-These are future capabilities.
-
-They must not prematurely affect the current bakery implementation.
-
----
-
-## Current Priority
-
-Finish and stabilize the basic bakery website first.
-
-Current priority:
-
-1. Basic UI
-2. Live catalogue
-3. Cake detail pages
-4. Category navigation
-5. Search
-6. Images/assets
-7. SEO
-8. Accessibility/responsive QA
-9. Security review
-10. Deployment stability
-11. Final bakery audit
-
-Only afterward should major reusable platform systems be implemented.
-
----
-
-## Learning Objectives
-
-The project is also intended to teach:
-
-### Frontend
-
-- Next.js
-- React
-- TypeScript
-- responsive UI
-- accessibility
-- SEO
-
-### Backend
-
-- server-side architecture
-- APIs
-- authorization
-- validation
-- server/client boundaries
-
-### Database
-
-- PostgreSQL
-- Supabase
-- RLS
-- policies
-- constraints
-- migrations
-- relationships
-
-### DevOps
-
-- Git
-- GitHub
-- branches
-- commits
-- Vercel
-- deployment
-- environment variables
-- CI/CD
-
-### Future AI
-
-- LLMs
-- AI APIs
-- agents
-- orchestration
-- automation
-- multi-agent systems
-
----
-
-## AI Development Philosophy
-
-Different AI systems should have different responsibilities.
-
-Codex:
-repository orchestration and execution
-
-Copilot:
-local coding assistance
-
-ChatGPT:
-architecture, reasoning, teaching, planning
-
-Claude:
-deep review and large-scale critique when useful
-
-Specialist systems:
-security, database, SEO, QA, or research when appropriate
-
-No AI should independently redesign the project without architectural approval.
-
----
-
-## Core Principle
-
-The project should evolve in small, verified slices.
-
-Inspect
-→ Plan
-→ Implement
-→ Validate
-→ Review
-→ Commit
-→ Deploy when necessary
-→ Verify
+This document intentionally records only stable facts and explicit unknowns. It does not claim a roadmap, task history, or an implementation completion state that is not proven by the repository snapshot.

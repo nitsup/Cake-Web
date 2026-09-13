@@ -1,78 +1,51 @@
 # Tasks
 
-## Current Phase
+## Current task
 
-Basic Bakery Foundation
+Recover and stabilize the four project documents requested for this work packet:
+- docs/PROJECT_CONTEXT.md
+- docs/CURRENT_STATE.md
+- docs/TASKS.md
+- docs/WORKFLOW.md
 
----
+This task is documentation recovery only. No feature implementation, schema changes, or unrelated file edits are included.
 
-## Current Task
+## Constraints
 
-Category filtering
+- Use only repository evidence and freshly captured Git output.
+- Do not invent backlog items, roadmap items, or historical task records.
+- Do not modify files outside the four target documents.
+- Do not expose secrets, environment values, or private credentials.
+- If a referenced source is missing, record the gap rather than assuming the missing artifact exists.
+
+## Conservative task template
+
+### Task
+One specific task to be performed.
 
 ### Goal
+The expected result in plain language.
 
-Allow catalogue filtering through:
+### Scope
+- Files allowed to change
+- Files intentionally excluded
 
-/cakes?category=category-slug
-
-### Confirmed category
-
-celebration-cakes
-
-### Expected files
-
-- services/cake-catalog.ts
-- app/cakes/page.tsx
-- app/page.tsx
+### Source evidence
+- Relevant files inspected
+- Fresh command output used as evidence
 
 ### Constraints
+- Keep the change minimal and safe.
+- Do not invent database, security, or deployment details.
+- Do not broaden scope without a proven need.
 
-- Preserve public visibility filtering.
-- Do not modify database schema.
-- Do not invent categories.
-- Reuse the existing catalogue service.
-- Preserve existing UI.
-- Make the smallest safe change.
+### Validation
+- git diff --check
+- git diff --name-only
+- git diff -- docs/PROJECT_CONTEXT.md docs/CURRENT_STATE.md docs/TASKS.md docs/WORKFLOW.md
 
-### Acceptance Criteria
+## Retained unknowns
 
-1. `/cakes` continues to show all public cakes.
-2. `/cakes?category=celebration-cakes` shows only matching public cakes.
-3. Existing public visibility rules remain intact.
-4. Homepage Celebration cakes links to the filtered catalogue.
-5. Invalid category slugs do not expose unrelated cakes.
-6. Existing cake detail navigation continues working.
-7. TypeScript, lint, and build pass.
-
----
-
-## After Current Task
-
-1. Complete homepage cleanup.
-2. Complete category navigation.
-3. Improve catalogue search.
-4. SEO.
-5. Accessibility/responsive QA.
-6. Security review.
-7. Production stability audit.
-8. Bakery foundation completion.
-
----
-
-## Deferred
-
-Do not implement yet:
-
-- authentication
-- profiles
-- OTP
-- cart
-- orders
-- Staff
-- Admin
-- Owner
-- analytics platform
-- advanced semantic search
-- AI integrations
-- dynamic image administration
+- No backlog beyond this documentation task is recorded here.
+- No future production roadmap is assumed.
+- No database, security, or deployment history is claimed unless the repository proves it.

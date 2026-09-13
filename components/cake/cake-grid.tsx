@@ -17,7 +17,7 @@ export function CakeGrid({ cakes, animated = false }: CakeGridProps) {
             name={cake.name}
             description={cake.shortDescription}
             category={cake.category.name}
-            categoryHref="/categories"
+            categoryHref={`/cakes?category=${encodeURIComponent(cake.category.slug)}`}
             href={`/cakes/${cake.slug}`}
             imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
             imageAlt={cake.primaryImage?.altText}
@@ -27,7 +27,7 @@ export function CakeGrid({ cakes, animated = false }: CakeGridProps) {
           name={cake.name}
           description={cake.shortDescription}
           category={cake.category.name}
-          categoryHref="/categories"
+          categoryHref={`/cakes?category=${encodeURIComponent(cake.category.slug)}`}
           href={`/cakes/${cake.slug}`}
           imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
           imageAlt={cake.primaryImage?.altText}

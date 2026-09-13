@@ -1,15 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { Globe2 } from "lucide-react";
+import { Globe2, LoaderCircle } from "lucide-react";
+import { motion } from "motion/react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 type AuthMode = "login" | "signup";
 
 export function AuthForm({ mode, initialError }: { mode: AuthMode; initialError?: string }) {
   const router = useRouter();
+  const prefersReducedMotion = useReducedMotion();
   const isSignup = mode === "signup";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -131,7 +134,25 @@ export function AuthForm({ mode, initialError }: { mode: AuthMode; initialError?
       <button type="submit" className="button button--primary mt-6 w-full" disabled={isLoading || isGoogleLoading}>{isLoading ? "Please wait..." : isSignup ? "Create account" : "Log in"}</button>
       {!isSignup ? <>
         <div className="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
-        <button type="button" className="button button--secondary w-full" onClick={handleGoogleLogin} disabled={isLoading || isGoogleLoading}><Globe2 size={18} aria-hidden="true" />{isGoogleLoading ? "Connecting..." : "Continue with Google"}</button>
+        <motion.button
+          type="button"
+          className="button button--secondary w-full"
+          onClick={handleGoogleLogin}
+          disabled={isLoading || isGoogleLoading}
+          aria-busy={isGoogleLoading}
+          whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+          whileTap={prefersReducedMotion ? undefined : { y: 1, scale: 0.99 }}
+          transition={{ duration: 0.16, ease: "easeOut" }}
+        >
+          <motion.span
+            className="inline-flex"
+            animate={isGoogleLoading && !prefersReducedMotion ? { rotate: 360 } : { rotate: 0 }}
+            transition={isGoogleLoading && !prefersReducedMotion ? { duration: 0.8, ease: "linear", repeat: Infinity } : { duration: 0.16 }}
+          >
+            {isGoogleLoading ? <LoaderCircle size={18} aria-hidden="true" /> : <Globe2 size={18} aria-hidden="true" />}
+          </motion.span>
+          {isGoogleLoading ? "Connecting..." : "Continue with Google"}
+        </motion.button>
       </> : null}
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {isSignup ? "Already have an account? " : "New to Cake Web? "}

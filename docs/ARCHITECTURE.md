@@ -231,3 +231,20 @@ APIs
 AI
 
 These must be introduced incrementally after the basic bakery foundation is stable.
+
+## Profile and social backend
+
+Profile identity is split from future preferences and relationship data:
+
+- `profiles` stores authenticated identity fields and remains private by default.
+- `public_profiles` is a restricted view exposing only username, display name, bio, and website.
+- `preferences` stores cake tastes and recommendation settings separately.
+- `partner_relationships` stores request lifecycle state and is accessed through authenticated functions.
+- Profile avatars use the private `profile-avatars` storage bucket with per-user object paths.
+
+The additive SQL contract is prepared in `.private/supabase/07_profile_social_backend.txt`.
+It must be reviewed and applied manually; the application never executes migration SQL.
+
+Next.js API routes use the server Supabase client for profile updates, public profile search,
+public profile reads, and partner actions. No privileged Supabase credential is exposed to
+the browser.
