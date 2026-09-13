@@ -22,7 +22,9 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
         </div>
         {profile.bio ? <p className="mt-6 leading-7 text-muted-foreground">{profile.bio}</p> : <p className="mt-6 text-muted-foreground">This person has not added an about section yet.</p>}
         {profile.website ? <a className="mt-4 inline-block font-semibold text-accent underline underline-offset-4" href={profile.website} rel="noreferrer" target="_blank">{profile.website}</a> : null}
-        <Link className="button button--secondary mt-8" href="/profile">Back to your profile</Link>
+        <div className="mt-8">
+          <Link className="button button--secondary" href="/profile">Back to your profile</Link>
+        </div>
       </section>
     </div>
   );

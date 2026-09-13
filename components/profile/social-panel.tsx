@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "motion/react";
 import { useState } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import type { PartnerRelationship, PublicProfile } from "@/types/social";
 
 export function SocialPanel({
@@ -16,6 +18,9 @@ export function SocialPanel({
   const [relationships, setRelationships] = useState(initialRelationships);
   const [message, setMessage] = useState<string | null>(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [requestingUserId, setRequestingUserId] = useState<string | null>(null);
+  const [requestedUserIds, setRequestedUserIds] = useState<Set<string>>(new Set());
+  const prefersReducedMotion = useReducedMotion();
 
   async function search(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,6 +44,7 @@ export function SocialPanel({
 
   async function sendAction(body: { action: string; userId?: string; relationshipId?: string }) {
     setMessage(null);
+    if (body.action === "request" && body.userId) setRequestingUserId(body.userId);
     const response = await fetch("/api/partners", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -47,12 +53,18 @@ export function SocialPanel({
     const result = (await response.json()) as { error?: string };
     if (!response.ok) {
       setMessage(result.error ?? "We could not update that connection.");
+      setRequestingUserId(null);
       return;
     }
     const refreshed = await fetch("/api/partners");
     const refreshedResult = (await refreshed.json()) as { relationships?: PartnerRelationship[] };
     setRelationships(refreshedResult.relationships ?? []);
     setMessage("Partner connections updated.");
+    const requestedUserId = body.action === "request" ? body.userId : undefined;
+    if (requestedUserId) {
+      setRequestedUserIds((current) => new Set(current).add(requestedUserId));
+    }
+    setRequestingUserId(null);
   }
 
   return (
@@ -71,7 +83,18 @@ export function SocialPanel({
                 <strong className="block truncate">{profile.displayName || profile.username}</strong>
                 <span className="text-sm text-muted-foreground">@{profile.username}</span>
               </Link>
-              <button type="button" className="button button--ghost" onClick={() => void sendAction({ action: "request", userId: profile.id })}>Partner</button>
+              <motion.button
+                type="button"
+                className={`button ${requestedUserIds.has(profile.id) ? "partner-request-button--sent" : "button--ghost"}`}
+                onClick={() => void sendAction({ action: "request", userId: profile.id })}
+                disabled={requestingUserId !== null || requestedUserIds.has(profile.id)}
+                whileHover={prefersReducedMotion ? undefined : { y: -1 }}
+                whileTap={prefersReducedMotion ? undefined : { y: 1, scale: 0.97 }}
+                animate={requestingUserId === profile.id ? { scale: [1, 1.04, 1] } : { scale: 1 }}
+                transition={{ duration: 0.22 }}
+              >
+                {requestedUserIds.has(profile.id) ? "Requested" : "Partner"}
+              </motion.button>
             </div>
           ))}
           {query.trim().length >= 2 && !isSearching && profiles.length === 0 ? <p className="text-sm text-muted-foreground">No public profiles found.</p> : null}

@@ -55,6 +55,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .account-menu__dialog { width: min(100%, 26rem); border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1.5rem; box-shadow: 0 24px 60px rgb(15 23 19 / .22); }
 .account-menu__confirm-logout { border: 1px solid #b42318; background: #b42318; color: #fff; }
 .account-menu__confirm-logout:hover, .account-menu__confirm-logout:focus-visible { background: #8f1d14; color: #fff; }
+.partner-request-button--sent { border-color: var(--border); background: var(--surface); color: var(--foreground); }
 .nav-link, .footer-link { color: var(--muted-foreground); }
 .nav-link:hover, .footer-link:hover { color: var(--foreground); }
 .icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border); border-radius: .375rem; background: var(--surface); }
