@@ -1,0 +1,54 @@
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+import { env } from "@/lib/config/env";
+
+export async function createClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            for (const { name, value, options } of cookiesToSet) {
+              cookieStore.set(name, value, options);
+            }
+          } catch {
+            // The server component can fail when a cookie cannot be written.
+          }
+        },
+      },
+    },
+  );
+}
+
+export async function updateSession(request: NextRequest) {
+  let response = NextResponse.next({ request });
+
+  const supabase = createServerClient(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+          response = NextResponse.next({ request });
+          cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        },
+      },
+    },
+  );
+
+  await supabase.auth.getUser();
+
+  return response;
+}
