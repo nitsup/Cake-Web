@@ -12,8 +12,7 @@ Frontend visibility is not authorization.
 
 RLS is enabled on:
 
-- cake_categories
-- cakes
+- (must remain confidential in this)
 
 Public category access requires:
 
