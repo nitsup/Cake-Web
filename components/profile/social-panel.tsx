@@ -20,7 +20,9 @@ export function SocialPanel({
   const [isSearching, setIsSearching] = useState(false);
   const [requestingUserId, setRequestingUserId] = useState<string | null>(null);
   const [requestedUserIds, setRequestedUserIds] = useState<Set<string>>(new Set());
+  const [pendingRemoval, setPendingRemoval] = useState<PublicProfile | null>(null);
   const prefersReducedMotion = useReducedMotion();
+  const acceptedPartnerCount = relationships.filter((relationship) => relationship.status === "accepted").length;
 
   async function search(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -87,7 +89,7 @@ export function SocialPanel({
                 type="button"
                 className={`button ${requestedUserIds.has(profile.id) ? "partner-request-button--sent" : "button--ghost"}`}
                 onClick={() => void sendAction({ action: "request", userId: profile.id })}
-                disabled={requestingUserId !== null || requestedUserIds.has(profile.id)}
+                disabled={requestingUserId !== null || requestedUserIds.has(profile.id) || acceptedPartnerCount >= 7}
                 whileHover={prefersReducedMotion ? undefined : { y: -1 }}
                 whileTap={prefersReducedMotion ? undefined : { y: 1, scale: 0.97 }}
                 animate={requestingUserId === profile.id ? { scale: [1, 1.04, 1] } : { scale: 1 }}
@@ -123,13 +125,36 @@ export function SocialPanel({
                   <button type="button" className="button button--ghost" onClick={() => void sendAction({ action: "cancel", relationshipId: relationship.id })}>Cancel</button>
                 </div>
               ) : null}
-              {relationship.status === "accepted" && relationship.otherProfile ? <button type="button" className="mt-3 text-sm font-semibold text-accent" onClick={() => void sendAction({ action: "remove", userId: relationship.otherProfile?.id })}>Remove partner</button> : null}
+              {relationship.status === "accepted" && relationship.otherProfile ? (
+                <motion.button
+                  type="button"
+                  className="partner-remove-button mt-3 text-sm font-semibold text-accent"
+                  onClick={() => setPendingRemoval(relationship.otherProfile)}
+                  whileHover={prefersReducedMotion ? undefined : { x: 2 }}
+                  whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                >
+                  Remove partner
+                </motion.button>
+              ) : null}
             </div>
           ))}
           {relationships.length === 0 ? <p className="text-sm text-muted-foreground">No partner connections yet.</p> : null}
         </div>
         {message ? <p className="mt-4 text-sm font-semibold" role="status">{message}</p> : null}
       </section>
+      {pendingRemoval ? (
+        <div className="account-menu__dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setPendingRemoval(null); }}>
+          <section className="account-menu__dialog" role="alertdialog" aria-modal="true" aria-labelledby="remove-partner-title">
+            <p className="eyebrow">Remove partner</p>
+            <h2 id="remove-partner-title" className="mt-2 text-xl font-semibold">Remove {pendingRemoval.displayName || `@${pendingRemoval.username}`}?</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Do you want to remove this partner? You can send a new request later.</p>
+            <div className="mt-6 flex justify-end gap-2">
+              <button type="button" className="button button--secondary" onClick={() => setPendingRemoval(null)}>Cancel</button>
+              <button type="button" className="button account-menu__confirm-logout" onClick={() => { const userId = pendingRemoval.id; setPendingRemoval(null); void sendAction({ action: "remove", userId }); }}>Remove partner</button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </div>
   );
 }
