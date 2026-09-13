@@ -4,49 +4,15 @@
 
 Supabase PostgreSQL.
 
-## Current public catalog tables
+## Current public catalogue
 
-### cake_categories
-
-Known columns:
-
-- id
-- name
-- slug
-- description
-- display_priority
-- is_active
-- created_at
-- updated_at
-
-### cakes
-
-Known columns:
-
-- id
-- name
-- slug
-- short_description
-- full_description
-- base_price
-- sale_price
-- category_id
-- availability
-- is_featured
-- is_active
-- display_priority
-- seo_title
-- seo_description
-- created_at
-- updated_at
+The public catalogue contains category records and cake records with
+descriptions, pricing, availability, display ordering, and timestamps.
 
 ## Relationships
 
-`cakes.category_id`
-
-references:
-
-`cake_categories.id`
+Each cake belongs to one category. The relationship cascades on category
+updates and prevents deleting a category that still has cakes.
 
 Foreign key behavior currently uses:
 
@@ -55,13 +21,9 @@ Foreign key behavior currently uses:
 
 ## Constraints
 
-Category slug is unique.
+Category and cake slugs are unique.
 
-Cake slug is unique.
-
-Category display priority must be non-negative.
-
-Cake display priority must be non-negative.
+Display priorities must be non-negative.
 
 Cake availability is restricted to:
 
@@ -76,7 +38,7 @@ Sale price cannot exceed base price.
 
 ## Public visibility
 
-Cake categories are publicly selectable when:
+Categories are publicly selectable when:
 
 `is_active = true`
 
@@ -90,11 +52,9 @@ and:
 
 ## RLS
 
-RLS is enabled on both public catalog tables.
+Row-level security protects the public catalogue records.
 
-Public users can select active categories.
-
-Public users can select visible cakes.
+Public users can select active categories and visible cakes.
 
 Editor/admin policies exist for appropriate management operations.
 

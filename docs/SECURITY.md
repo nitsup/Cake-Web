@@ -10,29 +10,16 @@ Frontend visibility is not authorization.
 
 ## Current Database Security
 
-RLS is enabled on:
-
-- (must remain confidential in this)
-
-Public category access requires:
-
-is_active = true
-
-Public cake access requires:
-
-is_active = true
-AND
-availability = 'available'
+Row-level access controls protect authenticated and public data at the
+database boundary. Public catalogue reads are limited to active, available
+items; private account data remains restricted to the owning account and
+approved server-side operations.
 
 ---
 
 ## Current Role Foundation
 
-The database currently contains role-aware policies using:
-
-user_has_role('editor')
-OR
-user_has_role('admin')
+The database contains role-aware policies for staff-level operations.
 
 The project intends to evolve the terminology toward:
 

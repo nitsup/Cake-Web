@@ -150,54 +150,8 @@ The service should remain the primary abstraction for public catalogue retrieval
 
 ## Database Architecture
 
-cake_categories
-        │
-        │ category_id
-        ▼
-cakes
-
-cake_categories:
-
-- id
-- name
-- slug
-- description
-- display_priority
-- is_active
-- created_at
-- updated_at
-
-cakes:
-
-- id
-- name
-- slug
-- short_description
-- full_description
-- base_price
-- sale_price
-- category_id
-- availability
-- is_featured
-- is_active
-- display_priority
-- seo_title
-- seo_description
-- created_at
-- updated_at
-
----
-
-## Database Relationships
-
-cakes.category_id
-    ↓
-cake_categories.id
-
-Foreign key:
-
-ON UPDATE CASCADE
-ON DELETE RESTRICT
+The catalogue is organized around category records and cake records. Each
+cake references a category, with update propagation and safe deletion rules.
 
 ---
 
@@ -236,11 +190,11 @@ These must be introduced incrementally after the basic bakery foundation is stab
 
 Profile identity is split from future preferences and relationship data:
 
-- `profiles` stores authenticated identity fields and remains private by default.
-- `public_profiles` is a restricted view exposing only username, display name, bio, and website.
-- `preferences` stores cake tastes and recommendation settings separately.
-- `partner_relationships` stores request lifecycle state and is accessed through authenticated functions.
-- Profile avatars use the private `profile-avatars` storage bucket with per-user object paths.
+- Authenticated identity data remains private by default.
+- Public profile reads expose only intentionally public identity fields.
+- Preferences are stored separately from identity data.
+- Partnership requests and lifecycle state are accessed through authenticated server functions.
+- Profile avatars use private per-user storage paths and signed access.
 
 The additive SQL contract is prepared in `.private/supabase/07_profile_social_backend.txt`.
 It must be reviewed and applied manually; the application never executes migration SQL.
