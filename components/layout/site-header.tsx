@@ -4,6 +4,7 @@ import { AuthNav } from "@/components/auth/auth-nav";
 
 const links = [
   { href: "/cakes", label: "Cakes" },
+  { href: "/cart", label: "Cart" },
   { href: "/categories", label: "Categories" },
   { href: "/about", label: "Our story" },
   { href: "/#contact", label: "Contact" },

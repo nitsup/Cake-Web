@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getLocalPrimaryImageUrl, getPublicCakeBySlug } from "@/services/cake-catalog";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
 import { Card } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 
@@ -10,7 +11,7 @@ interface CakeDetailPageProps {
 }
 
 function formatPrice(price: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(price);
+  return `₹${price.toFixed(2)}`;
 }
 
 export async function generateMetadata({ params }: CakeDetailPageProps) {
@@ -51,7 +52,8 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
             <span className="text-2xl font-semibold">{formatPrice(cake.salePrice ?? cake.basePrice)}</span>
             {hasSalePrice ? <span className="text-sm text-muted-foreground line-through">{formatPrice(cake.basePrice)}</span> : null}
           </div>
-          <p className="mt-3 text-sm font-semibold text-accent">Available for future enquiries</p>
+          <p className="mt-3 text-sm font-semibold text-accent">Available to add to your cart</p>
+          <AddToCartButton cakeId={cake.id} />
         </div>
       </section>
       <section className="border-y border-border bg-muted/60">
