@@ -28,7 +28,10 @@ export function CartPanel({ initialCart }: { initialCart: Cart }) {
     <section className="surface-card mx-auto max-w-3xl p-6 md:p-8">
       <div className="flex items-end justify-between gap-4">
         <div><p className="eyebrow">Your cart</p><h1 className="mt-2 text-3xl font-semibold tracking-tight">Ready when you are.</h1></div>
-        {cart.items.length > 0 ? <button type="button" className="button button--ghost text-sm" onClick={() => void update({ action: "clear" })} disabled={busyItemId !== null}>Clear cart</button> : null}
+        <div className="flex items-center gap-2">
+          {cart.items.length > 0 ? <Link href="/checkout" className="button button--primary text-sm">Proceed to checkout</Link> : null}
+          {cart.items.length > 0 ? <button type="button" className="button button--ghost text-sm" onClick={() => void update({ action: "clear" })} disabled={busyItemId !== null}>Clear cart</button> : null}
+        </div>
       </div>
       <div className="mt-8 grid gap-3">
         {cart.items.map((item) => (
