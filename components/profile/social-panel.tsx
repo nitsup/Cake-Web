@@ -109,9 +109,15 @@ export function SocialPanel({
           {relationships.map((relationship) => (
             <div key={relationship.id} className="rounded-md border p-3">
               <div className="flex items-center justify-between gap-3">
-                <Link href={relationship.otherProfile ? `/profile/${relationship.otherProfile.username}` : "#"} className="font-semibold">
-                  {relationship.otherProfile?.displayName || relationship.otherProfile?.username || "Profile unavailable"}
-                </Link>
+                {relationship.otherProfile?.username ? (
+                  <Link href={`/profile/${relationship.otherProfile.username}`} className="font-semibold">
+                    {relationship.otherProfile.displayName || relationship.otherProfile.username}
+                  </Link>
+                ) : (
+                  <span className="font-semibold">
+                    {relationship.otherProfile?.displayName || "Partner"}
+                  </span>
+                )}
                 <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{relationship.status}</span>
               </div>
               {relationship.status === "pending" && relationship.recipientId === currentUserId ? (

@@ -3,7 +3,7 @@ import type { PartnerRelationship, PublicProfile } from "@/types/social";
 
 type RawPublicProfile = {
   id: string;
-  username: string;
+  username: string | null;
   display_name: string | null;
   bio: string | null;
   website: string | null;

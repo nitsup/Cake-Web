@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
   const profile = await getPublicProfileByUsername(username);
-  if (!profile) notFound();
+  if (!profile || !profile.username) notFound();
 
   return (
     <div className="container py-16 md:py-24">

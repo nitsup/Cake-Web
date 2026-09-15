@@ -98,7 +98,7 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
   const cakeIds = cartItems.map((item) => item.cake_id);
   const { data: cakes, error: cakeError } = await supabase
     .from("cakes")
-    .select("id, name, slug, base_price, sale_price, is_active, availability")
+    .select("id, name, slug, base_price, sale_price, is_active, availability, category:cake_categories!inner(is_active)")
     .in("id", cakeIds);
 
   if (cakeError) {
@@ -123,6 +123,9 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
     }
     if (cake && cake.availability !== "available") {
       itemErrors.push("Cake is unavailable.");
+    }
+    if (cake && !cake.category?.[0]?.is_active) {
+      itemErrors.push("Cake category is inactive.");
     }
     if (row.quantity < 1 || row.quantity > 20) {
       itemErrors.push("Quantity is outside the supported range.");

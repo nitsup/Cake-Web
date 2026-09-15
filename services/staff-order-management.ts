@@ -122,7 +122,7 @@ export async function getOrdersForOperationalManagement(): Promise<StaffOrderSum
 }
 
 export async function updateOrderStatusForStaff(orderId: string, requestedStatus: string): Promise<StaffOrderSummary> {
-  const { supabase, userId, role } = await getCurrentStaffActor();
+  const { supabase, role } = await getCurrentStaffActor();
 
   if (!role || (role !== "editor" && role !== "admin")) {
     throw new Error("You do not have permission to manage orders.");
@@ -166,42 +166,12 @@ export async function updateOrderStatusForStaff(orderId: string, requestedStatus
   });
 
   if (rpcError) {
-    const isMissingFunction = /does not exist|function.*not found|could not find/i.test(rpcError.message);
-    if (!isMissingFunction) {
-      throw new Error(rpcError.message);
-    }
-
-    const { data: fallbackOrder, error: fallbackError } = await supabase
-      .from("orders")
-      .update({ status: requestedStatus })
-      .eq("id", orderId)
-      .select("id, user_id, order_number, status, payment_status, subtotal, total, item_count, created_at")
-      .maybeSingle();
-
-    if (fallbackError) {
-      throw new Error(fallbackError.message);
-    }
-    updatedOrder = fallbackOrder;
-  } else {
-    updatedOrder = rpcOrder;
+    throw new Error(rpcError.message);
   }
+  updatedOrder = rpcOrder;
 
   if (!updatedOrder) {
     throw new Error("The order update did not return a result.");
-  }
-
-  try {
-    await supabase.rpc("record_order_status_change_audit", {
-      p_order_id: orderId,
-      p_actor_user_id: userId,
-      p_actor_role: role,
-      p_previous_status: currentStatus,
-      p_new_status: requestedStatus,
-      p_metadata: { source: "staff_order_management" },
-    });
-  } catch {
-    // Optional audit hook: the database contract may define it, but the app should not fail
-    // if the live database has not yet applied the trusted audit function.
   }
 
   const profileRow = await supabase

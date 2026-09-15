@@ -21,6 +21,7 @@ type RawCake = {
   sale_price: number | null;
   is_active: boolean;
   availability: "available" | "unavailable";
+  category: { is_active: boolean }[] | null;
 };
 
 export function validateCartQuantity(value: unknown) {
@@ -60,7 +61,7 @@ export async function getCurrentUserCart(): Promise<Cart> {
   const supabase = await createClient();
   const { data: cakes, error } = await supabase
     .from("cakes")
-    .select("id, name, slug, base_price, sale_price, is_active, availability")
+    .select("id, name, slug, base_price, sale_price, is_active, availability, category:cake_categories!inner(is_active)")
     .in("id", items.map((item) => item.cake_id));
   if (error) throw new Error("Unable to validate your cart prices.");
 
@@ -68,7 +69,7 @@ export async function getCurrentUserCart(): Promise<Cart> {
   const mappedItems: CartItem[] = [];
   for (const item of items) {
     const cake = cakeMap.get(item.cake_id);
-    if (!cake || !cake.is_active || cake.availability !== "available") continue;
+    if (!cake || !cake.is_active || cake.availability !== "available" || !cake.category?.[0]?.is_active) continue;
     mappedItems.push({
       id: item.id,
       cakeId: item.cake_id,

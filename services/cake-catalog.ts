@@ -46,7 +46,7 @@ function mapPrimaryImage(images: RawCakeImage[] | null) {
 
 export async function getPublicCakes(categorySlug?: string): Promise<CakeSummary[]> {
   const supabase = await createClient();
-  let selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary)";
+  let selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary)";
 
   if (categorySlug) {
     selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary)";
@@ -61,6 +61,7 @@ export async function getPublicCakes(categorySlug?: string): Promise<CakeSummary
   if (categorySlug) {
     query = query.eq("category.slug", categorySlug);
   }
+  query = query.eq("category.is_active", true);
 
   const { data, error } = await query
     .order("display_priority", { ascending: true })
@@ -86,10 +87,11 @@ export async function getPublicCakeBySlug(slug: string): Promise<CakeDetail | nu
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cakes")
-    .select("id, name, slug, short_description, full_description, base_price, sale_price, availability, is_featured, category:cake_categories(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary)")
+    .select("id, name, slug, short_description, full_description, base_price, sale_price, availability, is_featured, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary)")
     .eq("slug", slug)
     .eq("is_active", true)
     .eq("availability", "available")
+    .eq("category.is_active", true)
     .maybeSingle();
 
   if (error) {
