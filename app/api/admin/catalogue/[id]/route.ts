@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { updateCakeVisibility } from "@/services/staff-catalogue";
+import { cakeWriteSchema, updateCake, updateCakeVisibility } from "@/services/staff-catalogue";
 
 const updateCatalogueSchema = z.object({
   isActive: z.boolean(),
   availability: z.enum(["available", "unavailable"]),
+});
+const updateCakeSchema = cakeWriteSchema.extend({
+  slug: z.string().trim().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(160),
 });
 
 export async function PATCH(
@@ -12,13 +15,20 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const parsed = updateCatalogueSchema.safeParse(await request.json());
-    if (!parsed.success) {
+    const body = await request.json();
+    const parsed = updateCakeSchema.safeParse(body);
+    if (parsed.success) {
+      const { id } = await params;
+      const cake = await updateCake(id, parsed.data);
+      return NextResponse.json({ cake });
+    }
+    const visibility = updateCatalogueSchema.safeParse(body);
+    if (!visibility.success) {
       return NextResponse.json({ error: "Invalid catalogue visibility update." }, { status: 400 });
     }
 
     const { id } = await params;
-    const cake = await updateCakeVisibility(id, parsed.data);
+    const cake = await updateCakeVisibility(id, visibility.data);
     return NextResponse.json({ cake });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unable to update the catalogue.";

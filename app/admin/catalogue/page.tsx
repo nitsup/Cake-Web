@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { StaffCataloguePanel } from "@/components/catalogue/staff-catalogue-panel";
 import { createClient } from "@/lib/supabase/server";
-import { getStaffCatalogue } from "@/services/staff-catalogue";
+import { getStaffCatalogue, getStaffCatalogueCategories } from "@/services/staff-catalogue";
 
 export const metadata = {
   title: "Catalogue",
@@ -34,6 +34,6 @@ export default async function AdminCataloguePage() {
     );
   }
 
-  const cakes = await getStaffCatalogue();
-  return <StaffCataloguePanel initialCakes={cakes} />;
+  const [cakes, categories] = await Promise.all([getStaffCatalogue(), getStaffCatalogueCategories()]);
+  return <StaffCataloguePanel initialCakes={cakes} initialCategories={categories} />;
 }
