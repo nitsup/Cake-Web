@@ -43,7 +43,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
         </nav>
       </div>
       <section className="container grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:items-start md:pb-24">
-        <Card className="overflow-hidden p-2"><ImagePlaceholder src={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url} alt={cake.primaryImage?.altText ?? `${cake.name} image placeholder`} className="aspect-[4/3]" priority /></Card>
+        <Card className="overflow-hidden p-2"><ImagePlaceholder src={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url} alt={cake.primaryImage?.altText ?? `${cake.name} image placeholder`} zoom={cake.primaryImage?.zoom} positionX={cake.primaryImage?.positionX} positionY={cake.primaryImage?.positionY} className="aspect-[4/3]" priority /></Card>
         <div className="pt-2 md:pt-6">
           <Link href={`/cakes?category=${encodeURIComponent(cake.category.slug)}`} className="badge category-link">{cake.category.name}</Link>
           <h1 className="display-heading mt-5 max-w-xl text-5xl md:text-6xl">{cake.name}</h1>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import type { StaffCatalogueCake, StaffCatalogueCategory } from "@/services/staff-catalogue";
+import { useRef, useState } from "react";
+import type { StaffCatalogueCake, StaffCatalogueCakeImage, StaffCatalogueCategory } from "@/services/staff-catalogue";
+import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 
 type Notice = { tone: "success" | "error"; text: string } | null;
 type CakeForm = Omit<StaffCatalogueCake, "id" | "categoryName" | "categorySlug" | "basePrice" | "salePrice"> & {
@@ -56,6 +57,25 @@ async function readResult<T>(response: Response) {
   return result;
 }
 
+function sortMedia(images: StaffCatalogueCakeImage[]) {
+  return [...images].sort((a, b) => Number(a.isPrimary) === Number(b.isPrimary) ? a.displayPriority - b.displayPriority : Number(b.isPrimary) - Number(a.isPrimary));
+}
+
+async function loadCakeMediaForEdit(cakeId: string, setCakeImages: React.Dispatch<React.SetStateAction<StaffCatalogueCakeImage[]>>, setCakeImageError: React.Dispatch<React.SetStateAction<string | null>>, setCakeImageLoading: React.Dispatch<React.SetStateAction<boolean>>) {
+  setCakeImageLoading(true);
+  setCakeImageError(null);
+  try {
+    const response = await fetch(`/api/admin/catalogue/${cakeId}/media`);
+    const result = await readResult<{ images?: StaffCatalogueCakeImage[] }>(response);
+    setCakeImages(sortMedia(result.images ?? []));
+  } catch (error) {
+    setCakeImageError(error instanceof Error ? error.message : "Unable to load the product images.");
+    setCakeImages([]);
+  } finally {
+    setCakeImageLoading(false);
+  }
+}
+
 export function StaffCataloguePanel({
   initialCakes,
   initialCategories,
@@ -72,6 +92,105 @@ export function StaffCataloguePanel({
   const [categoryForm, setCategoryForm] = useState<CategoryForm>(toCategoryForm());
   const [notice, setNotice] = useState<Notice>(null);
   const [busy, setBusy] = useState(false);
+  const [cakeImages, setCakeImages] = useState<StaffCatalogueCakeImage[]>([]);
+  const [cakeImageError, setCakeImageError] = useState<string | null>(null);
+  const [cakeImageLoading, setCakeImageLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function uploadCakeImage(file: File) {
+    if (!editingCake) return;
+    setCakeImageLoading(true);
+    setCakeImageError(null);
+    try {
+      const formData = new FormData();
+      formData.set("file", file);
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/media`, { method: "POST", body: formData });
+      const result = await readResult<{ image?: StaffCatalogueCakeImage }>(response);
+      if (!result.image) throw new Error("The uploaded image was not returned.");
+      setCakeImages((current) => sortMedia([...current, result.image as StaffCatalogueCakeImage]));
+      setNotice({ tone: "success", text: "Product image uploaded." });
+    } catch (error) {
+      setCakeImageError(error instanceof Error ? error.message : "Unable to upload the product image.");
+    } finally {
+      setCakeImageLoading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  async function setPrimaryCakeImage(imageId: string) {
+    if (!editingCake) return;
+    setCakeImageLoading(true);
+    setCakeImageError(null);
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/media`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ imageId }),
+      });
+      const result = await readResult<{ image?: StaffCatalogueCakeImage }>(response);
+      if (!result.image) throw new Error("The primary image update did not return a product image.");
+      const nextImage = result.image as StaffCatalogueCakeImage;
+      setCakeImages((current) => sortMedia(current.map((image) => {
+        if (image.id === nextImage.id) return nextImage;
+        return { ...image, isPrimary: false };
+      })));
+      setNotice({ tone: "success", text: "Primary image updated." });
+    } catch (error) {
+      setCakeImageError(error instanceof Error ? error.message : "Unable to update the primary image.");
+    } finally {
+      setCakeImageLoading(false);
+    }
+  }
+
+  function updateImageDraft(imageId: string, values: Partial<Pick<StaffCatalogueCakeImage, "zoom" | "positionX" | "positionY">>) {
+    setCakeImages((current) => current.map((image) => image.id === imageId ? { ...image, ...values } : image));
+  }
+
+  async function saveImagePresentation(image: StaffCatalogueCakeImage) {
+    if (!editingCake) return;
+    setCakeImageLoading(true);
+    setCakeImageError(null);
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/media`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          imageId: image.id,
+          zoom: image.zoom,
+          positionX: image.positionX,
+          positionY: image.positionY,
+        }),
+      });
+      const result = await readResult<{ image?: StaffCatalogueCakeImage }>(response);
+      if (!result.image) throw new Error("The image positioning update was not returned.");
+      setCakeImages((current) => current.map((item) => item.id === image.id ? result.image as StaffCatalogueCakeImage : item));
+      setNotice({ tone: "success", text: "Image preview positioning saved." });
+    } catch (error) {
+      setCakeImageError(error instanceof Error ? error.message : "Unable to save the image positioning.");
+    } finally {
+      setCakeImageLoading(false);
+    }
+  }
+
+  async function removeCakeImage(imageId: string) {
+    if (!editingCake) return;
+    setCakeImageLoading(true);
+    setCakeImageError(null);
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/media`, {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ imageId }),
+      });
+      await readResult<{ ok?: boolean }>(response);
+      setCakeImages((current) => current.filter((image) => image.id !== imageId));
+      setNotice({ tone: "success", text: "Product image removed." });
+    } catch (error) {
+      setCakeImageError(error instanceof Error ? error.message : "Unable to remove the product image.");
+    } finally {
+      setCakeImageLoading(false);
+    }
+  }
 
   async function saveCake(event: React.FormEvent) {
     event.preventDefault();
@@ -94,15 +213,56 @@ export function StaffCataloguePanel({
       });
       const result = await readResult<{ cake?: StaffCatalogueCake }>(response);
       if (!result.cake) throw new Error("The updated product was not returned.");
+      const savedCake = result.cake as StaffCatalogueCake;
       setCakes((current) => creatingCake
-        ? [...current, result.cake as StaffCatalogueCake].sort((a, b) => a.displayPriority - b.displayPriority || a.name.localeCompare(b.name))
-        : current.map((cake) => cake.id === editingCake ? result.cake as StaffCatalogueCake : cake));
+        ? [...current, savedCake].sort((a, b) => a.displayPriority - b.displayPriority || a.name.localeCompare(b.name))
+        : current.map((cake) => cake.id === editingCake ? savedCake : cake));
+
+      if (creatingCake) {
+        setCreatingCake(false);
+        setEditingCake(savedCake.id);
+        setCakeForm(toCakeForm(savedCake, categories));
+        setCakeImages([]);
+        setNotice({ tone: "success", text: "Product created. Add an image to finish the listing." });
+        await loadCakeMediaForEdit(savedCake.id, setCakeImages, setCakeImageError, setCakeImageLoading);
+        return;
+      }
+
       setEditingCake(null);
       setCreatingCake(false);
       setCakeForm(null);
-      setNotice({ tone: "success", text: creatingCake ? "Product created." : "Product updated." });
+      setNotice({ tone: "success", text: "Product updated." });
     } catch (error) {
       setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to update the product." });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function setCakeArchiveState(nextIsActive: boolean) {
+    if (!editingCake) return;
+    setBusy(true);
+    setNotice(null);
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          isActive: nextIsActive,
+          availability: nextIsActive ? "available" : "unavailable",
+        }),
+      });
+      const result = await readResult<{ cake?: StaffCatalogueCake }>(response);
+      const updatedCake = result.cake as StaffCatalogueCake | undefined;
+      if (!updatedCake) throw new Error("The archive state was not returned.");
+      setCakes((current) => current.map((cake) => cake.id === editingCake ? updatedCake : cake));
+      setCakeForm(toCakeForm(updatedCake, categories));
+      setNotice({
+        tone: "success",
+        text: nextIsActive ? "Product restored and made public again." : "Product archived and removed from the public catalogue.",
+      });
+    } catch (error) {
+      setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to change the product state." });
     } finally {
       setBusy(false);
     }
@@ -166,7 +326,7 @@ export function StaffCataloguePanel({
                   <td className="px-3 py-4">{formatMoney(cake.salePrice ?? cake.basePrice)}</td>
                   <td className="px-3 py-4">{cake.isActive ? "Active" : "Inactive"} / {cake.availability}</td>
                   <td className="px-3 py-4">{cake.isFeatured ? "Featured" : "Standard"} / priority {cake.displayPriority}</td>
-                  <td className="px-3 py-4 text-right"><button type="button" className="button button--secondary text-xs" onClick={() => { setCreatingCake(false); setEditingCake(cake.id); setCakeForm(toCakeForm(cake, categories)); }}>Edit</button></td>
+                  <td className="px-3 py-4 text-right"><button type="button" className="button button--secondary text-xs" onClick={async () => { setCreatingCake(false); setEditingCake(cake.id); setCakeForm(toCakeForm(cake, categories)); setCakeImages([]); await loadCakeMediaForEdit(cake.id, setCakeImages, setCakeImageError, setCakeImageLoading); }}>Edit</button></td>
                 </tr>
               ))}
             </tbody>
@@ -177,22 +337,90 @@ export function StaffCataloguePanel({
       {(editingCake || creatingCake) && cakeForm ? (
         <section className="surface-card mx-auto max-w-6xl p-6 md:p-8">
           <h2 className="text-xl font-semibold">{creatingCake ? "Add cake" : "Edit product"}</h2>
-          <form className="mt-6 grid gap-4 md:grid-cols-2" onSubmit={(event) => void saveCake(event)}>
-            <label className="grid gap-2 text-sm font-medium">Name<input required className="input" value={cakeForm.name} onChange={(event) => setCakeForm({ ...cakeForm, name: event.target.value })} /></label>
-            {!creatingCake ? <label className="grid gap-2 text-sm font-medium">Slug<input required className="input" value={cakeForm.slug} onChange={(event) => setCakeForm({ ...cakeForm, slug: event.target.value })} /></label> : <p className="rounded-md border border-dashed p-3 text-sm text-muted-foreground">The product slug will be generated from the name when saved.</p>}
-            <label className="grid gap-2 text-sm font-medium md:col-span-2">Short description<textarea required className="input min-h-20" value={cakeForm.shortDescription} onChange={(event) => setCakeForm({ ...cakeForm, shortDescription: event.target.value })} /></label>
-            <label className="grid gap-2 text-sm font-medium md:col-span-2">Full description<textarea className="input min-h-28" value={cakeForm.fullDescription ?? ""} onChange={(event) => setCakeForm({ ...cakeForm, fullDescription: event.target.value })} /></label>
-            <label className="grid gap-2 text-sm font-medium">Base price<input required className="input" type="number" min="0" step="0.01" value={cakeForm.basePrice} onChange={(event) => setCakeForm({ ...cakeForm, basePrice: event.target.value })} /></label>
-            <label className="grid gap-2 text-sm font-medium">Sale price<input className="input" type="number" min="0" step="0.01" value={cakeForm.salePrice} onChange={(event) => setCakeForm({ ...cakeForm, salePrice: event.target.value })} /></label>
-            <label className="grid gap-2 text-sm font-medium">Category<select required className="input" value={cakeForm.categoryId} onChange={(event) => setCakeForm({ ...cakeForm, categoryId: event.target.value })}>{categories.filter((category) => category.isActive).map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}</select></label>
-            <label className="grid gap-2 text-sm font-medium">Availability<select className="input" value={cakeForm.availability} onChange={(event) => setCakeForm({ ...cakeForm, availability: event.target.value as "available" | "unavailable" })}><option value="available">Available</option><option value="unavailable">Unavailable</option></select></label>
-            <label className="grid gap-2 text-sm font-medium">Display priority<input required className="input" type="number" min="0" value={cakeForm.displayPriority} onChange={(event) => setCakeForm({ ...cakeForm, displayPriority: Number(event.target.value) })} /></label>
-            <label className="grid gap-2 text-sm font-medium">SEO title<input className="input" value={cakeForm.seoTitle ?? ""} onChange={(event) => setCakeForm({ ...cakeForm, seoTitle: event.target.value })} /></label>
-            <label className="grid gap-2 text-sm font-medium md:col-span-2">SEO description<textarea className="input min-h-20" value={cakeForm.seoDescription ?? ""} onChange={(event) => setCakeForm({ ...cakeForm, seoDescription: event.target.value })} /></label>
-            <label className="flex items-center gap-2 text-sm font-medium"><input type="checkbox" checked={cakeForm.isActive} onChange={(event) => setCakeForm({ ...cakeForm, isActive: event.target.checked })} /> Active on public catalogue</label>
-            <label className="flex items-center gap-2 text-sm font-medium"><input type="checkbox" checked={cakeForm.isFeatured} onChange={(event) => setCakeForm({ ...cakeForm, isFeatured: event.target.checked })} /> Featured product</label>
-            <div className="flex gap-3 md:col-span-2"><button className="button button--primary" disabled={busy}>{busy ? "Saving..." : creatingCake ? "Create cake" : "Save product"}</button><button type="button" className="button button--secondary" onClick={() => { setCreatingCake(false); setEditingCake(null); setCakeForm(null); }}>Cancel</button></div>
-          </form>
+          <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.5fr)_minmax(280px,380px)]">
+            <form className="grid gap-4 md:grid-cols-2" onSubmit={(event) => void saveCake(event)}>
+              <label className="grid gap-2 text-sm font-medium">Name<input required className="input" value={cakeForm.name} onChange={(event) => setCakeForm({ ...cakeForm, name: event.target.value })} /></label>
+              {!creatingCake ? <label className="grid gap-2 text-sm font-medium">Slug<input required className="input" value={cakeForm.slug} onChange={(event) => setCakeForm({ ...cakeForm, slug: event.target.value })} /></label> : <p className="rounded-md border border-dashed p-3 text-sm text-muted-foreground">The product slug will be generated from the name when saved.</p>}
+              <label className="grid gap-2 text-sm font-medium md:col-span-2">Short description<textarea required className="input min-h-20" value={cakeForm.shortDescription} onChange={(event) => setCakeForm({ ...cakeForm, shortDescription: event.target.value })} /></label>
+              <label className="grid gap-2 text-sm font-medium md:col-span-2">Full description<textarea className="input min-h-28" value={cakeForm.fullDescription ?? ""} onChange={(event) => setCakeForm({ ...cakeForm, fullDescription: event.target.value })} /></label>
+              <label className="grid gap-2 text-sm font-medium">Base price<input required className="input" type="number" min="0" step="0.01" value={cakeForm.basePrice} onChange={(event) => setCakeForm({ ...cakeForm, basePrice: event.target.value })} /></label>
+              <label className="grid gap-2 text-sm font-medium">Sale price<input className="input" type="number" min="0" step="0.01" value={cakeForm.salePrice} onChange={(event) => setCakeForm({ ...cakeForm, salePrice: event.target.value })} /></label>
+              <label className="grid gap-2 text-sm font-medium">Category<select required className="input" value={cakeForm.categoryId} onChange={(event) => setCakeForm({ ...cakeForm, categoryId: event.target.value })}>{categories.filter((category) => category.isActive).map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}</select></label>
+              <label className="grid gap-2 text-sm font-medium">Availability<select className="input" value={cakeForm.availability} onChange={(event) => setCakeForm({ ...cakeForm, availability: event.target.value as "available" | "unavailable" })}><option value="available">Available</option><option value="unavailable">Unavailable</option></select></label>
+              <label className="grid gap-2 text-sm font-medium">Display priority<input required className="input" type="number" min="0" value={cakeForm.displayPriority} onChange={(event) => setCakeForm({ ...cakeForm, displayPriority: Number(event.target.value) })} /></label>
+              <label className="grid gap-2 text-sm font-medium">SEO title<input className="input" value={cakeForm.seoTitle ?? ""} onChange={(event) => setCakeForm({ ...cakeForm, seoTitle: event.target.value })} /></label>
+              <label className="grid gap-2 text-sm font-medium md:col-span-2">SEO description<textarea className="input min-h-20" value={cakeForm.seoDescription ?? ""} onChange={(event) => setCakeForm({ ...cakeForm, seoDescription: event.target.value })} /></label>
+              <label className="flex items-center gap-2 text-sm font-medium"><input type="checkbox" checked={cakeForm.isActive} onChange={(event) => setCakeForm({ ...cakeForm, isActive: event.target.checked })} /> Active on public catalogue</label>
+              <label className="flex items-center gap-2 text-sm font-medium"><input type="checkbox" checked={cakeForm.isFeatured} onChange={(event) => setCakeForm({ ...cakeForm, isFeatured: event.target.checked })} /> Featured product</label>
+              <div className="flex flex-wrap gap-3 md:col-span-2">
+                <button className="button button--primary" disabled={busy}>{busy ? "Saving..." : creatingCake ? "Create cake" : "Save product"}</button>
+                {editingCake ? (
+                  <button type="button" className="button button--secondary" onClick={() => void setCakeArchiveState(!cakeForm.isActive)} disabled={busy}>
+                    {cakeForm.isActive ? "Archive product" : "Restore product"}
+                  </button>
+                ) : null}
+                <button type="button" className="button button--secondary" onClick={() => { setCreatingCake(false); setEditingCake(null); setCakeForm(null); setCakeImages([]); }}>Cancel</button>
+              </div>
+            </form>
+
+            <aside className="xl:pt-1">
+              <div className="sticky top-4 rounded-xl border border-border bg-background/60 p-4 shadow-sm">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold">Product media</h3>
+                    <p className="text-xs text-muted-foreground">Primary image, upload, replacement, and deletion</p>
+                  </div>
+                  {editingCake ? <button type="button" className="button button--secondary text-xs" onClick={() => fileInputRef.current?.click()} disabled={cakeImageLoading}>Add image</button> : null}
+                </div>
+
+                <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) void uploadCakeImage(file); }} />
+                {cakeImageError ? <p className="mt-4 rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm font-medium text-destructive" role="alert">{cakeImageError}</p> : null}
+                {cakeImageLoading && cakeImages.length === 0 ? <p className="mt-4 text-sm text-muted-foreground">Loading product media…</p> : null}
+
+                <div className="mt-4 overflow-hidden rounded-lg border border-border bg-muted/20">
+                  {editingCake && cakeImages.some((image) => image.isPrimary) ? (
+                    <ImagePlaceholder src={cakeImages.find((image) => image.isPrimary)?.url ?? null} alt={cakeImages.find((image) => image.isPrimary)?.altText ?? "Cake product image"} zoom={cakeImages.find((image) => image.isPrimary)?.zoom} positionX={cakeImages.find((image) => image.isPrimary)?.positionX} positionY={cakeImages.find((image) => image.isPrimary)?.positionY} className="h-64 w-full object-cover" priority />
+                  ) : (
+                    <div className="flex h-64 items-center justify-center bg-muted/20 px-4 text-center text-sm text-muted-foreground">
+                      {editingCake ? "No product image uploaded yet." : "Image upload becomes available after saving the cake."}
+                    </div>
+                  )}
+                </div>
+
+                {editingCake ? (
+                  <div className="mt-4 space-y-3">
+                    {cakeImages.length > 0 ? cakeImages.map((image) => (
+                      <div key={image.id} className="rounded-lg border border-border bg-background/40 p-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">{image.isPrimary ? "Primary" : "Secondary"}</span>
+                          {!image.isPrimary ? <button type="button" className="button button--ghost text-xs" onClick={() => void setPrimaryCakeImage(image.id)} disabled={cakeImageLoading}>Set primary</button> : null}
+                        </div>
+                        <div className="mt-2 overflow-hidden rounded-md border border-border bg-muted/20">
+                          {image.url ? <ImagePlaceholder src={image.url} alt={image.altText} zoom={image.zoom} positionX={image.positionX} positionY={image.positionY} className="h-24 w-full object-cover" /> : <div className="flex h-24 items-center justify-center text-xs text-muted-foreground">Image unavailable</div>}
+                        </div>
+                        <p className="mt-2 text-xs text-muted-foreground">{image.altText}</p>
+                        <label className="mt-3 grid gap-1 text-xs font-medium">
+                          Zoom: {image.zoom.toFixed(2)}x
+                          <input type="range" min="1" max="3" step="0.05" value={image.zoom} onChange={(event) => updateImageDraft(image.id, { zoom: Number(event.target.value) })} />
+                        </label>
+                        <label className="mt-2 grid gap-1 text-xs font-medium">
+                          Horizontal position: {Math.round(image.positionX)}%
+                          <input type="range" min="0" max="100" step="1" value={image.positionX} onChange={(event) => updateImageDraft(image.id, { positionX: Number(event.target.value) })} />
+                        </label>
+                        <label className="mt-2 grid gap-1 text-xs font-medium">
+                          Vertical position: {Math.round(image.positionY)}%
+                          <input type="range" min="0" max="100" step="1" value={image.positionY} onChange={(event) => updateImageDraft(image.id, { positionY: Number(event.target.value) })} />
+                        </label>
+                        <button type="button" className="button button--primary mt-3 w-full text-xs" onClick={() => void saveImagePresentation(image)} disabled={cakeImageLoading}>Save image view</button>
+                        <button type="button" className="button button--secondary mt-3 w-full text-xs" onClick={() => void removeCakeImage(image.id)} disabled={cakeImageLoading}>Remove image</button>
+                      </div>
+                    )) : !cakeImageLoading ? <p className="rounded-md border border-dashed border-border p-3 text-sm text-muted-foreground">No product images yet. Add a main photograph for this cake.</p> : null}
+                  </div>
+                ) : null}
+              </div>
+            </aside>
+          </div>
+
         </section>
       ) : null}
 

@@ -11,6 +11,9 @@ export interface CakeImage {
   altText: string;
   displayPriority: number;
   isPrimary: boolean;
+  zoom: number;
+  positionX: number;
+  positionY: number;
   url: string | null;
 }
 

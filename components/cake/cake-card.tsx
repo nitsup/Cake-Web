@@ -11,13 +11,16 @@ export interface CakeCardProps {
   categoryHref?: string;
   imageUrl?: string | null;
   imageAlt?: string;
+  imagePositionX?: number;
+  imagePositionY?: number;
+  imageZoom?: number;
 }
 
-export function CakeCard({ name, description, category, href = "#contact", categoryHref = "/categories", imageUrl, imageAlt }: CakeCardProps) {
+export function CakeCard({ name, description, category, href = "#contact", categoryHref = "/categories", imageUrl, imageAlt, imagePositionX, imagePositionY, imageZoom }: CakeCardProps) {
   return (
     <Card className="cake-card group overflow-hidden p-2">
       <Link href={href} aria-label={`View ${name}`}>
-        <ImagePlaceholder src={imageUrl} alt={imageAlt ?? `${name} image`} className="aspect-[4/3]" />
+        <ImagePlaceholder src={imageUrl} alt={imageAlt ?? `${name} image`} positionX={imagePositionX} positionY={imagePositionY} zoom={imageZoom} className="aspect-[4/3]" />
       </Link>
       <div className="p-4 pb-5">
         <Link href={categoryHref} className="badge category-link">{category}</Link>

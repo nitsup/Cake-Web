@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import type { CakeAvailability } from "@/types/cake";
 import { z } from "zod";
 
+const CAKE_IMAGES_BUCKET_NAME = "cake-images";
+
 export type StaffCatalogueCake = {
   id: string;
   name: string;
@@ -29,6 +31,20 @@ export type StaffCatalogueCategory = {
   isActive: boolean;
 };
 
+export type StaffCatalogueCakeImage = {
+  id: string;
+  cakeId: string;
+  provider: string;
+  storageKey: string;
+  altText: string;
+  displayPriority: number;
+  isPrimary: boolean;
+  zoom: number;
+  positionX: number;
+  positionY: number;
+  url: string | null;
+};
+
 async function getCatalogueStaffActor() {
   const supabase = await createClient();
   const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -49,6 +65,26 @@ async function getCatalogueStaffActor() {
   }
 
   return supabase;
+}
+
+async function ensureCakeImagesBucket(supabase: Awaited<ReturnType<typeof createClient>>) {
+  const { data, error } = await supabase.storage.from(CAKE_IMAGES_BUCKET_NAME).list("", { limit: 1, offset: 0 });
+  if (error) {
+    const message = error.message ?? "";
+    if (/bucket.*not found|not.*valid bucket|does not exist/i.test(message)) {
+      throw new Error("The cake image storage bucket is not configured. Apply the SQL in .private/supabase/18_cake_image_storage.txt to your Supabase project before uploading product images.");
+    }
+    throw new Error("Unable to access the cake image storage bucket. Confirm that the bucket exists and your staff account can access it.");
+  }
+  return data ?? [];
+}
+
+async function resolveCakeImageUrl(supabase: Awaited<ReturnType<typeof createClient>>, storageKey: string | null | undefined) {
+  if (!storageKey) return null;
+  if (/^https?:\/\//i.test(storageKey)) return storageKey;
+  await ensureCakeImagesBucket(supabase);
+  const { data } = supabase.storage.from(CAKE_IMAGES_BUCKET_NAME).getPublicUrl(storageKey);
+  return data.publicUrl || null;
 }
 
 function mapCatalogueCake(cake: {
@@ -173,6 +209,238 @@ export async function getStaffCatalogueCategories(): Promise<StaffCatalogueCateg
     displayPriority: category.display_priority,
     isActive: category.is_active,
   }));
+}
+
+export async function getCakeImages(cakeId: string): Promise<StaffCatalogueCakeImage[]> {
+  const supabase = await getCatalogueStaffActor();
+  await ensureCakeImagesBucket(supabase);
+  const { data, error } = await supabase
+    .from("cake_images")
+    .select("id, cake_id, provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y")
+    .eq("cake_id", cakeId)
+    .order("display_priority", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  if (error) throw new Error("Unable to load the cake images.");
+
+  return Promise.all((data ?? []).map(async (image) => ({
+    id: image.id,
+    cakeId: image.cake_id,
+    provider: image.provider,
+    storageKey: image.storage_key,
+    altText: image.alt_text,
+    displayPriority: image.display_priority,
+    isPrimary: image.is_primary,
+    zoom: Number(image.crop_zoom ?? 1),
+    positionX: Number(image.crop_position_x ?? 50),
+    positionY: Number(image.crop_position_y ?? 50),
+    url: await resolveCakeImageUrl(supabase, image.storage_key),
+  })));
+}
+
+function getUploadedFileExtension(file: File) {
+  if (file.type === "image/jpeg") return "jpg";
+  if (file.type === "image/png") return "png";
+  if (file.type === "image/webp") return "webp";
+  return "jpg";
+}
+
+export async function uploadCakeImage(cakeId: string, file: File, altText?: string): Promise<StaffCatalogueCakeImage> {
+  const supabase = await getCatalogueStaffActor();
+  const { data: cake, error: cakeError } = await supabase
+    .from("cakes")
+    .select("id, name")
+    .eq("id", cakeId)
+    .maybeSingle();
+
+  if (cakeError) throw new Error("Unable to verify the selected cake.");
+  if (!cake) throw new Error("Cake not found.");
+
+  const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+  if (!allowedTypes.has(file.type) || file.size > 5 * 1024 * 1024) {
+    throw new Error("Use a JPG, PNG, or WebP image up to 5 MB.");
+  }
+
+  await ensureCakeImagesBucket(supabase);
+
+  const extension = getUploadedFileExtension(file);
+  const storageKey = `cakes/${cake.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extension}`;
+
+  const { error: uploadError } = await supabase.storage.from(CAKE_IMAGES_BUCKET_NAME).upload(storageKey, file, {
+    upsert: false,
+    contentType: file.type,
+    cacheControl: "3600",
+  });
+
+  if (uploadError) {
+    throw new Error("Unable to upload the product image.");
+  }
+
+  const { data: latestImage, error: latestError } = await supabase
+    .from("cake_images")
+    .select("display_priority")
+    .eq("cake_id", cakeId)
+    .order("display_priority", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const nextPriority = latestError || !latestImage ? 0 : Number(latestImage.display_priority) + 1;
+  const newPrimary = !latestImage;
+
+  const { data: imageRow, error: insertError } = await supabase
+    .from("cake_images")
+    .insert({
+      cake_id: cakeId,
+      provider: "supabase-storage",
+      storage_key: storageKey,
+      alt_text: altText?.trim() || `${cake.name} cake photo`,
+      display_priority: nextPriority,
+      is_primary: newPrimary,
+      crop_zoom: 1,
+      crop_position_x: 50,
+      crop_position_y: 50,
+    })
+    .select("id, cake_id, provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y")
+    .single();
+
+  if (insertError) {
+    await supabase.storage.from(CAKE_IMAGES_BUCKET_NAME).remove([storageKey]);
+    throw new Error("Unable to save the product image metadata.");
+  }
+
+  return {
+    id: imageRow.id,
+    cakeId: imageRow.cake_id,
+    provider: imageRow.provider,
+    storageKey: imageRow.storage_key,
+    altText: imageRow.alt_text,
+    displayPriority: imageRow.display_priority,
+    isPrimary: imageRow.is_primary,
+    zoom: Number(imageRow.crop_zoom ?? 1),
+    positionX: Number(imageRow.crop_position_x ?? 50),
+    positionY: Number(imageRow.crop_position_y ?? 50),
+    url: await resolveCakeImageUrl(supabase, imageRow.storage_key),
+  };
+}
+
+export async function setCakeImagePrimary(cakeId: string, imageId: string): Promise<StaffCatalogueCakeImage> {
+  const supabase = await getCatalogueStaffActor();
+  await ensureCakeImagesBucket(supabase);
+  const { data: imageRecord, error: imageError } = await supabase
+    .from("cake_images")
+    .select("id, cake_id, provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y")
+    .eq("cake_id", cakeId)
+    .eq("id", imageId)
+    .maybeSingle();
+
+  if (imageError) throw new Error("Unable to update the primary image.");
+  if (!imageRecord) throw new Error("Image not found.");
+
+  const { error: resetError } = await supabase.from("cake_images").update({ is_primary: false }).eq("cake_id", cakeId);
+  if (resetError) throw new Error("Unable to update the primary image.");
+
+  const { data: updatedImage, error: updateError } = await supabase
+    .from("cake_images")
+    .update({ is_primary: true })
+    .eq("cake_id", cakeId)
+    .eq("id", imageId)
+    .select("id, cake_id, provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y")
+    .single();
+
+  if (updateError) throw new Error("Unable to update the primary image.");
+
+  return {
+    id: updatedImage.id,
+    cakeId: updatedImage.cake_id,
+    provider: updatedImage.provider,
+    storageKey: updatedImage.storage_key,
+    altText: updatedImage.alt_text,
+    displayPriority: updatedImage.display_priority,
+    isPrimary: updatedImage.is_primary,
+    zoom: Number(updatedImage.crop_zoom ?? 1),
+    positionX: Number(updatedImage.crop_position_x ?? 50),
+    positionY: Number(updatedImage.crop_position_y ?? 50),
+    url: await resolveCakeImageUrl(supabase, updatedImage.storage_key),
+  };
+}
+
+export async function updateCakeImagePresentation(
+  cakeId: string,
+  imageId: string,
+  values: { zoom: number; positionX: number; positionY: number },
+): Promise<StaffCatalogueCakeImage> {
+  const supabase = await getCatalogueStaffActor();
+  await ensureCakeImagesBucket(supabase);
+  const { data, error } = await supabase
+    .from("cake_images")
+    .update({
+      crop_zoom: values.zoom,
+      crop_position_x: values.positionX,
+      crop_position_y: values.positionY,
+    })
+    .eq("cake_id", cakeId)
+    .eq("id", imageId)
+    .select("id, cake_id, provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y")
+    .maybeSingle();
+
+  if (error) throw new Error("Unable to save the image positioning.");
+  if (!data) throw new Error("Image not found.");
+
+  return {
+    id: data.id,
+    cakeId: data.cake_id,
+    provider: data.provider,
+    storageKey: data.storage_key,
+    altText: data.alt_text,
+    displayPriority: data.display_priority,
+    isPrimary: data.is_primary,
+    zoom: Number(data.crop_zoom ?? 1),
+    positionX: Number(data.crop_position_x ?? 50),
+    positionY: Number(data.crop_position_y ?? 50),
+    url: await resolveCakeImageUrl(supabase, data.storage_key),
+  };
+}
+
+export async function deleteCakeImage(cakeId: string, imageId: string): Promise<void> {
+  const supabase = await getCatalogueStaffActor();
+  await ensureCakeImagesBucket(supabase);
+  const { data: imageRecord, error: imageError } = await supabase
+    .from("cake_images")
+    .select("id, cake_id, storage_key, is_primary")
+    .eq("cake_id", cakeId)
+    .eq("id", imageId)
+    .maybeSingle();
+
+  if (imageError) throw new Error("Unable to remove the product image.");
+  if (!imageRecord) throw new Error("Image not found.");
+
+  if (imageRecord.is_primary) {
+    const { data: nextImage, error: nextImageError } = await supabase
+      .from("cake_images")
+      .select("id")
+      .eq("cake_id", cakeId)
+      .neq("id", imageId)
+      .order("display_priority", { ascending: true })
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+
+    if (!nextImageError && nextImage) {
+      const { error: promoteError } = await supabase
+        .from("cake_images")
+        .update({ is_primary: true })
+        .eq("cake_id", cakeId)
+        .eq("id", nextImage.id);
+
+      if (promoteError) throw new Error("Unable to assign a fallback primary image.");
+    }
+  }
+
+  const { error: storageError } = await supabase.storage.from(CAKE_IMAGES_BUCKET_NAME).remove([imageRecord.storage_key]);
+  if (storageError) throw new Error("Unable to remove the product image from storage.");
+
+  const { error: deleteError } = await supabase.from("cake_images").delete().eq("cake_id", cakeId).eq("id", imageId);
+  if (deleteError) throw new Error("Unable to remove the product image metadata.");
 }
 
 function createCategorySlug(name: string) {

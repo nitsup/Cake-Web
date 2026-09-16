@@ -21,6 +21,9 @@ export function CakeGrid({ cakes, animated = false }: CakeGridProps) {
             href={`/cakes/${cake.slug}`}
             imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
             imageAlt={cake.primaryImage?.altText}
+            imagePositionX={cake.primaryImage?.positionX}
+            imagePositionY={cake.primaryImage?.positionY}
+            imageZoom={cake.primaryImage?.zoom}
           />
         </Reveal> : <CakeCard
           key={cake.id}
@@ -31,6 +34,9 @@ export function CakeGrid({ cakes, animated = false }: CakeGridProps) {
           href={`/cakes/${cake.slug}`}
           imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
           imageAlt={cake.primaryImage?.altText}
+          imagePositionX={cake.primaryImage?.positionX}
+          imagePositionY={cake.primaryImage?.positionY}
+          imageZoom={cake.primaryImage?.zoom}
         />
       ))}
     </div>
