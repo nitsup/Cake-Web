@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getLocalPrimaryImageUrl, getPublicCakeBySlug } from "@/services/cake-catalog";
-import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import { WeightSelector } from "@/components/cake/weight-selector";
 import { Card } from "@/components/ui/card";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 
@@ -49,11 +49,11 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
           <h1 className="display-heading mt-5 max-w-xl text-5xl md:text-6xl">{cake.name}</h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">{cake.shortDescription}</p>
           <div className="mt-8 flex flex-wrap items-baseline gap-3" aria-label="Price">
-            <span className="text-2xl font-semibold">{formatPrice(cake.salePrice ?? cake.basePrice)}</span>
+            <span className="text-2xl font-semibold">{formatPrice(cake.weightOptions.find((option) => option.isAvailable)?.price ?? cake.salePrice ?? cake.basePrice)}</span>
             {hasSalePrice ? <span className="text-sm text-muted-foreground line-through">{formatPrice(cake.basePrice)}</span> : null}
           </div>
           <p className="mt-3 text-sm font-semibold text-accent">Available to add to your cart</p>
-          <AddToCartButton cakeId={cake.id} />
+          <WeightSelector options={cake.weightOptions} basePrice={cake.salePrice ?? cake.basePrice} cakeId={cake.id} />
         </div>
       </section>
       <section className="border-y border-border bg-muted/60">

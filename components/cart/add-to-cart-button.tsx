@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export function AddToCartButton({ cakeId }: { cakeId: string }) {
+export function AddToCartButton({ cakeId, weightOptionId, disabled = false }: { cakeId: string; weightOptionId?: string | null; disabled?: boolean }) {
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [message, setMessage] = useState<string | null>(null);
 
@@ -13,7 +13,7 @@ export function AddToCartButton({ cakeId }: { cakeId: string }) {
       const response = await fetch("/api/cart", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ action: "add", cakeId, quantity: 1 }),
+        body: JSON.stringify({ action: "add", cakeId, quantity: 1, weightOptionId: weightOptionId ?? null }),
       });
       const result = (await response.json()) as { error?: string };
       if (!response.ok) throw new Error(result.error ?? "Unable to add this cake to your cart.");
@@ -26,7 +26,7 @@ export function AddToCartButton({ cakeId }: { cakeId: string }) {
 
   return (
     <div className="mt-8">
-      <button type="button" className="button button--primary" onClick={() => void addToCart()} disabled={status === "loading"}>
+      <button type="button" className="button button--primary" onClick={() => void addToCart()} disabled={disabled || status === "loading"}>
         {status === "loading" ? "Adding..." : status === "success" ? "Added to cart" : "Add to cart"}
       </button>
       {status === "success" ? <a href="/cart" className="ml-3 text-sm font-semibold text-accent underline underline-offset-4">View cart</a> : null}

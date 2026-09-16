@@ -4,6 +4,40 @@ import { z } from "zod";
 
 const CAKE_IMAGES_BUCKET_NAME = "cake-images";
 
+export const cakeWeightOptionSchema = z.object({
+  weightAmount: z.number().positive(),
+  weightUnit: z.enum(["g", "kg"]),
+  label: z.string().trim().min(1).max(80),
+  price: z.number().min(0),
+  isAvailable: z.boolean().default(true),
+  displayPriority: z.number().int().min(0).default(0),
+});
+
+export async function getCakeWeightOptions(cakeId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("cake_weight_options").select("id, cake_id, weight_amount, weight_unit, label, price, is_available, display_priority").eq("cake_id", cakeId).order("display_priority").order("created_at");
+  if (error) throw new Error("Unable to load cake weight options.");
+  return data ?? [];
+}
+
+export async function saveCakeWeightOption(cakeId: string, optionId: string | null, input: unknown) {
+  const actor = await getCatalogueStaffActor();
+  const values = cakeWeightOptionSchema.parse(input);
+  const payload = { cake_id: cakeId, weight_amount: values.weightAmount, weight_unit: values.weightUnit, label: values.label, price: values.price, is_available: values.isAvailable, display_priority: values.displayPriority };
+  const query = optionId
+    ? actor.from("cake_weight_options").update(payload).eq("id", optionId).eq("cake_id", cakeId)
+    : actor.from("cake_weight_options").insert(payload);
+  const { data, error } = await query.select().single();
+  if (error) throw new Error(error.code === "23505" ? "A weight with this amount already exists for this cake." : "Unable to save cake weight option.");
+  return data;
+}
+
+export async function deleteCakeWeightOption(cakeId: string, optionId: string) {
+  const actor = await getCatalogueStaffActor();
+  const { error } = await actor.from("cake_weight_options").delete().eq("id", optionId).eq("cake_id", cakeId);
+  if (error) throw new Error(error.code === "23503" ? "This weight is already used by an order or cart item." : "Unable to remove cake weight option.");
+}
+
 export type StaffCatalogueCake = {
   id: string;
   name: string;

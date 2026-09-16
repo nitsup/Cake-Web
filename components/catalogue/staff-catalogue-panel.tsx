@@ -11,6 +11,7 @@ type CakeForm = Omit<StaffCatalogueCake, "id" | "categoryName" | "categorySlug" 
   categoryId: string;
 };
 type CategoryForm = { name: string; description: string; displayPriority: string };
+type WeightOption = { id: string; weight_amount: number; weight_unit: "g" | "kg"; label: string; price: number; is_available: boolean; display_priority: number };
 
 function formatMoney(value: number) {
   return `₹${value.toFixed(2)}`;
@@ -95,7 +96,50 @@ export function StaffCataloguePanel({
   const [cakeImages, setCakeImages] = useState<StaffCatalogueCakeImage[]>([]);
   const [cakeImageError, setCakeImageError] = useState<string | null>(null);
   const [cakeImageLoading, setCakeImageLoading] = useState(false);
+  const [weightOptions, setWeightOptions] = useState<WeightOption[]>([]);
+  const [weightDraft, setWeightDraft] = useState({ weightAmount: "", weightUnit: "g" as "g" | "kg", label: "", price: "", isAvailable: true, displayPriority: "0" });
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function loadWeightOptions(cakeId: string) {
+    const result = await readResult<{ options?: WeightOption[] }>(await fetch(`/api/admin/catalogue/${cakeId}/weights`));
+    setWeightOptions(result.options ?? []);
+  }
+
+  async function saveWeightOption(event: React.FormEvent) {
+    event.preventDefault();
+    if (!editingCake) return;
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/weights`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...weightDraft, weightAmount: Number(weightDraft.weightAmount), price: Number(weightDraft.price), displayPriority: Number(weightDraft.displayPriority) }),
+      });
+      await readResult(response);
+      setWeightDraft({ weightAmount: "", weightUnit: "g", label: "", price: "", isAvailable: true, displayPriority: "0" });
+      await loadWeightOptions(editingCake);
+      setNotice({ tone: "success", text: "Weight option saved." });
+    } catch (error) {
+      setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to save the weight option." });
+    }
+  }
+
+  async function toggleWeightOption(option: WeightOption) {
+    if (!editingCake) return;
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/weights`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ id: option.id, weightAmount: option.weight_amount, weightUnit: option.weight_unit, label: option.label, price: option.price, isAvailable: !option.is_available, displayPriority: option.display_priority }) });
+      await readResult(response);
+      await loadWeightOptions(editingCake);
+    } catch (error) { setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to update the weight option." }); }
+  }
+
+  async function removeWeightOption(id: string) {
+    if (!editingCake) return;
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/weights`, { method: "DELETE", headers: { "content-type": "application/json" }, body: JSON.stringify({ id }) });
+      await readResult(response);
+      await loadWeightOptions(editingCake);
+    } catch (error) { setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to remove the weight option." }); }
+  }
 
   async function uploadCakeImage(file: File) {
     if (!editingCake) return;
@@ -326,7 +370,7 @@ export function StaffCataloguePanel({
                   <td className="px-3 py-4">{formatMoney(cake.salePrice ?? cake.basePrice)}</td>
                   <td className="px-3 py-4">{cake.isActive ? "Active" : "Inactive"} / {cake.availability}</td>
                   <td className="px-3 py-4">{cake.isFeatured ? "Featured" : "Standard"} / priority {cake.displayPriority}</td>
-                  <td className="px-3 py-4 text-right"><button type="button" className="button button--secondary text-xs" onClick={async () => { setCreatingCake(false); setEditingCake(cake.id); setCakeForm(toCakeForm(cake, categories)); setCakeImages([]); await loadCakeMediaForEdit(cake.id, setCakeImages, setCakeImageError, setCakeImageLoading); }}>Edit</button></td>
+                  <td className="px-3 py-4 text-right"><button type="button" className="button button--secondary text-xs" onClick={async () => { setCreatingCake(false); setEditingCake(cake.id); setCakeForm(toCakeForm(cake, categories)); setCakeImages([]); await Promise.all([loadCakeMediaForEdit(cake.id, setCakeImages, setCakeImageError, setCakeImageLoading), loadWeightOptions(cake.id)]); }}>Edit</button></td>
                 </tr>
               ))}
             </tbody>
@@ -364,6 +408,18 @@ export function StaffCataloguePanel({
             </form>
 
             <aside className="xl:pt-1">
+              {editingCake ? <div className="mb-6 rounded-xl border border-border bg-background/60 p-4">
+                <h3 className="text-lg font-semibold">Weight options</h3>
+                <p className="mt-1 text-xs text-muted-foreground">Customers must choose an available option before adding this cake.</p>
+                <div className="mt-3 space-y-2">{weightOptions.map((option) => <div key={option.id} className="flex items-center justify-between gap-2 rounded-md border p-2 text-sm"><span>{option.label} · {formatMoney(Number(option.price))}</span><span className="flex gap-2"><button type="button" className="button button--ghost text-xs" onClick={() => void toggleWeightOption(option)}>{option.is_available ? "Disable" : "Enable"}</button><button type="button" className="button button--ghost text-xs" onClick={() => void removeWeightOption(option.id)}>Remove</button></span></div>)}</div>
+                <form className="mt-4 grid gap-2" onSubmit={(event) => void saveWeightOption(event)}>
+                  <div className="grid grid-cols-2 gap-2"><input required type="number" min="0.001" step="0.001" placeholder="Amount" className="input" value={weightDraft.weightAmount} onChange={(event) => setWeightDraft({ ...weightDraft, weightAmount: event.target.value })} /><select className="input" value={weightDraft.weightUnit} onChange={(event) => setWeightDraft({ ...weightDraft, weightUnit: event.target.value as "g" | "kg" })}><option value="g">g</option><option value="kg">kg</option></select></div>
+                  <input required placeholder="Customer label" className="input" value={weightDraft.label} onChange={(event) => setWeightDraft({ ...weightDraft, label: event.target.value })} />
+                  <input required type="number" min="0" step="0.01" placeholder="Selling price" className="input" value={weightDraft.price} onChange={(event) => setWeightDraft({ ...weightDraft, price: event.target.value })} />
+                  <input required type="number" min="0" step="1" placeholder="Display order" className="input" value={weightDraft.displayPriority} onChange={(event) => setWeightDraft({ ...weightDraft, displayPriority: event.target.value })} />
+                  <button className="button button--secondary text-xs">Add weight option</button>
+                </form>
+              </div> : null}
               <div className="sticky top-4 rounded-xl border border-border bg-background/60 p-4 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
                   <div>

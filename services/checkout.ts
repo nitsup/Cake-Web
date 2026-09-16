@@ -14,6 +14,8 @@ export type CheckoutPreparationItem = {
   unitPrice: number;
   lineTotal: number;
   customization: Record<string, never>;
+  weightOptionId: string | null;
+  weightLabel: string | null;
   valid: boolean;
   errors: string[];
 };
@@ -70,7 +72,7 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
 
   const { data: rows, error: itemError } = await supabase
     .from("cart_items")
-    .select("id, cart_id, cake_id, quantity, customization")
+    .select("id, cart_id, cake_id, weight_option_id, quantity, customization")
     .eq("cart_id", cart.id)
     .order("created_at", { ascending: true });
 
@@ -98,7 +100,7 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
   const cakeIds = cartItems.map((item) => item.cake_id);
   const { data: cakes, error: cakeError } = await supabase
     .from("cakes")
-    .select("id, name, slug, base_price, sale_price, is_active, availability, category:cake_categories!inner(is_active)")
+    .select("id, name, slug, base_price, sale_price, is_active, availability, category:cake_categories!inner(is_active), cake_weight_options(id, label, price, is_available)")
     .in("id", cakeIds);
 
   if (cakeError) {
@@ -134,7 +136,12 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
       itemErrors.push("Unsupported customization is present.");
     }
 
-    const unitPrice = cake ? Number(cake.sale_price ?? cake.base_price) : 0;
+    const weightOptions = (cake as { cake_weight_options?: { id: string; label: string; price: number; is_available: boolean }[] } | undefined)?.cake_weight_options ?? [];
+    const selectedWeight = weightOptions.find((option) => option.id === row.weight_option_id);
+    if (weightOptions.some((option) => option.is_available) && (!selectedWeight || !selectedWeight.is_available)) {
+      itemErrors.push("The selected cake weight is unavailable.");
+    }
+    const unitPrice = selectedWeight ? Number(selectedWeight.price) : cake ? Number(cake.sale_price ?? cake.base_price) : 0;
     const lineTotal = unitPrice * Number(row.quantity || 0);
     const isValid = itemErrors.length === 0;
 
@@ -156,6 +163,8 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
       unitPrice,
       lineTotal,
       customization: row.customization ?? {},
+      weightOptionId: row.weight_option_id,
+      weightLabel: selectedWeight?.label ?? null,
       valid: isValid,
       errors: itemErrors,
     });

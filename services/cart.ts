@@ -23,7 +23,6 @@ type RawCake = {
   is_active: boolean;
   availability: "available" | "unavailable";
   category: { is_active: boolean }[] | null;
-  cake_weight_options: { id: string; label: string; price: number; is_available: boolean }[] | null;
 };
 
 export function validateCartQuantity(value: unknown) {
@@ -63,17 +62,28 @@ export async function getCurrentUserCart(): Promise<Cart> {
   const supabase = await createClient();
   const { data: cakes, error } = await supabase
     .from("cakes")
-    .select("id, name, slug, base_price, sale_price, is_active, availability, category:cake_categories!inner(is_active), cake_weight_options(id, label, price, is_available)")
+    .select("id, name, slug, base_price, sale_price, is_active, availability, category:cake_categories!inner(is_active)")
     .in("id", items.map((item) => item.cake_id));
   if (error) throw new Error("Unable to validate your cart prices.");
 
   const cakeMap = new Map((cakes as RawCake[]).map((cake) => [cake.id, cake]));
+  const weightIds = items.flatMap((item) => item.weight_option_id ? [item.weight_option_id] : []);
+  const { data: weights, error: weightError } = weightIds.length
+    ? await supabase.from("cake_weight_options").select("id, cake_id, label, price, is_available").in("id", weightIds)
+    : { data: [], error: null };
+  if (weightError) throw new Error("Unable to validate your cart weights.");
+  const weightMap = new Map((weights ?? []).map((weight) => [weight.id, weight]));
   const mappedItems: CartItem[] = [];
   for (const item of items) {
     const cake = cakeMap.get(item.cake_id);
-    if (!cake || !cake.is_active || cake.availability !== "available" || !cake.category?.[0]?.is_active) continue;
-    const weight = cake.cake_weight_options?.find((option) => option.id === item.weight_option_id);
-    if (cake.cake_weight_options?.some((option) => option.is_available) && (!weight || !weight.is_available)) continue;
+    if (!cake) throw new Error("A cake in your cart is no longer available.");
+    if (!cake.is_active || cake.availability !== "available" || !cake.category?.[0]?.is_active) {
+      throw new Error(`${cake.name} is no longer available.`);
+    }
+    const weight = item.weight_option_id ? weightMap.get(item.weight_option_id) : null;
+    if (item.weight_option_id && (!weight || weight.cake_id !== item.cake_id || !weight.is_available)) {
+      throw new Error(`The selected weight for ${cake.name} is no longer available.`);
+    }
     mappedItems.push({
       id: item.id,
       cakeId: item.cake_id,
