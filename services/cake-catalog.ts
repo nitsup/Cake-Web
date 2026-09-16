@@ -34,8 +34,6 @@ type RawCakeDetail = RawCake & {
   is_featured: boolean;
 };
 
-export { getLocalPrimaryImageUrl } from "@/lib/local-cake-images";
-
 async function mapPrimaryImage(supabase: Awaited<ReturnType<typeof createClient>>, images: RawCakeImage[] | null) {
   const image = images?.find((candidate) => candidate.is_primary) ?? null;
   if (!image) return null;

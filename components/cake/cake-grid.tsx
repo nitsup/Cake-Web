@@ -1,5 +1,4 @@
 import { CakeCard } from "@/components/cake/cake-card";
-import { getLocalPrimaryImageUrl } from "@/lib/local-cake-images";
 import { Reveal } from "@/components/ui/reveal";
 import type { CakeSummary } from "@/types/cake";
 
@@ -19,7 +18,7 @@ export function CakeGrid({ cakes, animated = false }: CakeGridProps) {
             category={cake.category.name}
             categoryHref={`/cakes?category=${encodeURIComponent(cake.category.slug)}`}
             href={`/cakes/${cake.slug}`}
-            imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
+            imageUrl={cake.primaryImage?.url}
             imageAlt={cake.primaryImage?.altText}
             imagePositionX={cake.primaryImage?.positionX}
             imagePositionY={cake.primaryImage?.positionY}
@@ -32,7 +31,7 @@ export function CakeGrid({ cakes, animated = false }: CakeGridProps) {
           category={cake.category.name}
           categoryHref={`/cakes?category=${encodeURIComponent(cake.category.slug)}`}
           href={`/cakes/${cake.slug}`}
-          imageUrl={getLocalPrimaryImageUrl(cake.slug) ?? cake.primaryImage?.url}
+          imageUrl={cake.primaryImage?.url}
           imageAlt={cake.primaryImage?.altText}
           imagePositionX={cake.primaryImage?.positionX}
           imagePositionY={cake.primaryImage?.positionY}

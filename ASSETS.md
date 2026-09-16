@@ -14,9 +14,7 @@ Asset filenames may suggest their content, but assets should not be assigned to 
 public/
 ├── branding/
 ├── cakes/
-│   ├── birthday_rainbow_cake.png
 │   ├── choclate_cake_slice.png
-│   ├── Good_choclate_cake.jpeg
 │   └── table_of_cakes.png
 ├── categories/
 │   ├── Goodlooking_grapes.png
