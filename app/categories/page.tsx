@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { getPublicCakes } from "@/services/cake-catalog";
 
 export const metadata = {
-  title: "Categories",
+  title: "Find your cake",
   description: "Search the Cake Web collection by cake name, flavor, or occasion.",
 };
 

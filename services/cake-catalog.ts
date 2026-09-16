@@ -56,7 +56,10 @@ async function mapPrimaryImage(supabase: Awaited<ReturnType<typeof createClient>
   };
 }
 
-export async function getPublicCakes(categorySlug?: string): Promise<CakeSummary[]> {
+export async function getPublicCakes(
+  categorySlug?: string,
+  options: { limit?: number } = {},
+): Promise<CakeSummary[]> {
   const supabase = await createClient();
   let selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y)";
 
@@ -75,9 +78,15 @@ export async function getPublicCakes(categorySlug?: string): Promise<CakeSummary
   }
   query = query.eq("category.is_active", true);
 
-  const { data, error } = await query
+  let orderedQuery = query
+    .order("is_featured", { ascending: false })
     .order("display_priority", { ascending: true })
     .order("name", { ascending: true });
+  if (options.limit !== undefined) {
+    orderedQuery = orderedQuery.limit(options.limit);
+  }
+
+  const { data, error } = await orderedQuery;
 
   if (error) {
     throw new Error("Unable to load the cake catalog.");

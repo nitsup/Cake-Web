@@ -14,7 +14,7 @@ const categories = [
 ];
 
 export default async function Home() {
-  const featuredCakes = await getPublicCakes().catch(() => []);
+  const featuredCakes = await getPublicCakes(undefined, { limit: 3 }).catch(() => []);
 
   return (
     <div className="overflow-hidden">
