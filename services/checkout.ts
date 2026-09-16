@@ -126,7 +126,8 @@ export async function prepareCheckoutForCurrentUser(input: { cartRevision?: numb
     if (cake && cake.availability !== "available") {
       itemErrors.push("Cake is unavailable.");
     }
-    if (cake && !cake.category?.[0]?.is_active) {
+    const category = cake ? (Array.isArray(cake.category) ? cake.category[0] : cake.category) : null;
+    if (cake && !category?.is_active) {
       itemErrors.push("Cake category is inactive.");
     }
     if (row.quantity < 1 || row.quantity > 20) {

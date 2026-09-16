@@ -22,7 +22,7 @@ type RawCake = {
   sale_price: number | null;
   is_active: boolean;
   availability: "available" | "unavailable";
-  category: { is_active: boolean }[] | null;
+  category: { is_active: boolean } | { is_active: boolean }[] | null;
 };
 
 export function validateCartQuantity(value: unknown) {
@@ -77,7 +77,8 @@ export async function getCurrentUserCart(): Promise<Cart> {
   for (const item of items) {
     const cake = cakeMap.get(item.cake_id);
     if (!cake) throw new Error("A cake in your cart is no longer available.");
-    if (!cake.is_active || cake.availability !== "available" || !cake.category?.[0]?.is_active) {
+    const category = Array.isArray(cake.category) ? cake.category[0] : cake.category;
+    if (!cake.is_active || cake.availability !== "available" || !category?.is_active) {
       throw new Error(`${cake.name} is no longer available.`);
     }
     const weight = item.weight_option_id ? weightMap.get(item.weight_option_id) : null;
