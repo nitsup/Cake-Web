@@ -36,7 +36,7 @@ export function CartPanel({ initialCart }: { initialCart: Cart }) {
       <div className="mt-8 grid gap-3">
         {cart.items.map((item) => (
           <div key={item.id} className="flex flex-wrap items-center justify-between gap-4 rounded-md border p-4">
-            <div><Link href={`/cakes/${item.cakeSlug}`} className="font-semibold hover:text-accent">{item.cakeName}</Link><p className="text-sm text-muted-foreground">₹{item.unitPrice.toFixed(2)} each</p></div>
+            <div><Link href={`/cakes/${item.cakeSlug}`} className="font-semibold hover:text-accent">{item.cakeName}</Link>{item.weightLabel ? <p className="text-sm text-muted-foreground">Weight: {item.weightLabel}</p> : null}<p className="text-sm text-muted-foreground">₹{item.unitPrice.toFixed(2)} each</p></div>
             <div className="flex items-center gap-2">
               <button type="button" className="icon-button" onClick={() => void update({ action: "update", itemId: item.id, quantity: item.quantity - 1 }, item.id)} disabled={busyItemId !== null || item.quantity <= 1} aria-label={`Decrease ${item.cakeName}`}>−</button>
               <span className="w-6 text-center">{item.quantity}</span>

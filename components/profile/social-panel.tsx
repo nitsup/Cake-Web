@@ -21,8 +21,13 @@ export function SocialPanel({
   const [requestingUserId, setRequestingUserId] = useState<string | null>(null);
   const [requestedUserIds, setRequestedUserIds] = useState<Set<string>>(new Set());
   const [pendingRemoval, setPendingRemoval] = useState<PublicProfile | null>(null);
+  const [dismissedRelationshipIds, setDismissedRelationshipIds] = useState<Set<string>>(new Set());
   const prefersReducedMotion = useReducedMotion();
   const acceptedPartnerCount = relationships.filter((relationship) => relationship.status === "accepted").length;
+
+  function dismissRelationship(id: string) {
+    window.setTimeout(() => setDismissedRelationshipIds((current) => new Set(current).add(id)), 1200);
+  }
 
   async function search(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -106,8 +111,9 @@ export function SocialPanel({
         <p className="eyebrow">Connections</p>
         <h2 className="mt-2 text-xl font-semibold">Your partner requests.</h2>
         <div className="mt-4 grid gap-2">
-          {relationships.map((relationship) => (
-            <div key={relationship.id} className="rounded-md border p-3">
+          {relationships.filter((relationship) => !dismissedRelationshipIds.has(relationship.id)).map((relationship) => (
+            <div key={relationship.id} className={`relative overflow-hidden rounded-md border p-3 ${relationship.status === "rejected" || relationship.status === "cancelled" ? "relationship-dismiss-animation" : ""}`} onAnimationEnd={() => { if (relationship.status === "rejected" || relationship.status === "cancelled") dismissRelationship(relationship.id); }}>
+              {relationship.status === "rejected" || relationship.status === "cancelled" ? <div className="relationship-dismiss-overlay">Request denied</div> : null}
               <div className="flex items-center justify-between gap-3">
                 {relationship.otherProfile?.username ? (
                   <Link href={`/profile/${relationship.otherProfile.username}`} className="font-semibold">

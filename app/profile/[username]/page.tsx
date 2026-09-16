@@ -14,7 +14,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
       <section className="surface-card mx-auto max-w-2xl p-8">
         <p className="eyebrow">Public profile</p>
         <div className="mt-5 flex items-center gap-4">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full border bg-muted text-2xl font-semibold text-muted-foreground">{(profile.displayName?.[0] ?? profile.username[0]).toUpperCase()}</div>
+          <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border bg-muted text-2xl font-semibold text-muted-foreground">{profile.avatarUrl ? <img src={profile.avatarUrl} alt="" className="h-full w-full object-cover" /> : (profile.displayName?.[0] ?? profile.username[0]).toUpperCase()}</div>
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">{profile.displayName || profile.username}</h1>
             <p className="text-muted-foreground">@{profile.username}</p>

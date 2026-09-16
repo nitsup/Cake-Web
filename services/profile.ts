@@ -42,10 +42,10 @@ export async function getProfileByUserId(userId: string): Promise<Profile | null
   const extendedProfile = extendedData as Pick<RawProfile, "username" | "bio" | "website" | "avatar_path"> | null;
   let avatarUrl: string | null = null;
   if (extendedProfile?.avatar_path) {
-    const { data: signedUrl } = await supabase.storage
+    const { data: publicUrl } = supabase.storage
       .from("profile-avatars")
-      .createSignedUrl(extendedProfile.avatar_path, 60 * 10);
-    avatarUrl = signedUrl?.signedUrl ?? null;
+      .getPublicUrl(extendedProfile.avatar_path);
+    avatarUrl = publicUrl.publicUrl ?? null;
   }
 
   return {

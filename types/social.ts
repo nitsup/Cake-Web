@@ -6,6 +6,7 @@ export interface PublicProfile {
   displayName: string | null;
   bio: string | null;
   website: string | null;
+  avatarUrl: string | null;
 }
 
 export interface PartnerRelationship {

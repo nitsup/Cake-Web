@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { CakeDetail, CakeSummary } from "@/types/cake";
+import type { CakeDetail, CakeSummary, CakeWeightOption } from "@/types/cake";
 
 type RawCake = {
   id: string;
@@ -11,7 +11,12 @@ type RawCake = {
   availability: "available" | "unavailable";
   category: { name: string; slug: string } | null;
   cake_images: RawCakeImage[] | null;
+  cake_weight_options: RawWeightOption[] | null;
 };
+type RawWeightOption = { id: string; weight_amount: number; weight_unit: "g" | "kg"; label: string; price: number; is_available: boolean; display_priority: number };
+function mapWeightOptions(options: RawWeightOption[] | null): CakeWeightOption[] {
+  return (options ?? []).map((option) => ({ id: option.id, weightAmount: Number(option.weight_amount), weightUnit: option.weight_unit, label: option.label, price: Number(option.price), isAvailable: option.is_available, displayPriority: option.display_priority }));
+}
 
 type RawCakeImage = {
   provider: string;
@@ -61,10 +66,10 @@ export async function getPublicCakes(
   options: { limit?: number } = {},
 ): Promise<CakeSummary[]> {
   const supabase = await createClient();
-  let selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y)";
+  let selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y), cake_weight_options(id, weight_amount, weight_unit, label, price, is_available, display_priority)";
 
   if (categorySlug) {
-    selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y)";
+    selectClause = "id, name, slug, short_description, base_price, sale_price, availability, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y), cake_weight_options(id, weight_amount, weight_unit, label, price, is_available, display_priority)";
   }
 
   let query = supabase
@@ -109,7 +114,7 @@ export async function getPublicCakeBySlug(slug: string): Promise<CakeDetail | nu
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cakes")
-    .select("id, name, slug, short_description, full_description, base_price, sale_price, availability, is_featured, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y)")
+    .select("id, name, slug, short_description, full_description, base_price, sale_price, availability, is_featured, category:cake_categories!inner(name, slug), cake_images(provider, storage_key, alt_text, display_priority, is_primary, crop_zoom, crop_position_x, crop_position_y), cake_weight_options(id, weight_amount, weight_unit, label, price, is_available, display_priority)")
     .eq("slug", slug)
     .eq("is_active", true)
     .eq("availability", "available")
@@ -138,5 +143,6 @@ export async function getPublicCakeBySlug(slug: string): Promise<CakeDetail | nu
     availability: cake.availability,
     isFeatured: cake.is_featured,
     primaryImage: await mapPrimaryImage(supabase, cake.cake_images),
+    weightOptions: mapWeightOptions(cake.cake_weight_options),
   };
 }

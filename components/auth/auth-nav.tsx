@@ -14,10 +14,18 @@ export function AuthNav() {
   const [isClosing, setIsClosing] = useState(false);
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [canAccessAdmin, setCanAccessAdmin] = useState(false);
+  const [pendingRequests, setPendingRequests] = useState(0);
 
   useEffect(() => {
     const supabase = createClient();
-    void supabase.auth.getUser().then(({ data }) => setIsAuthenticated(Boolean(data.user)));
+    void supabase.auth.getUser().then(({ data }) => {
+      setIsAuthenticated(Boolean(data.user));
+      if (data.user) {
+        void fetch("/api/profile/session").then((response) => response.json()).then((result: { canAccessAdmin?: boolean }) => setCanAccessAdmin(Boolean(result.canAccessAdmin)));
+        void fetch("/api/partners/pending-count").then((response) => response.json()).then((result: { count?: number }) => setPendingRequests(result.count ?? 0));
+      }
+    });
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => setIsAuthenticated(Boolean(session?.user)));
     return () => listener.subscription.unsubscribe();
   }, []);
@@ -90,8 +98,9 @@ export function AuthNav() {
             <span className="eyebrow">Your space</span>
             <strong>{isAuthenticated ? "Welcome back" : "Cake Web"}</strong>
           </div>
+          {canAccessAdmin ? <Link href="/admin" className="account-menu__item font-semibold text-accent" role="menuitem" onClick={closeMenu}>Admin workspace</Link> : null}
           <Link href="/" className="account-menu__item" role="menuitem" onClick={closeMenu}>Home</Link>
-          <Link href={isAuthenticated ? "/profile" : "/login"} className="account-menu__item" role="menuitem" onClick={closeMenu}>{isAuthenticated ? "Profile" : "Log in"}</Link>
+          <Link href={isAuthenticated ? "/profile" : "/login"} className="account-menu__item relative" role="menuitem" onClick={closeMenu}>{isAuthenticated ? "Profile" : "Log in"}{pendingRequests > 0 ? <span className="notification-pulse" aria-label={`${pendingRequests} pending partner requests`}><span>{pendingRequests > 9 ? "9+" : pendingRequests}</span></span> : null}</Link>
           <Link href="/preferences" className="account-menu__item" role="menuitem" onClick={closeMenu}>Preferences</Link>
           {isAuthenticated ? <button type="button" className="account-menu__item account-menu__logout" role="menuitem" onClick={() => setIsLogoutConfirmOpen(true)}>Log out</button> : null}
         </div>

@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { addCartItem, clearCurrentUserCart, getCurrentUserCart, removeCartItem, updateCartItem } from "@/services/cart";
 
 const actionSchema = z.discriminatedUnion("action", [
-  z.object({ action: z.literal("add"), cakeId: z.string().uuid(), quantity: z.number().int().optional(), customization: z.record(z.string(), z.unknown()).optional() }),
+  z.object({ action: z.literal("add"), cakeId: z.string().uuid(), quantity: z.number().int().optional(), weightOptionId: z.string().uuid().nullable().optional(), customization: z.record(z.string(), z.unknown()).optional() }),
   z.object({ action: z.literal("update"), itemId: z.string().uuid(), quantity: z.number().int() }),
   z.object({ action: z.literal("remove"), itemId: z.string().uuid() }),
   z.object({ action: z.literal("clear") }),
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   try {
     const action = parsed.data;
     const cart = action.action === "add"
-      ? await addCartItem(action.cakeId, action.quantity ?? 1, action.customization ?? {})
+      ? await addCartItem(action.cakeId, action.quantity ?? 1, action.weightOptionId ?? null, action.customization ?? {})
       : action.action === "update"
         ? await updateCartItem(action.itemId, action.quantity)
         : action.action === "remove"

@@ -1,5 +1,17 @@
 export type CakeAvailability = "available" | "unavailable";
 
+export type CakeWeightUnit = "g" | "kg";
+
+export interface CakeWeightOption {
+  id: string;
+  weightAmount: number;
+  weightUnit: CakeWeightUnit;
+  label: string;
+  price: number;
+  isAvailable: boolean;
+  displayPriority: number;
+}
+
 export interface CakeCategoryReference {
   name: string;
   slug: string;
@@ -32,4 +44,5 @@ export interface CakeDetail extends CakeSummary {
   fullDescription: string | null;
   salePrice: number | null;
   isFeatured: boolean;
+  weightOptions: CakeWeightOption[];
 }

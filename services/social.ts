@@ -7,6 +7,7 @@ type RawPublicProfile = {
   display_name: string | null;
   bio: string | null;
   website: string | null;
+  avatar_path: string | null;
 };
 
 type RawRelationship = {
@@ -32,7 +33,14 @@ function mapPublicProfile(profile: RawPublicProfile): PublicProfile {
     displayName: profile.display_name,
     bio: profile.bio,
     website: profile.website,
+    avatarUrl: profile.avatar_path
+      ? supabaseStorageUrl(profile.avatar_path)
+      : null,
   };
+}
+
+function supabaseStorageUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile-avatars/${path}`;
 }
 
 export async function searchPublicProfiles(query: string): Promise<PublicProfile[]> {
@@ -50,7 +58,7 @@ export async function getPublicProfileByUsername(username: string): Promise<Publ
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("public_profiles")
-    .select("id, username, display_name, bio, website")
+    .select("id, username, display_name, bio, website, avatar_path")
     .eq("username", username.toLowerCase())
     .maybeSingle();
 
@@ -80,7 +88,7 @@ export async function getOwnPartnerRelationships(userId: string): Promise<Partne
 
   const { data: profiles, error: profilesError } = await supabase
     .from("public_profiles")
-    .select("id, username, display_name, bio, website")
+    .select("id, username, display_name, bio, website, avatar_path")
     .in("id", otherIds);
 
   if (profilesError) throw new Error("Unable to load partner profiles.");

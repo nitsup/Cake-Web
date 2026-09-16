@@ -5,6 +5,8 @@ export interface CartItem {
   cakeName: string;
   quantity: number;
   unitPrice: number;
+  weightOptionId: string | null;
+  weightLabel: string | null;
   customization: Record<string, never>;
 }
 
