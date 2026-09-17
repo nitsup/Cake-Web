@@ -12,6 +12,7 @@ type CakeForm = Omit<StaffCatalogueCake, "id" | "categoryName" | "categorySlug" 
 };
 type CategoryForm = { name: string; description: string; displayPriority: string };
 type WeightOption = { id: string; weight_amount: number; weight_unit: "g" | "kg"; label: string; price: number; is_available: boolean; display_priority: number };
+type Classification = { id: string; name: string; slug: string };
 
 function formatMoney(value: number) {
   return `₹${value.toFixed(2)}`;
@@ -98,6 +99,8 @@ export function StaffCataloguePanel({
   const [cakeImageLoading, setCakeImageLoading] = useState(false);
   const [weightOptions, setWeightOptions] = useState<WeightOption[]>([]);
   const [weightDraft, setWeightDraft] = useState({ weightAmount: "", weightUnit: "g" as "g" | "kg", label: "", price: "", isAvailable: true, displayPriority: "0" });
+  const [classifications, setClassifications] = useState<Classification[]>([]);
+  const [classificationName, setClassificationName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function loadWeightOptions(cakeId: string) {
@@ -139,6 +142,32 @@ export function StaffCataloguePanel({
       await readResult(response);
       await loadWeightOptions(editingCake);
     } catch (error) { setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to remove the weight option." }); }
+  }
+
+  async function loadClassifications(cakeId: string) {
+    const result = await readResult<{ classifications?: Classification[] }>(await fetch(`/api/admin/catalogue/${cakeId}/classifications`));
+    setClassifications(result.classifications ?? []);
+  }
+
+  async function addClassification(event: React.FormEvent) {
+    event.preventDefault();
+    if (!editingCake) return;
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/classifications`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: classificationName }) });
+      await readResult(response);
+      setClassificationName("");
+      await loadClassifications(editingCake);
+      setNotice({ tone: "success", text: "Classification assigned." });
+    } catch (error) { setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to assign classification." }); }
+  }
+
+  async function removeClassification(tagId: string) {
+    if (!editingCake) return;
+    try {
+      const response = await fetch(`/api/admin/catalogue/${editingCake}/classifications`, { method: "DELETE", headers: { "content-type": "application/json" }, body: JSON.stringify({ tagId }) });
+      await readResult(response);
+      await loadClassifications(editingCake);
+    } catch (error) { setNotice({ tone: "error", text: error instanceof Error ? error.message : "Unable to remove classification." }); }
   }
 
   async function uploadCakeImage(file: File) {
@@ -370,7 +399,7 @@ export function StaffCataloguePanel({
                   <td className="px-3 py-4">{formatMoney(cake.salePrice ?? cake.basePrice)}</td>
                   <td className="px-3 py-4">{cake.isActive ? "Active" : "Inactive"} / {cake.availability}</td>
                   <td className="px-3 py-4">{cake.isFeatured ? "Featured" : "Standard"} / priority {cake.displayPriority}</td>
-                  <td className="px-3 py-4 text-right"><button type="button" className="button button--secondary text-xs" onClick={async () => { setCreatingCake(false); setEditingCake(cake.id); setCakeForm(toCakeForm(cake, categories)); setCakeImages([]); await Promise.all([loadCakeMediaForEdit(cake.id, setCakeImages, setCakeImageError, setCakeImageLoading), loadWeightOptions(cake.id)]); }}>Edit</button></td>
+                  <td className="px-3 py-4 text-right"><button type="button" className="button button--secondary text-xs" onClick={async () => { setCreatingCake(false); setEditingCake(cake.id); setCakeForm(toCakeForm(cake, categories)); setCakeImages([]); await Promise.all([loadCakeMediaForEdit(cake.id, setCakeImages, setCakeImageError, setCakeImageLoading), loadWeightOptions(cake.id), loadClassifications(cake.id)]); }}>Edit</button></td>
                 </tr>
               ))}
             </tbody>
@@ -418,6 +447,15 @@ export function StaffCataloguePanel({
                   <input required type="number" min="0" step="0.01" placeholder="Selling price" className="input" value={weightDraft.price} onChange={(event) => setWeightDraft({ ...weightDraft, price: event.target.value })} />
                   <input required type="number" min="0" step="1" placeholder="Display order" className="input" value={weightDraft.displayPriority} onChange={(event) => setWeightDraft({ ...weightDraft, displayPriority: event.target.value })} />
                   <button className="button button--secondary text-xs">Add weight option</button>
+                </form>
+              </div> : null}
+              {editingCake ? <div className="mb-6 rounded-xl border border-border bg-background/60 p-4">
+                <h3 className="text-lg font-semibold">Classifications</h3>
+                <p className="mt-1 text-xs text-muted-foreground">Assign reusable product characteristics. A cake can have more than one.</p>
+                <div className="mt-3 flex flex-wrap gap-2">{classifications.map((classification) => <span key={classification.id} className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm">{classification.name}<button type="button" aria-label={`Remove ${classification.name}`} className="font-bold text-muted-foreground hover:text-foreground" onClick={() => void removeClassification(classification.id)}>×</button></span>)}</div>
+                <form className="mt-4 flex gap-2" onSubmit={(event) => void addClassification(event)}>
+                  <input required minLength={2} maxLength={80} className="input" placeholder="e.g. chocolate" value={classificationName} onChange={(event) => setClassificationName(event.target.value)} />
+                  <button className="button button--secondary text-xs">Assign</button>
                 </form>
               </div> : null}
               <div className="sticky top-4 rounded-xl border border-border bg-background/60 p-4 shadow-sm">

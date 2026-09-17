@@ -12,6 +12,12 @@ export interface CakeWeightOption {
   displayPriority: number;
 }
 
+export interface CakeClassification {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface CakeCategoryReference {
   name: string;
   slug: string;
@@ -38,6 +44,7 @@ export interface CakeSummary {
   category: CakeCategoryReference;
   availability: CakeAvailability;
   primaryImage: CakeImage | null;
+  classifications: CakeClassification[];
 }
 
 export interface CakeDetail extends CakeSummary {
@@ -45,4 +52,5 @@ export interface CakeDetail extends CakeSummary {
   salePrice: number | null;
   isFeatured: boolean;
   weightOptions: CakeWeightOption[];
+  classifications: CakeClassification[];
 }

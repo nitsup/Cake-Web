@@ -65,6 +65,12 @@ export type StaffCatalogueCategory = {
   isActive: boolean;
 };
 
+export type StaffCatalogueClassification = {
+  id: string;
+  name: string;
+  slug: string;
+};
+
 export type StaffCatalogueCakeImage = {
   id: string;
   cakeId: string;
@@ -99,6 +105,52 @@ async function getCatalogueStaffActor() {
   }
 
   return supabase;
+}
+
+function classificationSlug(name: string) {
+  return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+}
+
+export async function getCakeClassifications(cakeId: string) {
+  const supabase = await getCatalogueStaffActor();
+  const { data, error } = await supabase
+    .from("cake_tag_assignments")
+    .select("tag:cake_tags(id, name, slug)")
+    .eq("cake_id", cakeId);
+  if (error) throw new Error("Unable to load product classifications.");
+  return (data ?? []).flatMap((row) => {
+    const tag = Array.isArray(row.tag) ? row.tag[0] : row.tag;
+    return tag ? [tag as StaffCatalogueClassification] : [];
+  });
+}
+
+export async function assignCakeClassification(cakeId: string, name: unknown) {
+  const supabase = await getCatalogueStaffActor();
+  if (typeof name !== "string" || name.trim().length < 2 || name.trim().length > 80) {
+    throw new Error("Classification must be between 2 and 80 characters.");
+  }
+  const normalizedName = name.trim().replace(/\s+/g, " ");
+  const slug = classificationSlug(normalizedName);
+  if (!slug) throw new Error("Classification must contain letters or numbers.");
+
+  const { data: tag, error: tagError } = await supabase
+    .from("cake_tags")
+    .upsert({ name: normalizedName, slug }, { onConflict: "slug" })
+    .select("id, name, slug")
+    .single();
+  if (tagError) throw new Error("Unable to save the classification.");
+
+  const { error: assignmentError } = await supabase
+    .from("cake_tag_assignments")
+    .insert({ cake_id: cakeId, tag_id: tag.id });
+  if (assignmentError && assignmentError.code !== "23505") throw new Error("Unable to assign the classification.");
+  return tag as StaffCatalogueClassification;
+}
+
+export async function removeCakeClassification(cakeId: string, tagId: string) {
+  const supabase = await getCatalogueStaffActor();
+  const { error } = await supabase.from("cake_tag_assignments").delete().eq("cake_id", cakeId).eq("tag_id", tagId);
+  if (error) throw new Error("Unable to remove the classification.");
 }
 
 async function ensureCakeImagesBucket(supabase: Awaited<ReturnType<typeof createClient>>) {

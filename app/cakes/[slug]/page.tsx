@@ -46,6 +46,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
         <Card className="overflow-hidden p-2"><ImagePlaceholder src={cake.primaryImage?.url} alt={cake.primaryImage?.altText ?? `${cake.name} image placeholder`} zoom={cake.primaryImage?.zoom} positionX={cake.primaryImage?.positionX} positionY={cake.primaryImage?.positionY} className="aspect-[4/3]" priority /></Card>
         <div className="pt-2 md:pt-6">
           <Link href={`/cakes?category=${encodeURIComponent(cake.category.slug)}`} className="badge category-link">{cake.category.name}</Link>
+          {cake.classifications.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">{cake.classifications.map((classification) => <span key={classification.id} className="badge">{classification.name}</span>)}</div> : null}
           <h1 className="display-heading mt-5 max-w-xl text-5xl md:text-6xl">{cake.name}</h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">{cake.shortDescription}</p>
           <div className="mt-8 flex flex-wrap items-baseline gap-3" aria-label="Price">
