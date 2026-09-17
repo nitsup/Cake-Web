@@ -1,0 +1,365 @@
+# Delivery Policy
+
+**Last Updated:** [DATE]  
+**Effective Date:** [DATE]  
+**Policy Version:** [VERSION]
+
+This Delivery Policy explains how orders placed through **[WEBSITE / BUSINESS NAME]** are delivered to customers.
+
+The exact delivery area, charges, schedules, and operating hours are configured by the Business and may change over time.
+
+---
+
+## 1. Delivery Availability
+
+Delivery is available only within the areas currently served by the Business.
+
+**Current Delivery Area:** [DELIVERY AREA]
+
+The Business may limit delivery availability based on:
+
+- distance from the shop;
+- delivery capacity;
+- operating hours;
+- product requirements;
+- weather or road conditions;
+- availability of delivery staff;
+- other operational circumstances.
+
+An address may be checked for delivery availability before an order is accepted.
+
+---
+
+## 2. Delivery Address
+
+Customers must provide an accurate and complete delivery address when placing an order.
+
+The delivery address may include information such as:
+
+- house or building number;
+- street or locality;
+- city;
+- postal code;
+- relevant access instructions;
+- recipient information where required.
+
+Customers are responsible for checking the address before confirming the order.
+
+An incorrect or incomplete address may result in delivery delays or inability to complete delivery.
+
+---
+
+## 3. Delivery Date and Time
+
+Where scheduled delivery is available, customers may select an available delivery date and time during checkout.
+
+**Available delivery schedule:** [DELIVERY DAYS / HOURS]
+
+The selected delivery time represents the requested or scheduled delivery period.
+
+The Business will make reasonable efforts to deliver within the selected period but cannot guarantee an exact arrival time where circumstances outside its reasonable control affect delivery.
+
+---
+
+## 4. Delivery Charges
+
+Delivery charges may apply depending on the customer's location.
+
+**Delivery Fee Structure:** [DELIVERY FEE RULE]
+
+Delivery fees may be calculated using factors such as:
+
+- distance from the Business;
+- delivery area;
+- order characteristics;
+- delivery time;
+- other Business-defined rules.
+
+The applicable delivery charge should be displayed to the customer before the order is confirmed.
+
+The Business may change its delivery charges for future orders.
+
+---
+
+## 5. Customer Availability
+
+Customers should ensure that someone is reasonably available to receive the order during the selected delivery period.
+
+For products such as cakes and sweets, prompt receipt is important because they may be perishable or sensitive to temperature and handling conditions.
+
+If the recipient cannot be reached, the delivery person or Business staff may attempt to contact the customer using the contact information provided with the order.
+
+---
+
+## 6. Failed Delivery Caused by the Customer
+
+Delivery may be considered unsuccessful where the Business is unable to complete delivery because of circumstances attributable to the customer, including:
+
+- incorrect address;
+- incomplete address;
+- unavailable recipient;
+- refusal to receive the order;
+- inability to access the provided location;
+- failure to respond to reasonable delivery communication.
+
+The Business may attempt to arrange another delivery where reasonably possible.
+
+Additional delivery charges may apply where permitted by the Business's current delivery rules.
+
+**Redelivery Charge:** [REDELIVERY RULE]
+
+---
+
+## 7. Delays
+
+The Business will make reasonable efforts to deliver orders according to the selected schedule.
+
+Delivery may be delayed because of:
+
+- heavy traffic;
+- road closures;
+- severe weather;
+- accidents;
+- public events;
+- vehicle problems;
+- unexpected operational issues;
+- high order volume;
+- third-party delivery issues;
+- other circumstances outside reasonable control.
+
+Where a significant delay occurs, the Business may contact the customer.
+
+---
+
+## 8. Business-Caused Delivery Problems
+
+If the Business is responsible for a delivery problem, the Business will work with the customer to provide an appropriate solution.
+
+Depending on the circumstances, this may include:
+
+- completing the delivery;
+- arranging another delivery;
+- replacing an affected product;
+- refunding an eligible amount;
+- refunding an applicable delivery fee.
+
+The applicable remedy may depend on the nature and seriousness of the problem.
+
+---
+
+## 9. Damaged Products During Delivery
+
+If a cake or sweet product arrives damaged, customers should report the issue within:
+
+**4 hours of delivery.**
+
+Customers should provide reasonable information about the condition of the product and may be asked to provide photographs or other evidence.
+
+Serious damage may qualify for:
+
+- replacement;
+- refund;
+- another appropriate remedy.
+
+Further details are provided in the **Cancellation & Refund Policy**.
+
+---
+
+## 10. Delivery Fee Refunds for Damaged Orders
+
+Where the Business is responsible for damage occurring during delivery, an applicable delivery-fee refund may be considered.
+
+The amount may depend on the delivery distance and the Business's delivery-fee structure.
+
+**Delivery Fee Refund Rule:** [BUSINESS-SPECIFIC RULE]
+
+A delivery-fee refund is separate from any refund or replacement that may be available for the damaged product itself.
+
+---
+
+## 11. Product Handling
+
+Customers should handle delivered cakes and sweets appropriately after receiving them.
+
+Where applicable, customers should follow any storage or handling instructions provided with the product.
+
+The Business is not responsible for damage caused after successful delivery by improper handling, storage, temperature exposure, or other customer-controlled circumstances.
+
+---
+
+## 12. Special and Customized Orders
+
+Customized cakes and other specially prepared products may require additional preparation time.
+
+The Website may therefore provide specific delivery dates or time slots for such products.
+
+Customers should ensure that the selected delivery schedule provides sufficient preparation time.
+
+Once preparation has begun, cancellation of customized products may no longer be available according to the Cancellation & Refund Policy.
+
+---
+
+## 13. Delivery Restrictions
+
+The Business may refuse or restrict delivery where:
+
+- the destination is outside the supported delivery area;
+- safe or reasonable delivery cannot be completed;
+- the address cannot be verified;
+- the location is inaccessible;
+- delivery would violate applicable law or safety requirements;
+- operational circumstances make delivery unreasonable.
+
+Where an order cannot be fulfilled for a Business-controlled reason and a refund is applicable, the Business will handle the refund according to the Cancellation & Refund Policy.
+
+---
+
+## 14. Pickup
+
+The Website may support customer pickup in addition to delivery.
+
+**Pickup Available:** [YES / NO]
+
+If pickup is enabled:
+
+**Pickup Location:** [BUSINESS ADDRESS]
+
+**Pickup Hours:** [PICKUP HOURS]
+
+**Pickup Procedure:** [PICKUP PROCEDURE]
+
+The Business may require the customer to provide order information or other reasonable verification when collecting an order.
+
+---
+
+## 15. Delivery Communication
+
+The Business may contact customers using the contact information associated with their order for purposes including:
+
+- delivery coordination;
+- delivery status;
+- recipient availability;
+- address clarification;
+- delays;
+- failed delivery;
+- other order-related issues.
+
+Transactional SMS or OTP-based communication may be used where supported.
+
+The Website is not currently intended to send promotional email communications.
+
+---
+
+## 16. Delivery and Privacy
+
+Delivery requires the Business to process information necessary to fulfil the order.
+
+This may include:
+
+- customer identity/account information;
+- contact information;
+- delivery address;
+- order details;
+- requested delivery date and time;
+- relevant delivery instructions.
+
+Delivery information will be handled according to the Website's **Privacy Policy**.
+
+Delivery personnel or service providers should receive only information reasonably necessary to complete the delivery.
+
+---
+
+## 17. Delivery Partner or Third-Party Courier
+
+The Business may use its own staff or an external delivery service.
+
+Where an external delivery provider is used, relevant order and delivery information may be shared with that provider to the extent necessary to complete the delivery.
+
+The Business will select and configure delivery providers according to its operational and legal requirements.
+
+**Current Delivery Provider:** [DELIVERY PROVIDER / IN-HOUSE]
+
+---
+
+## 18. Delivery Confirmation
+
+The Business may record information confirming that an order was delivered.
+
+This may include:
+
+- delivery status;
+- delivery timestamp;
+- order identifier;
+- relevant operational information.
+
+Delivery confirmation may be used to manage orders, resolve disputes, and maintain order records.
+
+---
+
+## 19. Customer Responsibility After Delivery
+
+Once an order has been successfully delivered, customers are responsible for appropriate handling and storage of the products.
+
+This does not affect the customer's rights concerning products that were already damaged, incorrect, defective, or otherwise improperly supplied at the time of delivery.
+
+---
+
+## 20. Changes to Delivery Policy
+
+The Business may update:
+
+- delivery areas;
+- delivery fees;
+- delivery schedules;
+- pickup availability;
+- delivery partners;
+- redelivery rules;
+- other delivery procedures.
+
+Changes will normally apply to future orders.
+
+The **Last Updated** date and **Policy Version** will be updated when this policy changes.
+
+---
+
+# Business Configuration
+
+These values are intentionally configurable for every business using Cake-Web:
+
+**Business Legal Name:** [BUSINESS LEGAL NAME]
+
+**Website / Trading Name:** [WEBSITE NAME]
+
+**Business Address:** [BUSINESS ADDRESS]
+
+**Delivery Area:** [DELIVERY AREA]
+
+**Delivery Days:** [DELIVERY DAYS]
+
+**Delivery Hours:** [DELIVERY HOURS]
+
+**Delivery Fee Structure:** [DELIVERY FEE RULE]
+
+**Free Delivery Threshold:** [IF APPLICABLE]
+
+**Redelivery Rule:** [REDELIVERY RULE]
+
+**Pickup Available:** [YES / NO]
+
+**Pickup Location:** [PICKUP LOCATION]
+
+**Pickup Hours:** [PICKUP HOURS]
+
+**Delivery Provider:** [IN-HOUSE / PROVIDER]
+
+**Customer Support Email:** [SUPPORT EMAIL]
+
+**Customer Support Phone:** [SUPPORT PHONE]
+
+**Policy Version:** [VERSION]
+
+**Effective Date:** [DATE]
+
+**Last Updated:** [DATE]
+
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]

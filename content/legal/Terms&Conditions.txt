@@ -1,0 +1,508 @@
+# Terms & Conditions
+
+**Last Updated:** [DATE]  
+**Effective Date:** [DATE]  
+**Version:** [VERSION]
+
+Welcome to **[BUSINESS / WEBSITE NAME]**.
+
+These Terms & Conditions ("Terms") govern your access to and use of the Website, including browsing products, creating an account, adding products to a cart, placing orders, making payments, arranging delivery, and using other services provided through the Website.
+
+By using the Website, you agree to these Terms. If you do not agree with these Terms, please do not use the Website.
+
+The Website is operated by:
+
+**Business Legal Name:** [BUSINESS LEGAL NAME]  
+**Trading Name:** [TRADING NAME]  
+**Business Address:** [BUSINESS ADDRESS]  
+**Customer Support:** [SUPPORT EMAIL]  
+**Support Phone:** [SUPPORT PHONE]
+
+---
+
+## 1. About the Website
+
+Cake-Web is the software platform used to provide the Website's online catalogue, account, cart, ordering, delivery, and related functionality.
+
+The business operating the Website is responsible for the products, prices, availability, fulfilment, delivery, refunds, customer service, and other commercial activities offered through the Website.
+
+Cake-Web may be configured and operated by different businesses. Business-specific information displayed on the Website takes precedence over the placeholder information in this template.
+
+---
+
+## 2. Eligibility
+
+The Website may be used by customers of different ages.
+
+Where a customer is under 18, any applicable legal requirements concerning children's use of online services and processing of personal information must be followed.
+
+Customers must provide accurate information when creating an account or placing an order.
+
+You must not create an account using another person's identity or information without authorization.
+
+---
+
+## 3. Customer Accounts
+
+Certain Website functions may require an account.
+
+Customers are responsible for:
+
+- providing accurate account information;
+- keeping their authentication credentials secure;
+- preventing unauthorized use of their account;
+- notifying the Business if they believe their account has been compromised.
+
+The Business may restrict or suspend an account where reasonably necessary to protect the Website, customers, the Business, or its services.
+
+The Business may require additional verification where necessary for security, order processing, privacy requests, or other legitimate operational purposes.
+
+---
+
+## 4. Product Information
+
+The Website may display information about cakes, sweets, and other products, including:
+
+- product names;
+- descriptions;
+- images;
+- categories;
+- classifications;
+- available sizes or weights;
+- prices;
+- availability;
+- customization options.
+
+The Business will make reasonable efforts to keep product information accurate.
+
+Product images are intended to represent the relevant product but may not always exactly reflect the final physical product due to:
+
+- decoration differences;
+- ingredient availability;
+- seasonal variations;
+- manufacturing or preparation differences;
+- reasonable differences in appearance.
+
+The Business may update products, descriptions, images, prices, availability, or options at any time.
+
+---
+
+## 5. Product Availability
+
+Products are subject to availability.
+
+Adding a product to a cart does not necessarily guarantee that the product will remain available until checkout is completed.
+
+The Business may refuse or cancel an order where a product becomes unavailable or cannot reasonably be prepared or supplied.
+
+Where an order is cancelled by the Business for this reason, applicable refunds will be handled according to the Cancellation & Refund Policy.
+
+---
+
+## 6. Prices
+
+Prices displayed on the Website are determined by the Business.
+
+The applicable price for an order is the authoritative price recorded by the Website at the time the order is successfully created.
+
+Where products have different prices based on weight, size, or other selected options, the price associated with the selected option applies.
+
+The Business may change prices before an order is placed.
+
+Changes to future prices do not normally alter the price of an already confirmed order, except where correction is necessary because of an obvious technical or pricing error.
+
+---
+
+## 7. Orders
+
+An order may be placed by selecting available products, required options, quantities, delivery information, and applicable payment options.
+
+An order is considered successfully placed only after the Website has completed its required order-creation checks and the applicable payment or payment-status requirements have been satisfied.
+
+The Business may reject or cancel an order where:
+
+- the requested product is unavailable;
+- required information is missing or invalid;
+- payment cannot be confirmed where payment is required;
+- the order appears fraudulent or abusive;
+- a technical error has materially affected the order;
+- fulfilment is not reasonably possible;
+- cancellation is required for another legitimate operational or legal reason.
+
+Where the Business cancels an eligible paid order, applicable refunds will be handled according to the Cancellation & Refund Policy.
+
+---
+
+## 8. Delivery Information
+
+Where delivery is available, customers must provide accurate delivery information.
+
+The customer is responsible for ensuring that:
+
+- the delivery address is correct;
+- the recipient can reasonably receive the order;
+- the selected delivery date and time are suitable;
+- any relevant access information is provided.
+
+Delivery is currently intended to be available only within areas determined by the Business.
+
+**Current Delivery Area:** [DELIVERY AREA]
+
+The Business may change its delivery area, delivery schedule, delivery charges, and delivery availability.
+
+Further details are provided in the Delivery Policy.
+
+---
+
+## 9. Scheduled Orders
+
+Where the Website supports scheduled delivery, customers may select an available delivery date and time.
+
+A selected delivery time represents the Business's intended delivery schedule and may be affected by circumstances outside the Business's reasonable control.
+
+Customers should provide accurate delivery information and remain reasonably available to receive perishable products such as cakes and sweets.
+
+The Business may contact the customer where an issue affects the scheduled order.
+
+---
+
+## 10. Payment
+
+The Website may support payment methods selected by the Business, including:
+
+- UPI;
+- net banking;
+- cash on delivery;
+- other supported payment methods.
+
+Where an external payment provider is used, payment processing may occur through that provider.
+
+Cake-Web is designed not to intentionally store customers' card numbers, banking credentials, UPI authentication credentials, or other payment credentials.
+
+An order requiring online payment may not be treated as successfully paid until the Website receives the required confirmation from the applicable payment system.
+
+For cash-on-delivery orders, payment is expected to be collected according to the Business's applicable delivery procedure.
+
+The Business may change supported payment methods.
+
+---
+
+## 11. Cancellation
+
+Customers may request cancellation of an order within the applicable cancellation period.
+
+**Current planned cancellation period:** 30 minutes from placing the order.
+
+Cancellation is not permitted after the applicable preparation process has begun.
+
+Customized products may have additional cancellation restrictions. In particular, a customized cake cannot be cancelled once preparation has begun.
+
+The complete cancellation procedure and applicable exceptions are provided in the Cancellation & Refund Policy.
+
+---
+
+## 12. Refunds
+
+Refunds may be available in circumstances described in the Cancellation & Refund Policy, including eligible cancellations, Business-initiated cancellations, incorrect orders, damaged products, or other approved circumstances.
+
+The Business may determine whether a replacement, full refund, partial refund, or another remedy is appropriate where the Cancellation & Refund Policy permits staff discretion.
+
+Where a refund is approved, the refund method and timing will depend on the payment method and applicable payment provider.
+
+---
+
+## 13. Incorrect or Damaged Orders
+
+Customers should inspect their order as soon as reasonably possible after receiving it.
+
+Where an order is incorrect or arrives damaged, the customer should contact the Business within the period specified in the Cancellation & Refund Policy.
+
+**Current planned reporting period:** 4 hours after delivery.
+
+The Business may request reasonable information or evidence to assess the issue.
+
+Where an error or damage is attributable to the Business, the Business may provide an appropriate remedy according to the Cancellation & Refund Policy.
+
+---
+
+## 14. Customized Products
+
+Customized cakes and other customized products may require preparation specifically for the customer's order.
+
+Once preparation of a customized product has begun, cancellation may no longer be available.
+
+Customers are responsible for providing accurate customization information.
+
+The Business may contact the customer if a requested customization cannot reasonably be fulfilled.
+
+---
+
+## 15. Customer Conduct
+
+Customers must use the Website lawfully and responsibly.
+
+Customers must not:
+
+- provide knowingly false information;
+- impersonate another person;
+- attempt to access another customer's account;
+- interfere with Website security;
+- attempt to bypass access controls;
+- abuse ordering or refund systems;
+- submit fraudulent orders;
+- intentionally exploit technical errors;
+- upload malicious software or content;
+- use the Website for unlawful activity;
+- interfere with the Website's operation;
+- misuse communication or profile features.
+
+The Business may restrict access or take other appropriate action where misuse is identified.
+
+---
+
+## 16. User-Provided Content
+
+Where the Website allows customers to provide profile information, images, biographies, links, reviews, comments, or other content, customers remain responsible for the content they submit.
+
+Customers must not submit content that is:
+
+- unlawful;
+- fraudulent;
+- deliberately misleading;
+- abusive;
+- threatening;
+- invasive of another person's privacy;
+- discriminatory or hateful;
+- sexually explicit;
+- malicious;
+- infringing another person's intellectual-property rights;
+- intended to facilitate scams or fake services.
+
+The Business may remove content or restrict accounts where necessary to maintain a safe and lawful Website.
+
+---
+
+## 17. Promotions and Advertising
+
+The Business may introduce promotions, discounts, offers, or other commercial programs.
+
+Each promotion may have additional terms, eligibility requirements, validity periods, quantity limits, or other restrictions.
+
+Unless expressly stated otherwise, promotions cannot be combined or transferred.
+
+Customers must not use Website features to advertise fake, fraudulent, misleading, or unauthorized services.
+
+---
+
+## 18. Personalization
+
+The Website may provide personalization features.
+
+Customers may control personalization through the available Personalization settings.
+
+When Personalization is OFF, the Website should not collect new activity information for personalization purposes, while information necessary to operate the account, orders, security, and requested services may still be processed.
+
+Personalization does not necessarily determine the entire product catalogue. Business-wide catalogue controls may continue to apply.
+
+Further information is provided in the Personalization & Data Controls Notice and Privacy Policy.
+
+---
+
+## 19. Intellectual Property
+
+The Website, its software, design, branding, layout, graphics, text, code, and other materials may be protected by applicable intellectual-property laws.
+
+Unless otherwise stated, customers may use the Website only for its intended personal or purchasing purposes.
+
+Customers must not copy, reproduce, redistribute, modify, reverse engineer, sell, or commercially exploit Website software or protected materials without appropriate authorization.
+
+Product images, logos, trademarks, and other Business materials remain the property of their respective owners unless otherwise stated.
+
+---
+
+## 20. Website Availability
+
+The Business aims to keep the Website available and functional but does not guarantee uninterrupted availability.
+
+The Website may occasionally be unavailable because of:
+
+- maintenance;
+- updates;
+- technical failures;
+- infrastructure problems;
+- security incidents;
+- third-party service interruptions;
+- circumstances outside the Business's reasonable control.
+
+The Business may modify, suspend, or discontinue Website features where reasonably necessary.
+
+---
+
+## 21. Third-Party Services
+
+The Website may depend on third-party services including:
+
+- hosting infrastructure;
+- authentication services;
+- database and storage services;
+- payment providers;
+- SMS or OTP providers;
+- analytics services;
+- security and error-monitoring services;
+- delivery or operational service providers.
+
+Third-party services may have their own terms and privacy policies.
+
+The Business is not responsible for independent failures or policies of third-party services beyond its reasonable control.
+
+---
+
+## 22. Privacy
+
+Use of the Website is also governed by the Privacy Policy.
+
+The Privacy Policy explains how personal information is collected, used, stored, protected, and shared.
+
+Customers should review the Privacy Policy before using services that require personal information.
+
+---
+
+## 23. Account Suspension or Restriction
+
+The Business may suspend, restrict, or terminate access to an account where reasonably necessary because of:
+
+- fraud;
+- abuse;
+- unauthorized access;
+- repeated misuse;
+- violation of these Terms;
+- unlawful activity;
+- security concerns;
+- other circumstances requiring protection of the Website, Business, or customers.
+
+Where appropriate, the Business may provide notice before taking action.
+
+This does not remove any rights or remedies available to the customer under applicable law.
+
+---
+
+## 24. Limitation of Responsibility
+
+The Business will take reasonable steps to provide the Website and fulfil accepted orders.
+
+However, the Business is not responsible for delays or failures caused by circumstances reasonably outside its control, including:
+
+- severe weather;
+- traffic or road closures;
+- natural disasters;
+- government restrictions;
+- infrastructure failures;
+- third-party service outages;
+- communication-network failures;
+- events affecting delivery or preparation.
+
+Nothing in these Terms is intended to exclude or limit rights or protections that cannot legally be excluded or limited under applicable law.
+
+---
+
+## 25. Changes to Products or Services
+
+The Business may change:
+
+- products;
+- product options;
+- prices;
+- availability;
+- delivery areas;
+- delivery charges;
+- payment methods;
+- Website features;
+- personalization features;
+- other services.
+
+Changes will generally apply to future use or orders unless otherwise required by law.
+
+---
+
+## 26. Changes to These Terms
+
+These Terms may be updated when the Website, Business operations, products, services, or applicable legal requirements change.
+
+The updated version will display a new **Last Updated** date and **Version**.
+
+Where required, customers will receive appropriate notice of material changes.
+
+---
+
+## 27. Governing Law
+
+These Terms will be governed by the laws applicable to the Business's operating jurisdiction.
+
+**Business Jurisdiction:** [STATE / COUNTRY]
+
+Where the Business operates in India, applicable Indian laws will apply subject to the specific legal circumstances and mandatory protections available to customers.
+
+---
+
+## 28. Disputes and Complaints
+
+Customers should first contact the Business using the customer-support details provided below so that the issue can be reviewed and resolved where possible.
+
+**Customer Support:** [SUPPORT EMAIL]  
+**Support Phone:** [SUPPORT PHONE]
+
+Privacy and personal-data complaints should be directed to the privacy contact specified in the Privacy Policy.
+
+Nothing in these Terms prevents a customer from exercising rights or remedies available under applicable law.
+
+---
+
+## 29. Severability
+
+If any provision of these Terms is found to be invalid, unlawful, or unenforceable, the remaining provisions will continue to apply to the extent permitted by law.
+
+---
+
+## 30. Entire Agreement
+
+These Terms, together with the Privacy Policy, Cancellation & Refund Policy, Delivery Policy, and other policies expressly incorporated into the Website, describe the principal rules governing use of the Website and its services.
+
+Additional terms may apply to specific promotions, products, or services where clearly communicated.
+
+---
+
+# Business Information
+
+The following information must be completed before this Website is launched for a real business:
+
+**Business Legal Name:** [BUSINESS LEGAL NAME]
+
+**Trading Name:** [TRADING NAME]
+
+**Business Address:** [BUSINESS ADDRESS]
+
+**Business Jurisdiction:** [STATE / COUNTRY]
+
+**Customer Support Email:** [SUPPORT EMAIL]
+
+**Customer Support Phone:** [SUPPORT PHONE]
+
+**Privacy Contact:** [PRIVACY CONTACT]
+
+**Privacy Email:** [PRIVACY EMAIL]
+
+**Delivery Area:** [DELIVERY AREA]
+
+**Payment Provider:** [PAYMENT PROVIDER]
+
+**SMS / OTP Provider:** [SMS PROVIDER]
+
+---
+
+# Policy Administration
+
+**Policy Version:** [VERSION]  
+**Effective Date:** [DATE]  
+**Last Updated:** [DATE]  
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]  
+**Next Review Date:** [DATE]

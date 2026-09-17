@@ -37,8 +37,8 @@ export function getLegalDocument(key: LegalDocumentKey): LegalDocument {
   const document = documents[key];
   const filePath = path.join(
     process.cwd(),
-    ".private",
-    ".legal_details",
+    "content",
+    "legal",
     document.sourceFile,
   );
 

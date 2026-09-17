@@ -1,0 +1,410 @@
+# Cookies, Analytics & Personalization Notice
+
+**Last Updated:** [DATE]  
+**Effective Date:** [DATE]  
+**Policy Version:** [VERSION]
+
+This Notice explains how **[BUSINESS LEGAL NAME]** uses cookies, similar technologies, analytics, and personalization features on **[WEBSITE NAME]**.
+
+This Notice should be read together with the Website's **Privacy Policy** and **Terms & Conditions**.
+
+---
+
+# 1. What This Notice Covers
+
+This Notice covers:
+
+- essential cookies and similar technologies;
+- authentication and secure sessions;
+- Website analytics;
+- technical and security monitoring;
+- personalization;
+- activity information used for personalization;
+- the Personalization ON/OFF control;
+- business-wide catalogue ordering;
+- future changes to these systems.
+
+The exact technologies used by the Website may change as the Website develops.
+
+---
+
+# 2. What Are Cookies?
+
+Cookies are small pieces of information that a Website may store or access through a user's browser.
+
+Cookies and similar technologies can be used for purposes such as:
+
+- maintaining secure login sessions;
+- remembering necessary Website state;
+- operating Website features;
+- improving Website reliability;
+- measuring Website usage;
+- supporting security.
+
+Not every Website feature requires cookies, and the Website may use other technical mechanisms for similar purposes.
+
+---
+
+# 3. Essential Technologies
+
+The Website may use technologies that are necessary to provide requested services.
+
+These may include technologies used for:
+
+- authentication;
+- maintaining secure sessions;
+- protecting accounts;
+- maintaining necessary Website functionality;
+- preventing unauthorized access;
+- supporting order and account functionality.
+
+Disabling essential technologies may prevent some Website features from functioning correctly.
+
+---
+
+# 4. Authentication Cookies
+
+The Website uses an authentication system to maintain customer login sessions.
+
+Authentication-related cookies or similar session mechanisms may be used to:
+
+- keep customers signed in;
+- securely identify authenticated sessions;
+- protect account functionality;
+- maintain secure access between Website requests.
+
+The exact cookie names and technical implementation may change depending on the authentication infrastructure used by the Website.
+
+---
+
+# 5. Analytics
+
+The Website may use **Vercel Analytics** or another analytics provider selected by the Business.
+
+Analytics may be used to understand general Website usage, such as:
+
+- how many people visit the Website;
+- which pages receive traffic;
+- general Website usage patterns;
+- Website performance;
+- technical or operational issues.
+
+Analytics is intended to help the Business understand and improve the Website rather than identify individual customers for advertising purposes.
+
+The exact information collected depends on the analytics provider and its configuration.
+
+---
+
+# 6. Analytics and Personalization Are Different
+
+Analytics and personalization are separate concepts.
+
+### Analytics
+
+Analytics is intended primarily to understand **overall Website usage**, such as how many people visit and which parts of the Website are being used.
+
+### Personalization
+
+Personalization concerns information associated with a customer or their interactions that may be used to provide a more individualized Website experience.
+
+For example, a future personalization system may consider permitted signals such as:
+
+- products viewed;
+- searches;
+- purchases;
+- product classifications;
+- repeated interactions;
+- other permitted activity.
+
+The Business may use analytics without using those analytics for individualized product recommendations.
+
+---
+
+# 7. Personalization Setting
+
+The Website may provide customers with a **Personalization ON/OFF** setting.
+
+The setting controls whether the Website may collect and use **new activity information for personalization purposes**, subject to applicable law and the configuration of the Website.
+
+### Personalization ON
+
+When Personalization is ON, the Website may collect and use permitted activity information for personalization features that have been implemented and disclosed.
+
+Possible future features may include:
+
+- personalized product relevance;
+- recommendations;
+- personalized catalogue experiences;
+- other individualized experiences.
+
+The Business will not treat the Personalization setting as permission to perform processing that is prohibited by applicable law.
+
+### Personalization OFF
+
+When Personalization is OFF, the Website should stop collecting **new activity information for personalization purposes**.
+
+However, turning Personalization OFF does not stop information processing that is necessary for:
+
+- account authentication;
+- account security;
+- placing or managing orders;
+- maintaining order history;
+- processing requested services;
+- fraud prevention;
+- security monitoring;
+- technical operation;
+- legal compliance;
+- other necessary Website functions.
+
+Therefore:
+
+> **Personalization OFF does not mean that the Website stops processing all personal information.**
+
+It means that new activity information should no longer be collected or used for the Website's personalization purposes.
+
+---
+
+# 8. Previously Collected Personalization Information
+
+Turning Personalization OFF does not automatically delete information that was collected before the setting was changed.
+
+Previously collected personalization-related information may remain stored according to the Business's applicable retention practices.
+
+The customer may separately request deletion of applicable personalization-related information.
+
+**Current planned request handling target:** within 48 hours.
+
+Deletion requests remain subject to applicable legal requirements and information that the Business is required or permitted to retain.
+
+---
+
+# 9. Personalization Data Requests
+
+Customers may contact the Business to request information or deletion relating to personalization data.
+
+Requests should be sent to:
+
+**Privacy Contact:** [PRIVACY CONTACT]  
+**Email:** [PRIVACY EMAIL]  
+**Phone:** [SUPPORT PHONE]
+
+The Business may verify the identity of the requester before processing a request.
+
+The Business intends to handle personalization-data deletion requests within:
+
+**48 hours**
+
+unless additional time is reasonably required or a different period is required by applicable law.
+
+---
+
+# 10. Product Catalogue When Personalization Is OFF
+
+Turning Personalization OFF does not remove products from the Website.
+
+Customers will continue to see the ordinary catalogue.
+
+The catalogue may be ordered or displayed using **business-wide catalogue controls**, such as:
+
+- product availability;
+- administrator-defined priority;
+- featured-product settings;
+- category;
+- product status;
+- other global Business rules.
+
+These business-wide controls are separate from customer-specific personalization.
+
+Therefore, Personalization OFF does not mean that every product will be displayed in an identical order or that business-wide catalogue rules stop operating.
+
+---
+
+# 11. Product Score and Future AI Systems
+
+The Business may introduce systems that analyze permitted product or Website activity to improve catalogue management.
+
+Future systems may include concepts such as:
+
+- Product Score;
+- product-performance signals;
+- recommendation scores;
+- controlled catalogue adjustments;
+- automated or semi-automated decision records.
+
+These systems must remain subject to the Website's privacy controls, applicable law, Business rules, and disclosed purposes.
+
+A customer turning Personalization OFF should not be interpreted as giving permission for the Business to continue collecting new customer-specific activity for personalization purposes.
+
+Business-wide product management does not automatically constitute customer-specific personalization.
+
+---
+
+# 12. Administrative Product Priority
+
+The Business may maintain an administrator-controlled product priority or similar catalogue-management setting.
+
+This is a **Business control**, not a customer-specific personalization setting.
+
+The Business may use this control to determine general catalogue presentation.
+
+Future automated systems may assist with catalogue management, but they should operate within the Business's defined controls and applicable policies.
+
+---
+
+# 13. Children's Data
+
+The Website may be accessible to users under 18.
+
+However, the Website must apply additional safeguards where required for children's personal data.
+
+Under the Digital Personal Data Protection Act, a child is an individual who has not completed 18 years of age, and the Act contains specific requirements concerning parental consent and restrictions on tracking or behavioural monitoring of children. citeturn0search17turn0search20
+
+Accordingly:
+
+- Personalization systems must not be designed to bypass children's privacy protections.
+- Behavioural tracking of children must not be enabled where prohibited.
+- Targeted advertising directed at children must not be introduced where prohibited.
+- Any required parental-consent mechanism must be implemented before processing that requires such consent.
+- Analytics and technical monitoring must be configured consistently with applicable requirements.
+
+The Business must review its child-data configuration before enabling behavioural personalization in production.
+
+---
+
+# 14. Security and Error Monitoring
+
+The Website may use **Sentry** or another technical monitoring service.
+
+These systems may process technical information associated with:
+
+- application errors;
+- failed requests;
+- technical failures;
+- security events;
+- diagnostic information.
+
+Error monitoring is used to maintain Website reliability and security.
+
+It is not intended to operate as a customer-personalization system.
+
+The Business should configure monitoring systems to minimize unnecessary personal information.
+
+---
+
+# 15. Third-Party Services
+
+The Website may use third-party services including:
+
+- Supabase for authentication, database, storage, and related infrastructure;
+- Vercel for hosting and analytics;
+- Sentry for technical monitoring;
+- future payment providers;
+- future communication providers;
+- other service providers required to operate the Website.
+
+The exact providers and configurations may change.
+
+The Business should update its Privacy Policy and this Notice where a material change affects customer information processing.
+
+---
+
+# 16. Marketing and Advertising
+
+The Website is not currently intended to use personalization data for targeted advertising.
+
+The Business does not currently intend to send promotional email campaigns.
+
+If advertising, promotional communications, or targeted marketing are introduced, the Business must review the relevant privacy requirements and update its policies and controls before introducing those features.
+
+---
+
+# 17. Cookie and Preference Controls
+
+Where applicable, the Website may provide controls allowing customers to manage optional technologies or preferences.
+
+Essential technologies required for account security or core Website functionality may not be disableable without affecting Website operation.
+
+The available controls will depend on the technologies actually deployed by the Business.
+
+---
+
+# 18. Changes to Analytics and Personalization
+
+The Business may introduce or modify:
+
+- analytics providers;
+- analytics configuration;
+- personalization features;
+- product recommendations;
+- product-performance systems;
+- catalogue-ranking systems;
+- security-monitoring systems;
+- cookies or similar technologies.
+
+Material changes will be reflected in the relevant policies and notices where required.
+
+---
+
+# 19. Contact
+
+Questions concerning cookies, analytics, personalization, or related data processing may be sent to:
+
+**Business Legal Name:** [BUSINESS LEGAL NAME]
+
+**Privacy Contact:** [PRIVACY CONTACT]
+
+**Email:** [PRIVACY EMAIL]
+
+**Phone:** [SUPPORT PHONE]
+
+**Business Address:** [BUSINESS ADDRESS]
+
+For the current Cake-Web development template:
+
+**Development / Privacy Contact:** akshat09058@gmail.com
+
+This contact should be replaced or confirmed by the business operating the Website before commercial launch.
+
+---
+
+# 20. Policy Administration
+
+**Policy Version:** [VERSION]
+
+**Effective Date:** [DATE]
+
+**Last Updated:** [DATE]
+
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]
+
+**Next Review Date:** [DATE]
+
+---
+
+# Business Configuration
+
+These values are intentionally configurable when Cake-Web is transferred to a business:
+
+**Analytics Provider:** [ANALYTICS PROVIDER]
+
+**Error Monitoring Provider:** [ERROR MONITORING PROVIDER]
+
+**Authentication Provider:** [AUTHENTICATION PROVIDER]
+
+**Payment Provider:** [PAYMENT PROVIDER]
+
+**SMS / OTP Provider:** [SMS PROVIDER]
+
+**Personalization:** [ENABLED / DISABLED]
+
+**Personalization Data Retention:** [BUSINESS RULE]
+
+**Personalization Deletion Request Target:** 48 hours
+
+**Analytics Configuration:** [DESCRIPTION]
+
+**Cookie / Preference Mechanism:** [CONFIGURATION]
+
+**Child-Data Controls:** [CONFIGURATION]
+
+**Policy Version:** [VERSION]

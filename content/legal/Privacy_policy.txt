@@ -1,0 +1,509 @@
+# Privacy Policy
+
+**Last Updated:** [DATE]  
+**Effective Date:** [DATE]  
+**Policy Version:** [VERSION]
+
+This Privacy Policy explains how **[BUSINESS LEGAL NAME]** ("we", "us", "our", or the "Business") collects, uses, stores, protects, and otherwise processes personal information when you use **[WEBSITE NAME]** ("the Website"), create an account, browse our products, place an order, communicate with us, or otherwise use our services.
+
+Cake-Web is the software platform used to operate this Website. The business operating the Website is responsible for determining how customer information is processed for its business operations.
+
+> **Business information to be completed before launch**
+>
+> - Legal/business name: [BUSINESS LEGAL NAME]
+> - Website name: [WEBSITE NAME]
+> - Business location: [BUSINESS ADDRESS / CITY / STATE / COUNTRY]
+> - Customer support contact: [SUPPORT EMAIL]
+> - Customer support phone: [SUPPORT PHONE]
+> - Privacy/data contact: [PRIVACY CONTACT NAME OR ROLE]
+> - Privacy contact email: [PRIVACY EMAIL]
+> - Delivery area: [DELIVERY AREA]
+>
+> These values are intentionally configurable because Cake-Web may be transferred to different businesses.
+
+---
+
+## 1. Scope of This Privacy Policy
+
+This Privacy Policy applies to personal information processed through the Website and related services operated by the Business.
+
+It covers information collected when you:
+
+- create or use an account;
+- browse cakes, sweets, and other catalogue products;
+- add products to a cart;
+- place or manage an order;
+- provide a delivery address;
+- select product options or customizations;
+- communicate with the Business;
+- use personalization features;
+- interact with the Website;
+- contact the Business regarding privacy or customer-service matters.
+
+This Privacy Policy does not replace the Website's Terms & Conditions, Cancellation & Refund Policy, Delivery Policy, or other applicable policies.
+
+---
+
+## 2. Information We Collect
+
+We collect only information that is necessary for the purposes described in this Privacy Policy and for providing the services you request.
+
+### 2.1 Account Information
+
+When you create an account, we may process:
+
+- email address;
+- display name;
+- username;
+- password authentication information handled by our authentication service;
+- profile biography, if you choose to provide one;
+- website/profile information, if you choose to provide one;
+- profile picture/avatar, if you choose to upload one;
+- account role and account timestamps.
+
+Passwords are handled by the authentication system and are not intentionally stored by the Website as ordinary readable password data.
+
+### 2.2 Order and Delivery Information
+
+When you place an order, we may collect information necessary to process and deliver that order, including:
+
+- products ordered;
+- quantities;
+- selected weight or product options;
+- customizations;
+- order amount;
+- order status;
+- payment status;
+- delivery address;
+- requested delivery date and time;
+- information necessary for customer support;
+- order-related contact information.
+
+Order records may contain a historical snapshot of the products and options included in an order so that the Business can maintain an accurate record of what was purchased.
+
+### 2.3 Cart Information
+
+If you use the shopping cart, we may store:
+
+- the products added to your cart;
+- quantities;
+- selected product options;
+- selected customizations;
+- information associated with your account;
+- cart timestamps.
+
+### 2.4 Payment Information
+
+The Website is designed so that Cake-Web does not intentionally store customers' payment credentials such as card numbers, banking credentials, or UPI authentication information.
+
+Where an external payment service is used, payment processing may take place through that third-party provider.
+
+The specific payment provider used by the Business will be identified or linked where required once the provider has been selected.
+
+Available payment methods may include:
+
+- UPI;
+- net banking;
+- cash on delivery;
+- other payment methods introduced by the Business.
+
+The Business may receive payment status or transaction references necessary to confirm and manage an order.
+
+### 2.5 Communications
+
+The Business may use contact information provided by you to communicate about:
+
+- orders;
+- delivery;
+- account security;
+- authentication or OTP verification;
+- order status;
+- customer-service matters;
+- privacy or data requests.
+
+The Website is not currently intended to send promotional email campaigns.
+
+Transactional SMS or similar communications may be used where necessary for authentication or order-related communication.
+
+### 2.6 Profile and Public Information
+
+Some profile information may be publicly visible when you choose to maintain a public profile.
+
+Depending on the Website's configuration, this may include:
+
+- username;
+- display name;
+- biography;
+- website/profile link;
+- profile picture.
+
+Private account information is not intended to be publicly displayed.
+
+---
+
+## 3. How We Use Personal Information
+
+Personal information may be processed for purposes including:
+
+1. creating and maintaining customer accounts;
+2. authenticating users;
+3. providing the Website and its features;
+4. displaying the product catalogue;
+5. maintaining shopping carts;
+6. processing orders;
+7. arranging delivery;
+8. communicating about orders and account security;
+9. processing or confirming payments through applicable payment providers;
+10. handling cancellations, refunds, replacements, and customer-service requests;
+11. maintaining order history;
+12. preventing misuse, fraud, unauthorized access, and security incidents;
+13. monitoring and fixing technical errors;
+14. measuring Website usage and performance;
+15. providing personalization features when enabled;
+16. responding to privacy and data-related requests;
+17. meeting applicable legal or regulatory requirements;
+18. maintaining necessary business and operational records.
+
+We will not use personal information for unrelated purposes without an appropriate legal basis, notice, or consent where required.
+
+---
+
+## 4. Personalization
+
+The Website may provide a **Personalization** setting that allows a customer to control whether new activity information is collected or used for personalization purposes.
+
+When Personalization is **ON**, the Website may, depending on the features implemented by the Business, use relevant information such as interactions with products, searches, purchases, classifications, or other permitted activity to provide personalized experiences.
+
+When Personalization is **OFF**, the Website should stop collecting **new activity information for personalization purposes**.
+
+Turning Personalization OFF does not prevent the Website from processing information that is necessary to:
+
+- maintain your account;
+- authenticate you;
+- process orders;
+- provide requested services;
+- maintain order records;
+- protect Website security;
+- prevent abuse or fraud;
+- operate necessary technical systems;
+- comply with applicable legal requirements.
+
+Personalization OFF therefore does not mean that all information processing stops.
+
+Information previously collected for personalization purposes may remain stored unless it is deleted in accordance with an applicable deletion request, retention requirement, or other applicable policy.
+
+Customers may request deletion of personalization-related information through the Business's privacy contact.
+
+The Business intends to process such requests within **48 hours**, subject to verification and applicable legal or operational requirements.
+
+The exact personalization features available on the Website may change over time and should be described in the Website's current Personalization & Data Controls Notice.
+
+---
+
+## 5. Catalogue Ordering and Business Controls
+
+The Website may use business-controlled catalogue information such as product priority, availability, featured status, or other catalogue settings.
+
+The ordinary product catalogue may therefore be displayed according to business-wide catalogue rules even when Personalization is turned OFF.
+
+Personalization does not necessarily control the entire catalogue or replace business-controlled product settings.
+
+---
+
+## 6. Analytics
+
+The Website may use **Vercel Analytics** or another analytics service selected by the Business to understand general Website usage and improve the Website.
+
+Analytics may be used for purposes such as:
+
+- understanding Website traffic;
+- measuring visits and page usage;
+- identifying general usage patterns;
+- improving Website performance;
+- detecting operational or security issues where applicable.
+
+The exact information collected by an analytics provider depends on the provider's current technology and configuration.
+
+The Business will configure analytics consistently with its applicable privacy obligations and will update this Privacy Policy when material changes are made to analytics practices.
+
+---
+
+## 7. Error Monitoring and Security Monitoring
+
+The Website may use **Sentry** or another technical monitoring service to identify and investigate application errors, security issues, and technical failures.
+
+Error-monitoring systems may receive technical information associated with an error or request.
+
+The Business will configure these systems to limit unnecessary personal information and will apply appropriate access and security controls.
+
+The exact information retained by the monitoring provider may depend on the service configuration.
+
+---
+
+## 8. Cookies and Similar Technologies
+
+The Website may use cookies or similar technologies required for:
+
+- authentication;
+- maintaining secure sessions;
+- operating Website functionality;
+- security;
+- analytics, where enabled.
+
+The Website currently does not intentionally use ordinary browser storage such as localStorage, sessionStorage, or IndexedDB for storing application preferences.
+
+A separate **Cookies & Analytics Notice** may provide additional information about cookies, analytics, and similar technologies.
+
+---
+
+## 9. Third-Party Service Providers
+
+The Website may rely on third-party service providers to operate its services.
+
+Current or planned providers may include:
+
+### Supabase
+
+Supabase may provide:
+
+- authentication;
+- database infrastructure;
+- data storage;
+- file storage;
+- access-control infrastructure;
+- other Website backend services.
+
+### Vercel
+
+Vercel may provide:
+
+- Website hosting;
+- application runtime infrastructure;
+- analytics services where enabled.
+
+### Sentry
+
+Sentry may provide:
+
+- application error monitoring;
+- technical diagnostics;
+- security-related monitoring.
+
+### Authentication and Communication Providers
+
+The Website may use third-party services for authentication, OTP, SMS, or other transactional communications where required.
+
+### Payment Providers
+
+Payments may be processed by an external payment provider selected by the Business.
+
+The Business will update this Privacy Policy when a payment provider is introduced and where disclosure is required.
+
+Third-party providers may process information according to their own terms and privacy policies.
+
+---
+
+## 10. Sharing of Personal Information
+
+We do not sell customer personal information as a business practice.
+
+Personal information may be made available to service providers where reasonably necessary to provide Website functionality or services, including:
+
+- hosting providers;
+- database and authentication providers;
+- payment providers;
+- communication providers;
+- analytics providers;
+- security and error-monitoring providers;
+- delivery/service partners where necessary to fulfil an order;
+- professional advisers or authorities where required or permitted by applicable law.
+
+Access to customer information within the Business is intended to be limited according to role and operational necessity.
+
+---
+
+## 11. Staff and Administrator Access
+
+Authorized Business staff may access limited customer information where necessary to perform their responsibilities.
+
+Depending on their role, staff may access information relating to:
+
+- customer profiles;
+- orders;
+- order status;
+- delivery and fulfilment;
+- customer-service matters.
+
+Administrators may have broader access where necessary to operate and secure the Website.
+
+Access is intended to be protected through authentication, authorization controls, and database access policies.
+
+---
+
+## 12. Data Security
+
+We use reasonable technical and organizational safeguards designed to protect personal information against unauthorized access, misuse, alteration, disclosure, loss, or destruction.
+
+Security measures may include:
+
+- authenticated access;
+- role-based authorization;
+- database access controls;
+- row-level security where applicable;
+- server-side authorization checks;
+- protected environment variables;
+- controlled staff access;
+- secure storage mechanisms;
+- security and error monitoring;
+- appropriate third-party infrastructure controls.
+
+No Internet-based system can be guaranteed to be completely secure.
+
+If we become aware of a security incident requiring notification under applicable law, we will take appropriate steps in accordance with the applicable requirements.
+
+---
+
+## 13. Data Retention
+
+We retain personal information only for as long as reasonably necessary for the purposes for which it is processed, for providing requested services, maintaining necessary business records, resolving disputes, preventing abuse or fraud, protecting the Website, or complying with applicable legal requirements.
+
+Order history may be retained so that customers and the Business can access and manage historical orders.
+
+Account information may be retained while the account remains active.
+
+Technical logs, analytics information, security records, and error-monitoring information may have retention periods determined by the relevant service configuration.
+
+The Business will establish and periodically review specific retention periods as its operational and legal requirements become finalized.
+
+---
+
+## 14. Account Closure and Deletion Requests
+
+Customer accounts are not currently designed to have a self-service deletion function.
+
+A customer may contact the Business to request account deletion.
+
+Where account deletion is permitted, the Business may require that there are no current or active orders associated with the account before completing the request.
+
+Historical information that must be retained for legal, accounting, security, fraud-prevention, dispute-resolution, or other legitimate purposes may be retained as required.
+
+Where information is retained after an account deletion request, the Business will limit its continued use to the purposes for which retention is necessary.
+
+The Business will establish the final account-deletion and retention procedure before commercial launch.
+
+---
+
+## 15. Requests Concerning Personal Information
+
+Customers may contact the Business regarding their personal information, including requests concerning:
+
+- information about processing;
+- correction of inaccurate information;
+- deletion where applicable;
+- personalization-related information;
+- other privacy or data-processing questions.
+
+Requests may be submitted using:
+
+**Privacy Contact:** [PRIVACY CONTACT NAME / ROLE]  
+**Email:** [PRIVACY EMAIL]  
+**Phone:** [SUPPORT PHONE, IF APPLICABLE]
+
+The Business may need to verify the identity of the requester before completing certain requests.
+
+Requests will be handled within the periods required by applicable law or the Business's stated service commitments.
+
+---
+
+## 16. Children's Personal Information
+
+The Website may be accessible to people under the age of 18.
+
+However, where applicable law requires additional safeguards, consent, verification, or restrictions for processing the personal information of children, the Business will apply those requirements.
+
+The Website must not knowingly use children's personal information for prohibited behavioural monitoring, targeted advertising, or other prohibited purposes where such restrictions apply.
+
+The Business will configure its personalization, analytics, and other behavioural features so that they comply with applicable requirements relating to children.
+
+The final production implementation of child-related data processing and any required parental-consent mechanism must be reviewed before the Website is commercially launched.
+
+---
+
+## 17. Promotional Communications
+
+The Business does not currently intend to send promotional email campaigns.
+
+If promotional communications are introduced in the future, the Business will provide appropriate controls and update this Privacy Policy where required.
+
+Customers must not use Website communication or profile features to promote fraudulent, misleading, unlawful, or otherwise prohibited services or content.
+
+---
+
+## 18. Changes to This Privacy Policy
+
+This Privacy Policy may be updated when:
+
+- the Website's features change;
+- new data-processing activities are introduced;
+- third-party services change;
+- business operations change;
+- legal or regulatory requirements change;
+- personalization or analytics features change.
+
+The **Last Updated** date and **Policy Version** at the beginning of this document will be updated when material changes are made.
+
+Where required, the Business will provide appropriate notice or obtain consent for material changes.
+
+---
+
+## 19. Contact Us
+
+For privacy questions, personal-information requests, or concerns about how information is processed, contact:
+
+**[BUSINESS LEGAL NAME]**  
+**Privacy / Data Contact:** [NAME OR ROLE]  
+**Email:** [PRIVACY EMAIL]  
+**Phone:** [SUPPORT PHONE]  
+**Business Address:** [BUSINESS ADDRESS]
+
+For the current Cake-Web template, the designated development/privacy contact is:
+
+**Email:** akshat09058@gmail.com
+
+Before commercial launch, this contact should be replaced or confirmed by the business operating the Website.
+
+---
+
+## 20. Policy Administration
+
+**Policy Version:** [VERSION]  
+**Effective Date:** [DATE]  
+**Last Updated:** [DATE]  
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]  
+**Next Review Date:** [DATE]
+
+### Business-specific values
+
+The following values are intentionally maintained separately from the policy's core structure:
+
+- Business legal name
+- Trading name
+- Business address
+- Support email
+- Support phone
+- Privacy contact
+- Delivery area
+- Payment provider
+- SMS/OTP provider
+- Analytics configuration
+- Error-monitoring configuration
+- Account deletion procedure
+- Data retention periods
+- Child-data handling configuration
+- Personalization configuration
+
+These values should be reviewed and updated when Cake-Web is transferred to a new business.
+
+---
+
+**Important:** This document is a working privacy-policy template for Cake-Web and is not a substitute for legal advice. Before a real business launches the Website, the operating business should have the final policy reviewed against its actual operations, service providers, payment systems, delivery practices, and applicable law.

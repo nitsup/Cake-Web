@@ -1,0 +1,348 @@
+# Cancellation & Refund Policy
+
+**Last Updated:** [DATE]  
+**Effective Date:** [DATE]  
+**Policy Version:** [VERSION]
+
+This Cancellation & Refund Policy explains when customers may cancel an order, when refunds may be provided, and how incorrect, damaged, unavailable, or cancelled orders are handled.
+
+This policy applies to orders placed through **[WEBSITE NAME]**, operated by **[BUSINESS LEGAL NAME]**.
+
+---
+
+## 1. Cancellation by the Customer
+
+Customers may request cancellation of an order within **30 minutes of placing the order**, subject to the conditions below.
+
+### Standard cancellation window
+
+A customer may cancel an eligible order within:
+
+**30 minutes from the time the order was successfully placed.**
+
+The cancellation request must be received within this period.
+
+However, the 30-minute period does **not** guarantee cancellation if preparation of the order has already begun.
+
+---
+
+## 2. Cancellation After Preparation Begins
+
+Once preparation of an order has begun, customer cancellation is generally not permitted.
+
+This rule exists because cakes, sweets, and customized products may require ingredients, preparation time, decoration, packaging, and other resources that cannot reasonably be reversed after preparation has started.
+
+The Business may determine when preparation has begun based on its operational records.
+
+---
+
+## 3. Customized Products
+
+Customized cakes and other customized products may receive special preparation specifically for the customer's order.
+
+A customer **cannot cancel a customized product once preparation has begun**.
+
+This restriction applies even if the 30-minute period has not yet expired.
+
+Before preparation begins, the Business may consider a cancellation request according to the applicable cancellation rules.
+
+---
+
+## 4. How to Request Cancellation
+
+Customers should contact the Business as soon as possible when requesting cancellation.
+
+**Customer Support Email:** [SUPPORT EMAIL]
+
+**Customer Support Phone:** [SUPPORT PHONE]
+
+The Business may require information such as:
+
+- order number;
+- customer/account information;
+- reason for cancellation;
+- other information reasonably necessary to verify the request.
+
+Submitting a cancellation request does not automatically guarantee that the order can be cancelled.
+
+The Business will determine whether the request was received within the applicable cancellation period and whether preparation has begun.
+
+---
+
+## 5. Customer Cancellation Refunds
+
+Where a customer cancellation is accepted and a refund is due, the customer will generally receive a **full refund of the eligible order amount**.
+
+The actual refund method may depend on how the order was paid.
+
+For online payments, the refund may be processed through the applicable payment provider or payment mechanism.
+
+For cash-on-delivery orders, there may be no payment requiring a refund if payment was never collected.
+
+---
+
+## 6. Business-Initiated Cancellation
+
+The Business may cancel an order where fulfilment is not reasonably possible.
+
+Examples may include:
+
+- product becoming unavailable;
+- ingredient or preparation problems;
+- operational issues;
+- delivery limitations;
+- inability to fulfil a requested customization;
+- payment failure where payment is required;
+- suspected fraudulent or abusive activity;
+- technical problems that materially affect the order;
+- circumstances outside the Business's reasonable control.
+
+Where the Business cancels an order for a reason that makes a refund applicable, the Business will arrange the appropriate refund.
+
+For eligible paid orders cancelled by the Business, the intended remedy is generally a **full refund**.
+
+The Business may also contact the customer regarding replacement or alternative arrangements where appropriate.
+
+---
+
+## 7. Incorrect Product or Order
+
+If a customer receives an incorrect product, the customer should contact the Business as soon as possible.
+
+The customer should report the issue within:
+
+**4 hours of delivery.**
+
+The Business may request reasonable information or evidence to verify the issue.
+
+Where the Business confirms that the wrong product was supplied, the Business may provide an appropriate remedy, which may include:
+
+- replacement;
+- refund;
+- correction of the order;
+- another reasonable solution agreed with the customer.
+
+---
+
+## 8. Product Value Differences
+
+If the customer receives a product that is **lower in value than the product that was ordered**, the customer may be entitled to receive the applicable difference in value as a refund.
+
+If the customer receives a product that is **higher in value than the product that was ordered**, the customer will not be required to pay the additional value where the Business chooses to allow the customer to keep the higher-value product.
+
+The Business will not require additional payment solely because an incorrect higher-value product was delivered, unless otherwise agreed with the customer.
+
+---
+
+## 9. Damaged Products
+
+Cakes and sweets can be physically damaged during preparation, packaging, handling, or delivery.
+
+If a product arrives damaged, the customer should contact the Business within:
+
+**4 hours of delivery.**
+
+The customer should provide reasonable information describing the damage and, where reasonably requested, photographs or other evidence that helps the Business assess the condition of the product.
+
+---
+
+## 10. Serious Damage
+
+Where a product is substantially damaged and cannot reasonably be used or presented as ordered, the Business may provide:
+
+- a replacement;
+- a full refund;
+- another appropriate remedy.
+
+The Business's staff will assess the circumstances and determine the appropriate resolution.
+
+Examples of potentially serious damage may include a product arriving substantially broken, collapsed, destroyed, or otherwise unsuitable for its intended use.
+
+---
+
+## 11. Minor Damage
+
+Minor differences or damage that do not materially affect the product may be handled differently from serious damage.
+
+The Business may consider:
+
+- the extent of the damage;
+- the type of product;
+- whether the product remains reasonably usable;
+- whether replacement is practical;
+- the circumstances of delivery.
+
+The final remedy will be determined according to the circumstances and applicable consumer protections.
+
+---
+
+## 12. Delivery Fee Refunds for Damaged Orders
+
+Where the Business is responsible for a damaged delivery, the Business may refund some or all of the applicable delivery fee depending on the circumstances.
+
+The amount of delivery-fee refund may take the delivery distance into account.
+
+For example, the applicable delivery-fee refund may be lower for a customer located farther from the Business than for a customer located closer to the Business.
+
+The Business will determine the applicable amount based on its delivery-fee structure and the circumstances of the order.
+
+This does not affect any refund or replacement that may otherwise be due for the damaged product itself.
+
+---
+
+## 13. Product Replacement
+
+Where a replacement is approved, the Business will determine the replacement arrangements.
+
+Replacement may depend on:
+
+- product availability;
+- delivery availability;
+- preparation time;
+- requested delivery schedule;
+- nature of the damage or error.
+
+If replacement is not reasonably possible, the Business may provide a refund instead.
+
+---
+
+## 14. Refund Amount
+
+Where a **full refund** is approved, the refundable amount will normally correspond to the eligible amount paid by the customer for the affected order or product.
+
+Where only part of an order is affected, the Business may determine the appropriate refund for the affected portion.
+
+Any refund will remain subject to applicable law and the circumstances of the order.
+
+---
+
+## 15. Refund Method
+
+The refund method depends on the original payment method and the payment system used by the Business.
+
+For online payments, refunds may be processed through the applicable external payment provider.
+
+Cake-Web is not intended to store customers' payment credentials such as card numbers, banking credentials, or UPI authentication information.
+
+For cash-on-delivery orders, refunds may require a separate arrangement with the Business because the original payment was made in cash.
+
+The Business will communicate the applicable refund procedure to the customer.
+
+---
+
+## 16. Refund Processing Time
+
+Refund processing time may depend on:
+
+- the Business;
+- the payment provider;
+- the original payment method;
+- banking or payment-network processing times.
+
+The Business will initiate approved refunds as soon as reasonably practicable.
+
+The time taken for the amount to actually appear in a customer's account may be outside the Business's direct control.
+
+**Business-specific refund processing commitment:** [REFUND TIMEFRAME]
+
+---
+
+## 17. Orders That Cannot Be Delivered
+
+If an order cannot be delivered because of an issue caused by the customer, such as:
+
+- incorrect delivery information;
+- unavailable recipient;
+- inability to access the provided location;
+- failure to respond to reasonable delivery communication;
+
+the Business may contact the customer to attempt resolution.
+
+The Business may apply additional charges or other consequences where permitted by its Delivery Policy and applicable law.
+
+The Business will not treat customer-caused delivery failure as automatically equivalent to Business-caused product damage.
+
+---
+
+## 18. Business Responsibility
+
+Where a product is damaged or incorrectly supplied due to circumstances under the Business's responsibility, the Business will work with the customer to provide an appropriate remedy according to this policy and applicable law.
+
+Nothing in this policy is intended to remove or restrict any mandatory consumer rights or remedies available under applicable law.
+
+---
+
+## 19. Evidence and Verification
+
+The Business may request reasonable information to investigate a cancellation, refund, incorrect-order, or damaged-product claim.
+
+This may include:
+
+- order number;
+- photographs;
+- description of the problem;
+- delivery information;
+- payment information limited to information necessary to identify the transaction;
+- other relevant information.
+
+The Business will not request unnecessary payment credentials such as passwords, UPI PINs, card PINs, or other authentication secrets.
+
+---
+
+## 20. Fraudulent or Abusive Claims
+
+The Business may investigate claims where there is a reasonable indication of fraud, repeated abuse, deliberate misrepresentation, or misuse of refund procedures.
+
+This does not prevent customers from making genuine complaints or exercising applicable legal rights.
+
+---
+
+## 21. Policy Changes
+
+The Business may update this Cancellation & Refund Policy when its products, delivery operations, payment methods, refund procedures, or applicable legal requirements change.
+
+The updated policy will display a new:
+
+- Last Updated date;
+- Effective Date;
+- Policy Version.
+
+Material changes will be communicated where required.
+
+---
+
+# Business Configuration
+
+The following values are intentionally configurable for each business using Cake-Web:
+
+**Business Legal Name:** [BUSINESS LEGAL NAME]
+
+**Website / Trading Name:** [WEBSITE NAME]
+
+**Customer Support Email:** [SUPPORT EMAIL]
+
+**Customer Support Phone:** [SUPPORT PHONE]
+
+**Standard Cancellation Window:** 30 minutes
+
+**Preparation-Started Cancellation Rule:** Cancellation generally unavailable after preparation begins
+
+**Customized Product Rule:** No cancellation after preparation begins
+
+**Issue Reporting Window:** 4 hours after delivery
+
+**Default Eligible Cancellation Refund:** Full refund
+
+**Default Business-Cancellation Refund:** Full refund where applicable
+
+**Refund Processing Time:** [REFUND TIMEFRAME]
+
+**Delivery Fee Refund Rules:** [BUSINESS-SPECIFIC RULE]
+
+**Payment Provider:** [PAYMENT PROVIDER]
+
+**Last Updated:** [DATE]
+
+**Policy Version:** [VERSION]
+
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]
