@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { DevelopmentNotice } from "@/components/legal/development-notice";
+import { getLegalDocument, isDevelopmentNoticeEnabled } from "@/lib/legal-content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,6 +49,10 @@ export default function RootLayout({
 
         <SiteFooter />
         <Analytics />
+        <DevelopmentNotice
+          enabled={isDevelopmentNoticeEnabled()}
+          content={getLegalDocument("disclaimer").content}
+        />
       </body>
     </html>
   );

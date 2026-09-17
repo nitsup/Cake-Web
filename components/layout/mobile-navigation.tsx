@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpenText, CakeSlice, ChevronRight, ClipboardList, ContactRound, Menu, Search, ShoppingCart, X } from "lucide-react";
+import { BookOpenText, CakeSlice, ChevronRight, ClipboardList, ContactRound, FileText, Menu, Search, ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const primaryLinks = [
@@ -65,6 +65,14 @@ export function MobileNavigation() {
                   <ChevronRight size={16} aria-hidden="true" className="text-muted-foreground" />
                 </Link>
               ))}
+
+              <Link href="/privacy" className="flex items-center justify-between rounded-md px-3 py-3 text-sm text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground" onClick={() => setIsOpen(false)}>
+                <span className="flex items-center gap-3">
+                  <FileText size={18} aria-hidden="true" />
+                  Help
+                </span>
+                <ChevronRight size={16} aria-hidden="true" />
+              </Link>
 
               <div className="mt-5 border-t border-border pt-4">
                 <p className="px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">More</p>

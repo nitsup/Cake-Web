@@ -61,9 +61,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline
 .partner-remove-button:hover::after, .partner-remove-button:focus-visible::after { transform: scaleX(1); }
 .nav-link, .footer-link { color: var(--muted-foreground); }
 .nav-link:hover, .footer-link:hover { color: var(--foreground); }
+.nav-link--secondary { color: color-mix(in srgb, var(--muted-foreground) 82%, var(--background)); font-weight: 550; }
+.nav-link--secondary:hover { color: var(--foreground); }
 .icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--border); border-radius: .375rem; background: var(--surface); }
 .mobile-nav-link { display: block; padding: .7rem 0; font-weight: 600; }
 .site-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.legal-notice-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; background: rgb(15 23 19 / .48); }
+.legal-notice { width: min(100%, 38rem); border: 1px solid var(--border); border-radius: .75rem; background: var(--surface); padding: 1.5rem; box-shadow: 0 24px 60px rgb(15 23 19 / .22); }
 .search-area { position: relative; }
 .search-field-wrap { position: relative; }
 .search-field { box-shadow: 0 1px 2px rgb(27 35 31 / .04); transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }

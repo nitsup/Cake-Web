@@ -46,6 +46,7 @@ next-env.d.ts
 
 # Private local development material
 .private/
+docs/
 
-# Project-internal documentation
-/docs/
+#Pipeline files
+cake-web.worktrees/
