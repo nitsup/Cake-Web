@@ -1,8 +1,10 @@
+import { CakeCuttingLoader } from "@/components/ui/cake-cutting-loader";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="container py-8" aria-busy="true" aria-label="Loading cake">
+    <div className="container py-8" aria-busy="true">
+      <CakeCuttingLoader label="Loading cake" />
       <Skeleton className="h-5 w-40" />
       <div className="mt-10 grid gap-10 md:grid-cols-[1.05fr_.95fr]">
         <Skeleton className="aspect-[4/3]" />

@@ -19,6 +19,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <Link href="/admin/catalogue" className="nav-link rounded-full px-3 py-2 font-medium hover:bg-muted/70">
               Catalogue
             </Link>
+            <Link href="/admin/preferences" className="nav-link rounded-full px-3 py-2 font-medium hover:bg-muted/70">
+              Preference Managements
+            </Link>
           </nav>
         </div>
       </div>

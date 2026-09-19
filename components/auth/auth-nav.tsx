@@ -19,14 +19,26 @@ export function AuthNav() {
 
   useEffect(() => {
     const supabase = createClient();
-    void supabase.auth.getUser().then(({ data }) => {
+    async function loadSessionState() {
+      const { data } = await supabase.auth.getUser();
       setIsAuthenticated(Boolean(data.user));
+      setCanAccessAdmin(false);
       if (data.user) {
-        void fetch("/api/profile/session").then((response) => response.json()).then((result: { canAccessAdmin?: boolean }) => setCanAccessAdmin(Boolean(result.canAccessAdmin)));
+        try {
+          const sessionResponse = await fetch("/api/profile/session");
+          if (!sessionResponse.ok) return;
+          const result = await sessionResponse.json() as { canAccessAdmin?: boolean };
+          setCanAccessAdmin(Boolean(result.canAccessAdmin));
+        } catch {
+          return;
+        }
         void fetch("/api/partners/pending-count").then((response) => response.json()).then((result: { count?: number }) => setPendingRequests(result.count ?? 0));
+      } else {
+        setPendingRequests(0);
       }
-    });
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => setIsAuthenticated(Boolean(session?.user)));
+    }
+    void loadSessionState();
+    const { data: listener } = supabase.auth.onAuthStateChange(() => void loadSessionState());
     return () => listener.subscription.unsubscribe();
   }, []);
 
