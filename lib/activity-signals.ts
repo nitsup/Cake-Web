@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { isUserEligibleForActivitySignals } from "@/lib/activity-signal-eligibility";
 import { z } from "zod";
 
 export const activitySignalConfiguration = Object.freeze({
@@ -25,8 +26,20 @@ export const activitySignalInputSchema = z.object({
 
 export type ActivitySignalInput = z.infer<typeof activitySignalInputSchema>;
 
-function isExplicitlyEligibleForActivitySignals(): false {
-  return false;
+export function getActivitySignalStatus() {
+  const recordingActive =
+    activitySignalConfiguration.globalCollectionEnabled &&
+    activitySignalConfiguration.eligibilityEstablished;
+
+  return {
+    globalCollectionEnabled: activitySignalConfiguration.globalCollectionEnabled,
+    eligibilityEstablished: activitySignalConfiguration.eligibilityEstablished,
+    recordingActive,
+    ingestionBoundaryPresent: true,
+    clientControlsIdentity: false,
+    clientControlsTimestamp: false,
+    directCustomerInsertAllowed: false,
+  } as const;
 }
 
 export async function recordActivitySignal(input: ActivitySignalInput): Promise<boolean> {
@@ -46,7 +59,12 @@ export async function recordActivitySignal(input: ActivitySignalInput): Promise<
     .maybeSingle();
   if (profileError || profile?.personalization_enabled !== true) return false;
 
-  if (!activitySignalConfiguration.eligibilityEstablished || !isExplicitlyEligibleForActivitySignals()) return false;
+  if (
+    !activitySignalConfiguration.eligibilityEstablished ||
+    !(await isUserEligibleForActivitySignals(userData.user.id))
+  ) {
+    return false;
+  }
 
   if (parsed.data.cakeId) {
     const { data: cake, error: cakeError } = await supabase

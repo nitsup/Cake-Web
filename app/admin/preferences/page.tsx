@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import { activitySignalConfiguration, activitySignalTypes } from "@/lib/activity-signals";
+import { getActivitySignalStatus } from "@/lib/activity-signals";
+import { getActivitySignalEligibility } from "@/lib/activity-signal-eligibility";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
@@ -38,69 +39,80 @@ export default async function PreferenceManagementsPage() {
 
   const personalizationPreferenceAvailable =
     !preferenceError && typeof preferenceProfile?.personalization_enabled === "boolean";
-  const activityCollectionStatus = activitySignalConfiguration.globalCollectionEnabled
-    ? "Enabled"
-    : "Disabled";
-  const eligibilityStatus = activitySignalConfiguration.eligibilityEstablished
-    ? "Established"
-    : "Not established / unresolved";
+  const personalizationEnabled = preferenceProfile?.personalization_enabled === true;
+  const activityStatus = getActivitySignalStatus();
+  const eligibilityDecision = await getActivitySignalEligibility(userData.user.id);
 
   return (
     <div className="container py-16 md:py-24">
       <section className="mx-auto max-w-6xl">
-        <p className="eyebrow">Personalization foundation</p>
+        <p className="eyebrow">Admin controls</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">Preference Managements</h1>
         <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-          A controlled status surface for customer preferences and future product-relevance systems.
+          Review the current personalization settings and activity collection safeguards.
         </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <StatusCard
-            title="Customer Personalization Preference"
-            status={personalizationPreferenceAvailable ? "Implemented / customer-controlled" : "Unavailable"}
-            description={
+        <section className="surface-card mt-8 p-6 md:p-8">
+          <p className="eyebrow">Current personalization status</p>
+          <h2 className="mt-2 text-2xl font-semibold">Customer preference</h2>
+          <StatusLine
+            label="Signed-in account preference"
+            value={
               personalizationPreferenceAvailable
-                ? "The authoritative per-customer preference is profiles.personalization_enabled. This management page does not change customer preferences."
-                : "The authoritative profiles.personalization_enabled preference could not be read from the backend."
+                ? personalizationEnabled
+                  ? "Enabled"
+                  : "Disabled"
+                : "Unavailable"
             }
           />
-          <StatusCard
-            title="Activity Signal Collection"
-            status="Inactive / not enabled"
-            description={`Global collection: ${activityCollectionStatus}. Eligibility: ${eligibilityStatus}. Recording: inactive. A customer preference cannot override this safety gate.`}
-          />
-          <StatusCard title="Product Score" status="Inactive / planned" description="No scoring algorithm or catalogue adjustment is active." />
-          <StatusCard title="AI Decision System" status="Inactive / planned" description="No autonomous decisions are active. Activity Signals cannot change display priority, featured state, category, availability, or price." />
-          <StatusCard title="Admin Priority" status="Business-controlled / authoritative" description="Catalogue priority and business decisions remain controlled by authorized staff. No future scoring or AI system overrides these controls." />
-        </div>
-
-        <section className="surface-card mt-6 p-6 md:p-8">
-          <p className="eyebrow">Safety / Controls</p>
-          <h2 className="mt-2 text-2xl font-semibold">Conservative collection boundary</h2>
-          <p className="mt-4 leading-7 text-muted-foreground">
-            Signal recording currently requires personalization to be enabled, a future global collection switch, and an explicitly established eligibility decision. The eligibility mechanism does not exist yet, so no behavioral personalization signals are recorded for any user.
+          <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
+            This is the signed-in account&apos;s customer-controlled preference. It is not a global setting and cannot be changed for other customers from this page.
           </p>
-          <p className="mt-4 text-sm font-semibold text-accent">Child/minor eligibility remains unresolved and requires legal and product design review before collection can be enabled.</p>
         </section>
 
         <section className="surface-card mt-6 p-6 md:p-8">
-          <p className="eyebrow">Supported signal definitions</p>
-          <h2 className="mt-2 text-2xl font-semibold">Prepared, not collecting</h2>
-          <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-            {activitySignalTypes.map((type) => <li key={type} className="rounded-md border border-border px-3 py-2">{type}</li>)}
-          </ul>
+          <p className="eyebrow">Activity personalization</p>
+          <h2 className="mt-2 text-2xl font-semibold">Collection safeguards</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <StatusLine label="Collection" value={activityStatus.globalCollectionEnabled ? "Enabled" : "Currently inactive"} />
+            <StatusLine label="Eligibility" value={eligibilityDecision.established ? "Established" : "Not currently established"} />
+            <StatusLine label="Recording" value={activityStatus.recordingActive ? "Active" : "Inactive"} />
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-6 text-muted-foreground">
+            Activity personalization is currently inactive because global collection is disabled and eligibility has not been established. Visiting this page cannot enable collection.
+          </p>
+        </section>
+
+        <section className="surface-card mt-6 p-6 md:p-8">
+          <p className="eyebrow">Personalization system status</p>
+          <h2 className="mt-2 text-2xl font-semibold">Business controls remain authoritative</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <StatusLine label="Product Score" value="Not active" />
+            <StatusLine label="AI personalization" value="Not active" />
+            <StatusLine label="Admin Priority" value="Business-controlled" />
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-6 text-muted-foreground">
+            Business-controlled catalogue priority remains authoritative over future personalization systems.
+          </p>
+        </section>
+
+        <section className="surface-card mt-6 p-6 md:p-8">
+          <p className="eyebrow">Safety boundary</p>
+          <h2 className="mt-2 text-2xl font-semibold">Normal website access is unaffected</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
+            Behavioral activity collection is deny-by-default until an approved eligibility mechanism exists. Cake-Web is not age restricted: children and minors may browse, view cakes, and use normal website functionality.
+          </p>
         </section>
       </section>
     </div>
   );
 }
 
-function StatusCard({ title, status, description }: { title: string; status: string; description: string }) {
+function StatusLine({ label, value }: { label: string; value: string }) {
   return (
-    <section className="surface-card p-5">
-      <h2 className="text-lg font-semibold">{title}</h2>
-      <p className="mt-2 text-sm font-semibold text-accent">{status}</p>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
-    </section>
+    <div className="flex items-center justify-between gap-4 border-b border-border py-3 last:border-b-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-right text-sm font-semibold text-accent">{value}</span>
+    </div>
   );
 }

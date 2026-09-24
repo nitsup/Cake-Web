@@ -60,8 +60,8 @@ export default async function ProfilePage() {
             <AvatarCard profile={profile} />
             <div className="surface-card p-6">
               <p className="eyebrow">Your cake world</p>
-              <h2 className="mt-2 text-xl font-semibold">Preferences and partners are coming next.</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">Cake tastes, public profiles, search, and partnership tools will arrive as separate, privacy-aware features.</p>
+              <h2 className="mt-2 text-xl font-semibold">Preferences and partner tools.</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Manage your personalization preference, discover public profiles, and connect with partners through separate, privacy-aware features.</p>
               <Link href="/preferences" className="button button--secondary mt-5 w-full">Open preferences</Link>
             </div>
           </aside>
