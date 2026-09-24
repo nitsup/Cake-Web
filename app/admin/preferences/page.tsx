@@ -30,6 +30,21 @@ export default async function PreferenceManagementsPage() {
     );
   }
 
+  const { data: preferenceProfile, error: preferenceError } = await supabase
+    .from("profiles")
+    .select("personalization_enabled")
+    .eq("id", userData.user.id)
+    .maybeSingle();
+
+  const personalizationPreferenceAvailable =
+    !preferenceError && typeof preferenceProfile?.personalization_enabled === "boolean";
+  const activityCollectionStatus = activitySignalConfiguration.globalCollectionEnabled
+    ? "Enabled"
+    : "Disabled";
+  const eligibilityStatus = activitySignalConfiguration.eligibilityEstablished
+    ? "Established"
+    : "Not established / unresolved";
+
   return (
     <div className="container py-16 md:py-24">
       <section className="mx-auto max-w-6xl">
@@ -40,10 +55,23 @@ export default async function PreferenceManagementsPage() {
         </p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <StatusCard title="Personalization" status="Customer preference available" description="The customer-owned personalization_enabled setting remains authoritative. Turning it off does not disable normal account, cart, checkout, order, or security processing." />
-          <StatusCard title="Activity Signal Collection" status="Inactive / not enabled" description={`Global collection: ${activitySignalConfiguration.globalCollectionEnabled ? "enabled" : "disabled"}. Eligibility: ${activitySignalConfiguration.eligibilityEstablished ? "established" : "unresolved"}. Personalization ON cannot override this safety gate.`} />
+          <StatusCard
+            title="Customer Personalization Preference"
+            status={personalizationPreferenceAvailable ? "Implemented / customer-controlled" : "Unavailable"}
+            description={
+              personalizationPreferenceAvailable
+                ? "The authoritative per-customer preference is profiles.personalization_enabled. This management page does not change customer preferences."
+                : "The authoritative profiles.personalization_enabled preference could not be read from the backend."
+            }
+          />
+          <StatusCard
+            title="Activity Signal Collection"
+            status="Inactive / not enabled"
+            description={`Global collection: ${activityCollectionStatus}. Eligibility: ${eligibilityStatus}. Recording: inactive. A customer preference cannot override this safety gate.`}
+          />
           <StatusCard title="Product Score" status="Inactive / planned" description="No scoring algorithm or catalogue adjustment is active." />
           <StatusCard title="AI Decision System" status="Inactive / planned" description="No autonomous decisions are active. Activity Signals cannot change display priority, featured state, category, availability, or price." />
+          <StatusCard title="Admin Priority" status="Business-controlled / authoritative" description="Catalogue priority and business decisions remain controlled by authorized staff. No future scoring or AI system overrides these controls." />
         </div>
 
         <section className="surface-card mt-6 p-6 md:p-8">
