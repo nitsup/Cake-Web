@@ -1,4 +1,4 @@
-# Cookies, Analytics & Personalization Notice
+export default String.raw`# Cookies, Analytics & Personalization Notice
 
 **Last Updated:** [DATE]  
 **Effective Date:** [DATE]  
@@ -407,4 +407,4 @@ These values are intentionally configurable when Cake-Web is transferred to a bu
 
 **Child-Data Controls:** [CONFIGURATION]
 
-**Policy Version:** [VERSION]
+**Policy Version:** [VERSION]`;

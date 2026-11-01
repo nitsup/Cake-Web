@@ -41,6 +41,19 @@ type RawCakeDetail = RawCake & {
   is_featured: boolean;
 };
 
+function orderByProductScore(cakes: CakeSummary[]): CakeSummary[] {
+  if (cakes.length === 0 || cakes.some((cake) => cake.productScore === undefined)) {
+    return cakes;
+  }
+
+  return cakes
+    .map((cake, index) => ({ cake, index }))
+    .sort((left, right) => {
+      return right.cake.productScore! - left.cake.productScore! || left.index - right.index;
+    })
+    .map(({ cake }) => cake);
+}
+
 async function mapPrimaryImage(supabase: Awaited<ReturnType<typeof createClient>>, images: RawCakeImage[] | null) {
   const image = images?.find((candidate) => candidate.is_primary) ?? null;
   if (!image) return null;
@@ -103,7 +116,7 @@ export async function getPublicCakes(
   }
 
   const cakes = data as unknown as RawCake[];
-  return Promise.all(cakes.map(async (cake) => ({
+  const summaries = await Promise.all(cakes.map(async (cake) => ({
     id: cake.id,
     name: cake.name,
     slug: cake.slug,
@@ -114,6 +127,8 @@ export async function getPublicCakes(
     primaryImage: await mapPrimaryImage(supabase, cake.cake_images),
     classifications: mapClassifications(cake.cake_tag_assignments),
   })));
+
+  return orderByProductScore(summaries);
 }
 
 export async function getPublicCakeBySlug(slug: string): Promise<CakeDetail | null> {

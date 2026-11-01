@@ -90,18 +90,21 @@ export function AuthNav() {
   }
 
   return (
-    <div ref={menuRef} className="account-menu">
+    <div ref={menuRef} className="account-menu account-menu__brand-group">
+      <Link href="/" className="brand-mark brand-mark-home" aria-label="Cake Web home">
+        <span className="brand-mark__dot" aria-hidden="true" />
+        Cake Web
+      </Link>
       <button
         ref={triggerRef}
         type="button"
-        className="brand-mark account-menu__trigger"
+        className="account-menu__trigger"
+        aria-label="Open account menu"
         aria-expanded={isOpen}
         aria-controls="account-menu-popover"
         aria-haspopup="menu"
         onClick={() => (isOpen ? closeMenu() : openMenu())}
       >
-        <span className="brand-mark__dot" aria-hidden="true" />
-        Cake Web
         <span className="account-menu__chevron" aria-hidden="true">⌄</span>
       </button>
       {isOpen ? (

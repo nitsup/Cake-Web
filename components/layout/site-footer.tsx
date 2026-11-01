@@ -40,7 +40,9 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="container border-t border-border py-5 text-xs text-muted-foreground">© 2026 Cake Web. Temporary foundation.</div>
+      <div className="container border-t border-border py-5 text-xs text-muted-foreground">
+        © {new Date().getFullYear()} Cake Web. All rights reserved.
+      </div>
     </footer>
   );
 }

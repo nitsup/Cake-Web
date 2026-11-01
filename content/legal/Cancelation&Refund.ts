@@ -1,4 +1,4 @@
-# Cancellation & Refund Policy
+export default String.raw`# Cancellation & Refund Policy
 
 **Last Updated:** [DATE]  
 **Effective Date:** [DATE]  
@@ -345,4 +345,4 @@ The following values are intentionally configurable for each business using Cake
 
 **Policy Version:** [VERSION]
 
-**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]`;

@@ -16,6 +16,7 @@
 # next.js
 /.next/
 /out/
+/.open-next/
 
 # production
 /build
@@ -43,6 +44,7 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+/.dev.vars
 
 # Private local development material
 .private/

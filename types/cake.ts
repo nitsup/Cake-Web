@@ -41,6 +41,7 @@ export interface CakeSummary {
   slug: string;
   shortDescription: string;
   basePrice: number;
+  productScore?: number;
   category: CakeCategoryReference;
   availability: CakeAvailability;
   primaryImage: CakeImage | null;

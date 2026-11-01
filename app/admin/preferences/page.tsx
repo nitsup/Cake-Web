@@ -87,12 +87,12 @@ export default async function PreferenceManagementsPage() {
           <p className="eyebrow">Personalization system status</p>
           <h2 className="mt-2 text-2xl font-semibold">Business controls remain authoritative</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <StatusLine label="Product Score" value="Not active" />
+            <StatusLine label="Product Score" value="Foundation available" />
             <StatusLine label="AI personalization" value="Not active" />
             <StatusLine label="Admin Priority" value="Business-controlled" />
           </div>
           <p className="mt-5 max-w-3xl text-sm leading-6 text-muted-foreground">
-            Business-controlled catalogue priority remains authoritative over future personalization systems.
+            Product Score has no established values yet, so the existing business-controlled catalogue priority remains authoritative.
           </p>
         </section>
 

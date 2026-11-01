@@ -1,4 +1,4 @@
-# Privacy Policy
+export default String.raw`# Privacy Policy
 
 **Last Updated:** [DATE]  
 **Effective Date:** [DATE]  
@@ -506,4 +506,4 @@ These values should be reviewed and updated when Cake-Web is transferred to a ne
 
 ---
 
-**Important:** This document is a working privacy-policy template for Cake-Web and is not a substitute for legal advice. Before a real business launches the Website, the operating business should have the final policy reviewed against its actual operations, service providers, payment systems, delivery practices, and applicable law.
+**Important:** This document is a working privacy-policy template for Cake-Web and is not a substitute for legal advice. Before a real business launches the Website, the operating business should have the final policy reviewed against its actual operations, service providers, payment systems, delivery practices, and applicable law.`;

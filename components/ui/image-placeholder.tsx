@@ -45,7 +45,7 @@ export function ImagePlaceholder({
           onError={() => setFailedSrc(src ?? null)}
         />
       ) : (
-        <Image src="/placeholders/cake-placeholder.svg" alt={alt} fill priority={priority} sizes="(max-width: 768px) 100vw, 50vw" />
+        <Image src="/placeholders/cake-placeholder.svg" alt={alt} fill priority={priority} sizes="(max-width: 768px) 100vw, 50vw" unoptimized />
       )}
     </div>
   );

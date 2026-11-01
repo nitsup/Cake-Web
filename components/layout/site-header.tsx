@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CakeSlice, ClipboardList, ContactRound, FileText, Search, ShoppingCart } from "lucide-react";
+import { BookOpenText, CakeSlice, ClipboardList, ContactRound, FileText, Search, ShoppingCart } from "lucide-react";
 import { MobileNavigation } from "@/components/layout/mobile-navigation";
 import { AuthNav } from "@/components/auth/auth-nav";
 
@@ -23,10 +23,22 @@ export function SiteHeader() {
               <span>{label}</span>
             </Link>
           ))}
-          <Link href="/privacy" className="nav-link nav-link--secondary inline-flex items-center gap-1.5 rounded-full border border-transparent px-2.5 py-1.5 text-xs transition-colors hover:border-border hover:bg-muted/70">
-            <FileText size={15} aria-hidden="true" />
-            <span>Help</span>
-          </Link>
+          <details className="nav-more">
+            <summary className="nav-link inline-flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-transparent px-3 py-2 text-sm font-medium transition-colors hover:border-border hover:bg-muted/70">
+              More
+            </summary>
+            <div className="nav-more__panel">
+              <p className="nav-more__heading">Explore</p>
+              <Link href="/about" className="nav-more__item">
+                <BookOpenText size={16} aria-hidden="true" />
+                Our story
+              </Link>
+              <Link href="/privacy" className="nav-more__item">
+                <FileText size={16} aria-hidden="true" />
+                Help & privacy
+              </Link>
+            </div>
+          </details>
         </nav>
         <MobileNavigation />
       </div>

@@ -1,5 +1,9 @@
-import fs from "node:fs";
-import path from "node:path";
+import cancellationRefundContent from "@/content/legal/Cancelation&Refund";
+import cookiesContent from "@/content/legal/Cookies";
+import deliveryContent from "@/content/legal/Delivery_policy";
+import disclaimerContent from "@/content/legal/disclaimer";
+import privacyContent from "@/content/legal/Privacy_policy";
+import termsContent from "@/content/legal/Terms&Conditions";
 
 export type LegalDocumentKey =
   | "privacy"
@@ -11,45 +15,29 @@ export type LegalDocumentKey =
 
 type LegalDocument = {
   title: string;
-  sourceFile: string;
   content: string;
 };
 
-const documents: Record<LegalDocumentKey, { title: string; sourceFile: string }> = {
-  privacy: { title: "Privacy Policy", sourceFile: "Privacy_policy.txt" },
-  terms: { title: "Terms & Conditions", sourceFile: "Terms&Conditions.txt" },
+const documents: Record<LegalDocumentKey, LegalDocument> = {
+  privacy: { title: "Privacy Policy", content: privacyContent },
+  terms: { title: "Terms & Conditions", content: termsContent },
   "cancellation-refund": {
     title: "Cancellation & Refund Policy",
-    sourceFile: "Cancelation&Refund.txt",
+    content: cancellationRefundContent,
   },
-  delivery: { title: "Delivery Policy", sourceFile: "Delivery_policy.txt" },
+  delivery: { title: "Delivery Policy", content: deliveryContent },
   cookies: {
     title: "Cookies, Analytics & Personalization",
-    sourceFile: "Cookies.txt",
+    content: cookiesContent,
   },
   disclaimer: {
     title: "Development / Legal Disclaimer",
-    sourceFile: "disclaimer.txt",
+    content: disclaimerContent,
   },
 };
 
 export function getLegalDocument(key: LegalDocumentKey): LegalDocument {
-  const document = documents[key];
-  const filePath = path.join(
-    process.cwd(),
-    "content",
-    "legal",
-    document.sourceFile,
-  );
-
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Missing private legal source file: ${document.sourceFile}`);
-  }
-
-  return {
-    ...document,
-    content: fs.readFileSync(filePath, "utf8"),
-  };
+  return documents[key];
 }
 
 export const legalLinks = [

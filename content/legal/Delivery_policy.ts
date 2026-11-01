@@ -1,4 +1,4 @@
-# Delivery Policy
+export default String.raw`# Delivery Policy
 
 **Last Updated:** [DATE]  
 **Effective Date:** [DATE]  
@@ -362,4 +362,4 @@ These values are intentionally configurable for every business using Cake-Web:
 
 **Last Updated:** [DATE]
 
-**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]
+**Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]`;

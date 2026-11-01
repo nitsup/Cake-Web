@@ -1,4 +1,4 @@
-# Terms & Conditions
+export default String.raw`# Terms & Conditions
 
 **Last Updated:** [DATE]  
 **Effective Date:** [DATE]  
@@ -505,4 +505,4 @@ The following information must be completed before this Website is launched for 
 **Effective Date:** [DATE]  
 **Last Updated:** [DATE]  
 **Approved By:** [BUSINESS OWNER / AUTHORIZED PERSON]  
-**Next Review Date:** [DATE]
+**Next Review Date:** [DATE]`;
